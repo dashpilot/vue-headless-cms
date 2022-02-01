@@ -7,7 +7,7 @@ import Image from './components/Image.vue'
 <div class="row g-0">
 <div class="col-2 col1">
 
-  <img src="img/rocketlogo.png" class="img-fluid rocket" />
+  <!-- <img src="img/rocketlogo.png" class="img-fluid rocket" /> -->
 
   <template v-for="key in Object.keys(data)">
     <template v-if="!key.includes('_')">
