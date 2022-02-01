@@ -1,0 +1,37 @@
+{
+  "posts": [{
+    "id": "item-1",
+    "title": "Feature One",
+    "subtitle": "This is a first feature",
+    "body": "Hello, this is some text",
+    "image": "/themes/homebase/img/blobs2.png"
+  }, {
+    "id": "item-2",
+    "title": "Feature Two",
+    "subtitle": "This is a third feature",
+    "body": "This is some other text",
+    "image": "/themes/homebase/img/blobs2.png"
+  }, {
+    "id": "item-3",
+    "title": "Feature Three",
+    "subtitle": "This is a third feature",
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus id tortor neque.",
+    "image": "/themes/homebase/img/blobs3.png"
+  }],
+  "pages": [{
+    "title": "Home",
+    "slug": "home"
+  }],
+  "_fields": {
+    "pages": {
+      "title": "txt",
+      "slug": "txt"
+    },
+    "posts": {
+      "title": "txt",
+      "subtitle": "txt",
+      "body": "rte",
+      "image": "img"
+    }
+  }
+}
