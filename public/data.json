@@ -23,7 +23,8 @@
     "slug": "home"
   }],
   "_config": {
-    "save_url": "/api/save/"
+    "save_url": "/api/save/",
+    "image_save_url": "/api/save-image/"
   },
   "_fields": {
     "pages": {

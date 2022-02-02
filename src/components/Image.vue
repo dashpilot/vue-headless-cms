@@ -15,14 +15,17 @@ export default {
       type: String,
       default: '',
     },
+    save_url: {
+      type: String,
+    }
   },
   methods: {
      chooseImage(){
+
        document.getElementById('fileInput').click();
      },
      uploadImage(e){
-       // document.getElementById('fileInput').addEventListener('change', function(e) {
-
+    
          var width = 800;
          var imgUpload = new Image();
          imgUpload.onload = function() {
@@ -52,15 +55,38 @@ export default {
            console.log(base64Image);
 
            // document.getElementById('image').src = base64Image;
+           const date = new Date().toJSON().slice(0, 10).replaceAll('-', '');
+           let filename = date+"-"+Math.floor(Math.random() * 999999999)+".jpg";
+
+           postData(this.save_url, {"filename": filename, "file": base64Image})
+             .then(data => {
+               console.log(data); // JSON data parsed by `data.json()` call
+             });
 
 
          }
          imgUpload.src = URL.createObjectURL(e.target.files[0]);
-       // });
+
 
 
     }
   }
 
+}
+
+async function postData(url = '', data = {}) {
+
+  const response = await fetch(url, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: JSON.stringify(data) // body data type must match "Content-Type" header
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
 }
 </script>

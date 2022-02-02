@@ -51,7 +51,7 @@ import Image from './components/Image.vue'
 
       <template v-if="data._fields[curKey][key] == 'img'">
         <label>{{key}}</label>
-        <Image :image="curItem[key]" />
+        <Image :image="curItem[key]" :save_url="data._config.image_save_url" />
       </template>
 
       <template v-else>
@@ -102,23 +102,6 @@ export default {
       this.curItem = this.data[key][i];
     },
     save(){
-
-      async function postData(url = '', data = {}) {
-
-        const response = await fetch(url, {
-          method: 'POST', // *GET, POST, PUT, DELETE, etc.
-          mode: 'cors', // no-cors, *cors, same-origin
-          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-          credentials: 'same-origin', // include, *same-origin, omit
-          headers: {
-            'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: JSON.stringify(data) // body data type must match "Content-Type" header
-        });
-        return response.json(); // parses JSON response into native JavaScript objects
-      }
-
       postData(this.data._config.save_url, this.data)
         .then(data => {
           console.log(data); // JSON data parsed by `data.json()` call
@@ -126,6 +109,22 @@ export default {
     }
   }
 
+}
+
+async function postData(url = '', data = {}) {
+
+  const response = await fetch(url, {
+    method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: 'same-origin', // include, *same-origin, omit
+    headers: {
+      'Content-Type': 'application/json'
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: JSON.stringify(data) // body data type must match "Content-Type" header
+  });
+  return response.json(); // parses JSON response into native JavaScript objects
 }
 </script>
 
