@@ -18,6 +18,10 @@ import Image from './components/Image.vue'
 </div>
 <div class="col-3 col2">
 
+  <div class="filter">
+<a @click="addItem()"><i class="fa fa-plus"></i></a>
+  </div>
+
   <template v-if="curKey">
     <ul class="list-group">
     <template v-for="(item, i) in data[curKey]">
@@ -103,8 +107,27 @@ export default {
       let key = this.curKey;
       this.curItem = this.data[key][i];
     },
+    addItem(){
+      let key = this.curKey;
+      let fields = this.data._fields[key];
+      console.log(fields)
+      var newItem = {};
+      newItem.id = key+"-"+Math.floor(Math.random() * 999999999);
+      Object.keys(fields).forEach((x) => {
+        if(x=='title'){
+          newItem[x] = "Untitled";
+        }else if(x=='subtitle'){
+          newItem[x] = "Go write something";
+        }else{
+          newItem[x] = "";
+        }
+
+      })
+      this.data[key].unshift(newItem);
+      this.curItem = newItem;
+    },
     save(){
-console.log(this.data);
+      console.log(this.data);
 
       postData(this.data._config.save_url, this.data)
         .then(data => {
@@ -155,6 +178,7 @@ body{
 }
 
 .col1{
+  padding-top: 50px;
   height: 100%;
   background-color: #333;
 }
@@ -162,7 +186,7 @@ body{
 .col1 a{
   color: white !important;
   display: block;
-  padding: 10px 20px;
+  padding: 13px 20px;
   text-transform: capitalize;
   text-decoration: none;
   white-space: nowrap;
@@ -189,14 +213,14 @@ body{
   border-radius: 0;
   border-left: 0;
   border-right: 0;
+  border-top: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.col2 .list-group-item:first-child{
-  border-top: 6px solid #333;
-}
+
+
 
 .list-group-item:hover{
   background-color: #F8F8F8;
@@ -281,6 +305,11 @@ textarea, .rte{
   border: 1px solid #DDD;
   background-color: #EEEEEE;
   color: black;
+}
+
+.filter{
+  padding: 10px 20px;
+  border-bottom: 6px solid #333;
 }
 
 </style>
