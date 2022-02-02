@@ -15,11 +15,8 @@ import Image from './components/Image.vue'
     </template>
   </template>
 
-
-
 </div>
 <div class="col-3 col2">
-
 
   <template v-if="curKey">
     <ul class="list-group">
@@ -63,10 +60,8 @@ import Image from './components/Image.vue'
 
     </template>
 
-    <button class="btn btn-primary mt-1">Save</button>
+    <button class="btn btn-primary mt-1" @click="save()">Save</button>
   </template>
-
-
 
 </div>
 </div>
@@ -105,6 +100,29 @@ export default {
     setCurItem(i){
       let key = this.curKey;
       this.curItem = this.data[key][i];
+    },
+    save(){
+
+      async function postData(url = '', data = {}) {
+
+        const response = await fetch(url, {
+          method: 'POST', // *GET, POST, PUT, DELETE, etc.
+          mode: 'cors', // no-cors, *cors, same-origin
+          cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+          credentials: 'same-origin', // include, *same-origin, omit
+          headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: JSON.stringify(data) // body data type must match "Content-Type" header
+        });
+        return response.json(); // parses JSON response into native JavaScript objects
+      }
+
+      postData(this.data._config.save_url, this.data)
+        .then(data => {
+          console.log(data); // JSON data parsed by `data.json()` call
+        });
     }
   }
 
