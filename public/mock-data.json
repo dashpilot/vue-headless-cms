@@ -600,20 +600,13 @@
       "body": "Cupiditate quo est a modi nesciunt soluta\nipsa voluptas error itaque dicta in\nautem qui minus magnam et distinctio eum\naccusamus ratione error aut"
     }
   ],
-  "_config": {
-    "save_url": "/api/save/",
-    "image_save_url": "/api/save-image/"
-  },
-  "_fields": {
-    "pages": {
-      "title": "txt",
-      "slug": "txt"
-    },
-    "posts": {
-      "title": "txt",
-      "subtitle": "txt",
-      "body": "rte",
-      "image": "img"
-    }
-  }
+  "pages": [{
+    "id": "pages-1",
+    "title": "Home",
+    "slug": "home"
+  }, {
+    "id": "pages-2",
+    "title": "About",
+    "slug": "about"
+  }]
 }

@@ -38,26 +38,24 @@ import Image from './components/Image.vue'
   <template v-if="curItem">
       <template v-for="(key, val) in Object.keys(curItem)">
 
-      <template v-if="data._fields[curKey][key] == 'txt'">
+      <template v-if="config.fields[curKey][key] == 'txt'">
           <label>{{key}}</label>
           <input type="text" class="form-control" v-model="curItem[key]">
       </template>
 
-      <template v-if="data._fields[curKey][key] == 'rte'">
+      <template v-if="config.fields[curKey][key] == 'rte'">
           <label>{{key}}</label>
           <Editor v-model="curItem[key]" />
       </template>
 
-      <template v-if="data._fields[curKey][key] == 'txta'">
+      <template v-if="config.fields[curKey][key] == 'txta'">
         <label>{{key}}</label>
         <textarea class="form-control" v-model="curItem[key]"></textarea>
       </template>
 
-      <template v-if="data._fields[curKey][key] == 'img'">
+      <template v-if="config.fields[curKey][key] == 'img'">
         <label>{{key}}</label>
-
-
-        <Image v-model:image="curItem[key]" :save_url="data._config.image_save_url" />
+        <Image v-model:image="curItem[key]" :save_url="config.settings.image_save_url" />
       </template>
 
       <template v-else>
@@ -79,21 +77,32 @@ export default {
     return {
       curKey: false,
       curItem: false,
-      data: {}
+      data: {},
+      config: {}
     }
   },
   created: function () {
 
-    fetch("/mock-data.json")
+    fetch("/config.json")
+      .then(r => r.json())
+      .then(config => {
+
+      console.log('config loaded');
+      this.config = config;
+
+    fetch(config.settings.data_url)
       .then(r => r.json())
       .then(data => {
         this.data=data;
         console.log(data);
+        console.log('data loaded');
 
         // select the first elements
         var defaultKey = Object.keys(data)[0];
         this.curKey = defaultKey;
         this.curItem = data[defaultKey][0];
+
+      });
 
       });
 
@@ -109,7 +118,7 @@ export default {
     },
     addItem(){
       let key = this.curKey;
-      let fields = this.data._fields[key];
+      let fields = this.config.fields[key];
       console.log(fields)
       var newItem = {};
       newItem.id = key+"-"+Math.floor(Math.random() * 999999999);
@@ -128,17 +137,25 @@ export default {
     save(){
       console.log(this.data);
 
-      postData(this.data._config.save_url, this.data)
+      postData(this.config.settings.save_url, this.data)
         .then(data => {
           console.log(data); // JSON data parsed by `data.json()` call
         });
     },
     shorten(text, max) {
-    return text && text.length > max ? text.slice(0,max).split(' ').slice(0, -1).join(' ') : text
+      if(text){
+      return text && text.length > max ? text.slice(0,max).split(' ').slice(0, -1).join(' ') : text
+      }else{
+        return "&nbsp;";
+      }
     },
     stripTags(text) {
+      if(text){
       let regex = /(<([^>]+)>)/ig;
       return text.replace(regex, "");
+      }else{
+        return "&nbsp;";
+      }
     }
   }
 
@@ -223,6 +240,7 @@ body{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  border-left: 5px solid transparent;
 }
 
 .list-group-item:hover{
@@ -234,6 +252,7 @@ body{
 .col2 .active2{
   background-color: #F8F8F8;
   width: 100.5%;
+  border-left: 5px solid #656BF7;
 }
 
 .col2{
@@ -316,7 +335,7 @@ textarea, .rte{
 }
 
 .filter{
-  padding: 10px 20px;
+  padding: 10px 25px;
   border-bottom: 6px solid #333;
   background-color: white;
   position: fixed;

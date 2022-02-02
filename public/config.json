@@ -1,0 +1,19 @@
+{
+  "settings": {
+    "data_url": "/mock-data.json",
+    "save_url": "/api/save/",
+    "image_save_url": "/api/save-image/"
+  },
+  "fields": {
+    "pages": {
+      "title": "txt",
+      "slug": "txt"
+    },
+    "posts": {
+      "title": "txt",
+      "subtitle": "txt",
+      "body": "rte",
+      "image": "img"
+    }
+  }
+}
