@@ -4,7 +4,7 @@
     <input type="file" id="fileInput" accept="image/*" @change="uploadImage" style="display: none;">
 
 
-<div class="input-group mb-3">
+<div class="input-group mb-2">
   <div class="input-group-prepend">
     <button class="btn btn-outline-dark mb-3" @click="chooseImage()">Upload Image</button>
   </div>

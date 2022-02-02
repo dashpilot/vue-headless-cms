@@ -36,7 +36,7 @@ import Image from './components/Image.vue'
 <div class="col-7 p-4 col3">
 
   <template v-if="curItem">
-      <template v-for="(key, val) in Object.keys(curItem)">
+      <template v-for="(key, val) in Object.keys(config.fields[curKey])">
 
       <template v-if="config.fields[curKey][key] == 'txt'">
           <label>{{key}}</label>
@@ -282,7 +282,7 @@ label{
   border: 2px solid #666BEF;
   background-color: #666BEF;
   color: white;
-  border-radius: 8px;
+  border-radius: 4px;
   padding-left: 30px;
   padding-right: 30px;
   transition: 0.3s;
@@ -347,7 +347,6 @@ textarea, .rte{
 .col1{
   position: fixed;
   left: 0;
-
 }
 
 .col2{
@@ -356,7 +355,6 @@ textarea, .rte{
   height: 100%;
   overflow: hidden;
   overflow-y: auto;
-
 }
 
 .col2 .list-group:nth-child(2) .list-group-item{
