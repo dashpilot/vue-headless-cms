@@ -23,7 +23,7 @@
     "slug": "home"
   }],
   "_config": {
-    "save_url": "/api/save"
+    "save_url": "/api/save/"
   },
   "_fields": {
     "pages": {
