@@ -6,13 +6,14 @@
   },
   "fields": {
     "pages": {
-      "title": "txt",
-      "slug": "txt"
+      "title": "text",
+      "description": "textarea"
     },
     "posts": {
-      "title": "txt",
-      "body": "rte",
-      "image": "img"
+      "title": "text",
+      "body": "richtext",
+      "image": "image",
+      "page": "dropdown_pages"
     }
   }
 }

@@ -19,43 +19,66 @@ import Image from './components/Image.vue'
 <div class="col-3 col2">
 
   <div class="filter">
-<a @click="addItem()"><i class="fa fa-plus"></i></a>
+    <a @click="addItem()" class="btn btn-outline-dark"><i class="fa fa-plus"></i></a>
+
+<template v-if="curKey !== 'pages' && curKey !== 'categories'">
+    <select class="form-select mb-0 w-50 float-end" @change="filter($event.target.value)">
+      <option value="all">Show: all</option>
+      <template v-for="item in data.pages">
+        <option :value="item.id">{{item.title}}</option>
+      </template>
+    </select>
+  </template>
+
   </div>
 
   <template v-if="curKey">
     <ul class="list-group">
     <template v-for="(item, i) in data[curKey]">
-      <li class="list-group-item" @click="setCurItem(i)" :class="{ 'active2': curItem.id == item.id }">
+      <li class="list-group-item" @click="setCurItem(i)" :class="[{'active2': curItem.id == item.id}, item.page]">
         <b>{{item.title}}</b><br>
         <span v-html="shorten(stripTags(item.body), 60)"></span>
       </li>
     </template>
   </ul>
   </template>
+
 </div>
 <div class="col-7 p-4 col3">
 
   <template v-if="curItem">
       <template v-for="(key, val) in Object.keys(config.fields[curKey])">
 
-      <template v-if="config.fields[curKey][key] == 'txt'">
+
+      <template v-if="config.fields[curKey][key] == 'text'">
           <label>{{key}}</label>
           <input type="text" class="form-control" v-model="curItem[key]">
       </template>
 
-      <template v-if="config.fields[curKey][key] == 'rte'">
+      <template v-if="config.fields[curKey][key] == 'richtext'">
           <label>{{key}}</label>
           <Editor v-model="curItem[key]" />
       </template>
 
-      <template v-if="config.fields[curKey][key] == 'txta'">
+      <template v-if="config.fields[curKey][key] == 'textarea'">
         <label>{{key}}</label>
         <textarea class="form-control" v-model="curItem[key]"></textarea>
       </template>
 
-      <template v-if="config.fields[curKey][key] == 'img'">
+      <template v-if="config.fields[curKey][key] == 'image'">
         <label>{{key}}</label>
         <Image v-model:image="curItem[key]" :save_url="config.settings.image_save_url" />
+      </template>
+
+      <template v-if="config.fields[curKey][key].includes('dropdown')">
+        <label>{{key}}</label>
+
+        <select class="form-select w-25">
+          <template v-for="item in data[getTable(config.fields[curKey][key])]">
+            <option :value="item.id">{{item.title}}</option>
+          </template>
+        </select>
+
       </template>
 
       <template v-else>
@@ -116,6 +139,9 @@ export default {
       let key = this.curKey;
       this.curItem = this.data[key][i];
     },
+    getTable(key){
+      return key.split('_')[1];
+    },
     addItem(){
       let key = this.curKey;
       let fields = this.config.fields[key];
@@ -155,6 +181,20 @@ export default {
       return text.replace(regex, "");
       }else{
         return "&nbsp;";
+      }
+    },
+    filter(value){
+      if(value=='all'){
+        document.querySelectorAll('.col2 .list-group-item').forEach((el) => {
+          el.style.display = 'block';
+        })
+      }else{
+        document.querySelectorAll('.col2 .list-group-item').forEach((el) => {
+          el.style.display = 'none';
+        })
+        document.querySelectorAll('.'+value).forEach((el) => {
+          el.style.display = 'block';
+        })
       }
     }
   }
@@ -201,7 +241,7 @@ body{
 }
 
 .col1{
-  padding-top: 50px;
+  padding-top: 64px;
   height: 100%;
   background-color: #333;
 }
@@ -260,7 +300,7 @@ body{
   overflow-y: auto;
 }
 
-.form-control{
+.form-control, .form-select{
   margin-bottom: 15px;
 }
 
@@ -294,9 +334,13 @@ label{
   color: white;
 }
 
-textarea, .rte{
-  height: 200px;
+textarea{
+  height: 100px;
   resize: none;
+}
+
+.rte{
+  height: 200px;
 }
 
 .ProseMirror{
@@ -335,7 +379,7 @@ textarea, .rte{
 }
 
 .filter{
-  padding: 10px 25px;
+  padding: 10px 10px;
   border-bottom: 6px solid #333;
   background-color: white;
   position: fixed;
@@ -358,7 +402,7 @@ textarea, .rte{
 }
 
 .col2 .list-group:nth-child(2) .list-group-item{
-  top: 50px;
+  top: 63px;
 }
 
 .col3{
@@ -368,7 +412,5 @@ textarea, .rte{
   overflow: hidden;
   overflow-y: auto;
 }
-
-
 
 </style>
