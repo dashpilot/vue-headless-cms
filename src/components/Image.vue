@@ -3,8 +3,6 @@
     <button class="btn btn-outline-dark mb-3" @click="chooseImage()">Upload Image</button>
     <input type="file" id="fileInput" accept="image/*" @change="uploadImage" style="display: none;">
 
-<!-- {{image}} -->
-
   </div>
 </template>
 
@@ -25,7 +23,9 @@ export default {
        document.getElementById('fileInput').click();
      },
      uploadImage(e){
-    
+
+var myapp = this;
+
          var width = 800;
          var imgUpload = new Image();
          imgUpload.onload = function() {
@@ -58,7 +58,8 @@ export default {
            const date = new Date().toJSON().slice(0, 10).replaceAll('-', '');
            let filename = date+"-"+Math.floor(Math.random() * 999999999)+".jpg";
 
-           postData(this.save_url, {"filename": filename, "file": base64Image})
+
+           postData(myapp.save_url, {"filename": filename, "file": base64Image})
              .then(data => {
                console.log(data); // JSON data parsed by `data.json()` call
              });
