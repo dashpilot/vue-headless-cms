@@ -2,7 +2,7 @@
   <div>
     <button class="btn btn-outline-dark mb-3" @click="chooseImage()">Upload Image</button>
     <input type="file" id="fileInput" accept="image/*" @change="uploadImage" style="display: none;">
-
+<!-- <img id="preview"> -->
   </div>
 </template>
 
@@ -53,6 +53,7 @@ var myapp = this;
            var base64Image = canvas.toDataURL('image/jpeg')
 
            console.log(base64Image);
+           // document.getElementById('preview').src=base64Image;
 
            // document.getElementById('image').src = base64Image;
            const date = new Date().toJSON().slice(0, 10).replaceAll('-', '');
