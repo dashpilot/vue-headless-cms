@@ -1,7 +1,16 @@
 <template>
   <div>
-    <button class="btn btn-outline-dark mb-3" @click="chooseImage()">Upload Image</button>
+
     <input type="file" id="fileInput" accept="image/*" @change="uploadImage" style="display: none;">
+
+
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <button class="btn btn-outline-dark mb-3" @click="chooseImage()">Upload Image</button>
+  </div>
+  <input type="text" class="form-control" v-model="image">
+</div>
+
 <!-- <img id="preview"> -->
   </div>
 </template>
@@ -53,16 +62,20 @@ var myapp = this;
            var base64Image = canvas.toDataURL('image/jpeg')
 
            console.log(base64Image);
+
+
            // document.getElementById('preview').src=base64Image;
 
            // document.getElementById('image').src = base64Image;
            const date = new Date().toJSON().slice(0, 10).replaceAll('-', '');
            let filename = date+"-"+Math.floor(Math.random() * 999999999)+".jpg";
 
+           myapp.image = filename;
 
            postData(myapp.save_url, {"filename": filename, "file": base64Image})
              .then(data => {
                console.log(data); // JSON data parsed by `data.json()` call
+
              });
 
 
