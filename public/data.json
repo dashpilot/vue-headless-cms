@@ -22,9 +22,9 @@
     "title": "Home",
     "slug": "home"
   }],
-  "_config": [{
-    "save_url": "api/save"
-  }],
+  "_config": {
+    "save_url": "/api/save"
+  },
   "_fields": {
     "pages": {
       "title": "txt",
