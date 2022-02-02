@@ -27,7 +27,7 @@ import Image from './components/Image.vue'
     <template v-for="(item, i) in data[curKey]">
       <li class="list-group-item" @click="setCurItem(i)" :class="{ 'active2': curItem.id == item.id }">
         <b>{{item.title}}</b><br>
-        {{item.subtitle}}
+        <span v-html="shorten(stripTags(item.body), 60)"></span>
       </li>
     </template>
   </ul>
@@ -84,7 +84,7 @@ export default {
   },
   created: function () {
 
-    fetch("/data.json")
+    fetch("/mock-data.json")
       .then(r => r.json())
       .then(data => {
         this.data=data;
@@ -116,12 +116,11 @@ export default {
       Object.keys(fields).forEach((x) => {
         if(x=='title'){
           newItem[x] = "Untitled";
-        }else if(x=='subtitle'){
-          newItem[x] = "Go write something";
+        }else if(x=='body'){
+          newItem[x] = "Lorem ipsum dolor site amet";
         }else{
           newItem[x] = "";
         }
-
       })
       this.data[key].unshift(newItem);
       this.curItem = newItem;
@@ -133,6 +132,13 @@ export default {
         .then(data => {
           console.log(data); // JSON data parsed by `data.json()` call
         });
+    },
+    shorten(text, max) {
+    return text && text.length > max ? text.slice(0,max).split(' ').slice(0, -1).join(' ') : text
+    },
+    stripTags(text) {
+      let regex = /(<([^>]+)>)/ig;
+      return text.replace(regex, "");
     }
   }
 
@@ -219,9 +225,6 @@ body{
   text-overflow: ellipsis;
 }
 
-
-
-
 .list-group-item:hover{
   background-color: #F8F8F8;
   user-select: none;
@@ -231,6 +234,11 @@ body{
 .col2 .active2{
   background-color: #F8F8F8;
   width: 100.5%;
+}
+
+.col2{
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .form-control{
@@ -310,6 +318,40 @@ textarea, .rte{
 .filter{
   padding: 10px 20px;
   border-bottom: 6px solid #333;
+  background-color: white;
+  position: fixed;
+  z-index: 999;
+  width: 25%;
+  border-right: 1px solid #DDD;
 }
+
+.col1{
+  position: fixed;
+  left: 0;
+
+}
+
+.col2{
+  position: fixed;
+  left: 16.67%;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+
+}
+
+.col2 .list-group:nth-child(2) .list-group-item{
+  top: 50px;
+}
+
+.col3{
+  position: fixed;
+  right: 0;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+
 
 </style>
