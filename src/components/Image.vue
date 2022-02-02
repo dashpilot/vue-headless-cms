@@ -8,7 +8,7 @@
   <div class="input-group-prepend">
     <button class="btn btn-outline-dark mb-3" @click="chooseImage()">Upload Image</button>
   </div>
-  <input type="text" class="form-control" v-model="image">
+  <input type="text" class="form-control" v-model="image" @input="this.$emit('update:image', $event.target.value)">
 </div>
 
 <!-- <img id="preview"> -->
@@ -17,6 +17,7 @@
 
 <script>
 export default {
+
   props: {
     image: {
       type: String,
@@ -32,6 +33,10 @@ export default {
        document.getElementById('fileInput').click();
      },
      uploadImage(e){
+
+       const date = new Date().toJSON().slice(0, 10).replaceAll('-', '');
+       const filename = date+"-"+Math.floor(Math.random() * 999999999)+".jpg";
+       this.$emit('update:image', filename);
 
 var myapp = this;
 
@@ -67,10 +72,7 @@ var myapp = this;
            // document.getElementById('preview').src=base64Image;
 
            // document.getElementById('image').src = base64Image;
-           const date = new Date().toJSON().slice(0, 10).replaceAll('-', '');
-           let filename = date+"-"+Math.floor(Math.random() * 999999999)+".jpg";
 
-           myapp.image = filename;
 
            postData(myapp.save_url, {"filename": filename, "file": base64Image})
              .then(data => {
@@ -81,8 +83,6 @@ var myapp = this;
 
          }
          imgUpload.src = URL.createObjectURL(e.target.files[0]);
-
-
 
     }
   }

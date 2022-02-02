@@ -51,7 +51,9 @@ import Image from './components/Image.vue'
 
       <template v-if="data._fields[curKey][key] == 'img'">
         <label>{{key}}</label>
-        <Image :image="curItem[key]" :save_url="data._config.image_save_url" />
+
+
+        <Image v-model:image="curItem[key]" :save_url="data._config.image_save_url" />
       </template>
 
       <template v-else>
@@ -102,6 +104,8 @@ export default {
       this.curItem = this.data[key][i];
     },
     save(){
+console.log(this.data);
+
       postData(this.data._config.save_url, this.data)
         .then(data => {
           console.log(data); // JSON data parsed by `data.json()` call
