@@ -175,7 +175,6 @@ export default {
       var myapp = this;
       postData(this.config.settings.save_url, this.data)
         .then(data => {
-          myapp.saving = false;
           console.log(data); // JSON data parsed by `data.json()` call
         });
 
