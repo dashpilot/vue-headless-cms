@@ -9,7 +9,7 @@ Headless CMS that runs off (and saves to) a single JSON file. Written in Vue 3
 ## Features
 
 - headless: can be used with your preferred front-end (Vue, React, Svelte, vanilla js, Nodejs, PHP, Static Site Generator)
-- quick-access mail-like interface
+- quick-access through mail-like interface
 - saves to a single JSON file
 - easily configure collections and fields
 - categories and filtering
