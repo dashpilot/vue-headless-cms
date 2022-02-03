@@ -87,7 +87,11 @@ import Image from './components/Image.vue'
 
     </template>
 
-    <button class="btn btn-primary mt-1" @click="save()">Save</button>
+    <button class="btn btn-primary mt-1" @click="save()">
+<template v-if="saving">
+<i class="fas fa-spinner fa-spin"></i>
+</template>
+      Save</button>
   </template>
 
 </div>
@@ -100,6 +104,7 @@ export default {
     return {
       curKey: false,
       curItem: false,
+      saving: false,
       data: {},
       config: {}
     }
@@ -165,11 +170,18 @@ export default {
     },
     save(){
       console.log(this.data);
+      this.saving = true;
 
+      var myapp = this;
       postData(this.config.settings.save_url, this.data)
         .then(data => {
+          myapp.saving = false;
           console.log(data); // JSON data parsed by `data.json()` call
         });
+
+        setTimeout(() => {
+          this.saving = false;
+        }, 2000)
     },
     shorten(text, max) {
       if(text){
