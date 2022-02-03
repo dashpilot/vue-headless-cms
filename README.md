@@ -1,6 +1,6 @@
 # Vue Headless CMS
 
-Headless CMS that runs off (and saves to) a single JSON file. Written in Vue 3, use Vite as a bundler
+Headless CMS that runs off (and saves to) a single JSON file. Written in Vue 3, bundling through Vite
 
 ## Demo
 
