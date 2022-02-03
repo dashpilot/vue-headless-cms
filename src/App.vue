@@ -89,10 +89,18 @@ import Image from './components/Image.vue'
 
     <button class="btn btn-primary mt-1" @click="save()">
 <template v-if="saving">
-<i class="fas fa-spinner fa-spin"></i>
+<i class="fas fa-spinner fa-spin"></i> &nbsp;
 </template>
-      Save</button>
+Save</button>
+
+<template v-if="config.settings.preview_url">      
+&nbsp;
+<a class="btn btn-outline-dark mt-1 btn-preview" :href="config.settings.preview_url" target="_blank">View Site</a>
+</template>
+
   </template>
+
+
 
 </div>
 </div>
@@ -346,6 +354,10 @@ label{
   border: 2px solid #8287f9;
   background-color: #8287f9;
   color: white;
+}
+
+.btn-preview{
+  padding: 8px 15px;
 }
 
 textarea{

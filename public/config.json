@@ -2,7 +2,8 @@
   "settings": {
     "data_url": "/mock-data.json",
     "save_url": "/api/save/",
-    "image_save_url": "/api/save-image/"
+    "image_save_url": "/api/save-image/",
+    "preview_url": "https:\/\/examplepage.net"
   },
   "fields": {
     "pages": {
