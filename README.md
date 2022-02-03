@@ -18,3 +18,6 @@ Headless CMS that runs off (and saves to) a single JSON file. Written in Vue 3
 ## Preview
 
 <img src="public/img/preview.png" />
+
+## Press the :star: button
+Don't forget to press the :star: button to let me know I should continue improving this project.
