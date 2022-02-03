@@ -113,7 +113,7 @@ export default {
       console.log('config loaded');
       this.config = config;
 
-    fetch(config.settings.data_url)
+    fetch(config.settings.data_url, {cache: "no-store"})
       .then(r => r.json())
       .then(data => {
         this.data=data;
