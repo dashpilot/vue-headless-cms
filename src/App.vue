@@ -134,6 +134,9 @@ export default {
     setCurKey(key){
       this.curKey = key;
       this.curItem = this.data[key][0];
+      document.querySelectorAll('.col2 .list-group-item').forEach((el) => {
+        el.style.display = 'block';
+      })
     },
     setCurItem(i){
       let key = this.curKey;
