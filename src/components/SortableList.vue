@@ -1,7 +1,7 @@
 <template>
   <div id="sortable">
 <ul class="list-group">
-  <template v-for="(item, i) in catItems">
+  <template v-for="(item, i) in items">
     <li class="list-group-item text-truncate" :class="{ 'sorting': sorting == item.id }">
       <div class="row g-0 d-flex">
         <div class="col-1">
@@ -31,7 +31,7 @@
       // this.enableSortable()
     },
     props: {
-      catItems: {
+      items: {
         type: Array,
         default: [],
       }
@@ -44,10 +44,10 @@
     methods: {
       deleteItem(id){
         if(confirm('Are you sure you want to delete this item?')){
-          this.catItems.splice(this.catItems.findIndex(function(x){
+          this.items.splice(this.items.findIndex(function(x){
               return x.id === id;
           }), 1);
-          console.log(this.catItems)
+          console.log(this.items)
         }
       },
       moveUp(id, i){
@@ -56,7 +56,7 @@
         setTimeout(() => {
           let newIndex = i-1;
           if(i > 0){
-          this.array_move(this.catItems, i, newIndex)
+          this.array_move(this.items, i, newIndex)
           }
         }, 200);
       },
@@ -65,8 +65,8 @@
 
         setTimeout(() => {
           let newIndex = i+1;
-          if(this.catItems.length-1 !== i){
-          this.array_move(this.catItems, i, newIndex)
+          if(this.items.length-1 !== i){
+          this.array_move(this.items, i, newIndex)
           }
         }, 200);
       },

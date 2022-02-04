@@ -12,9 +12,14 @@ import SortableList from './components/SortableList.vue'
   <!-- <img src="img/rocketlogo.png" class="img-fluid rocket" /> -->
 
 
+<div class="settings">
   <template v-if="curCat && config.settings.allow_add_category">
-    <button @click="showAddCat = true" class="btn btn-outline-light add-cat"><i class="fa fa-plus"></i></button>
+    <div class="btn-group">
+    <button @click="showAddCat = true" class="btn btn-outline-light"><i class="fa fa-plus"></i></button>
+    <button @click="showCatSettings = true" class="btn btn-outline-light"><i class="fa fa-cog"></i></button>
+  </div>
   </template>
+</div>
 
   <template v-for="cat in data.categories">
       <a @click="setCurCat(cat.slug)" :class="{ 'active': curCat == cat.slug }">{{cat.title}}</a>
@@ -25,9 +30,10 @@ import SortableList from './components/SortableList.vue'
 
   <div class="filter">
 
-    <a @click="addItem()" class="btn btn-outline-dark"><i class="fa fa-plus"></i></a>&nbsp;
-
-    <a @click="showSettings = true" class="btn btn-outline-dark"><i class="fa fa-cog"></i></a>
+<div class="btn-group">
+    <a @click="addItem()" class="btn btn-outline-dark"><i class="fa fa-plus"></i></a>
+    <a @click="showPostSettings = true" class="btn btn-outline-dark"><i class="fa fa-cog"></i></a>
+</div>
 
   </div>
 
@@ -121,15 +127,29 @@ Save</button>
 </div>
 </div>
 
-<template v-if="showSettings">
+<template v-if="showCatSettings">
   <div class="backdrop">
     <div class="modal-screen">
 
-      <h3 class="float-start">Reorder/delete</h3>
-      <button type="button" class="btn-close float-end" aria-label="Close" @click="showSettings = false"></button>
+      <h3 class="float-start">Manage Categories</h3>
+      <button type="button" class="btn-close float-end" aria-label="Close" @click="showCatSettings = false"></button>
       <div class="clear mt-5"></div>
 
-      <SortableList v-model:catItems="catItems" />
+      <SortableList v-model:items="data.categories" />
+
+    </div>
+  </div>
+</template>
+
+<template v-if="showPostSettings">
+  <div class="backdrop">
+    <div class="modal-screen">
+
+      <h3 class="float-start">Manage Posts</h3>
+      <button type="button" class="btn-close float-end" aria-label="Close" @click="showPostSettings = false"></button>
+      <div class="clear mt-5"></div>
+
+      <SortableList v-model:items="catItems" />
 
     </div>
   </div>
@@ -161,7 +181,8 @@ export default {
       curItem: false,
       saving: false,
       showAddCat: false,
-      showSettings: false,
+      showPostSettings: false,
+      showCatSettings: false,
       drag: false,
       newTitle: '',
       data: {},
@@ -484,6 +505,10 @@ textarea{
   border: 1px solid #DDD;
   background-color: #EEEEEE;
   color: black;
+}
+
+.settings{
+  padding: 11px 15px 15px 18px;
 }
 
 .filter{
