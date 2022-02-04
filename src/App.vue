@@ -26,7 +26,7 @@ import Image from './components/Image.vue'
       <select class="form-select mb-0 w-50 float-end" @change="filter($event.target.value)">
         <option value="all">Show: all</option>
         <template v-for="item in data.pages">
-          <option :value="item.id">{{item.title}}</option>
+          <option :value="item.slug">{{item.title}}</option>
         </template>
       </select>
     </template>
@@ -79,9 +79,10 @@ import Image from './components/Image.vue'
       <template v-if="config.fields[curKey][key].includes('dropdown')">
         <label>{{key}}</label>
 
-        <select class="form-select w-25">
+        <select class="form-select w-25" v-model="curItem[key]">
+          <option value=""></option>
           <template v-for="item in data[getTable(config.fields[curKey][key])]">
-            <option :value="item.id">{{item.title}}</option>
+            <option :value="item.slug">{{item.title}}</option>
           </template>
         </select>
 
