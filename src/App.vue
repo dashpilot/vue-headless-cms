@@ -74,7 +74,7 @@ import Image from './components/Image.vue'
       <template v-if="config.fields.posts[key].includes('dropdown')">
         <label>{{key}}</label>
 
-        <select class="form-select w-25" v-model="curItem[key]">
+        <select class="form-select w-25" v-model="curItem[key]" @change="changeCat(curItem[key]);">
           <template v-for="item in data.categories">
             <option :value="item.slug">{{item.title}}</option>
           </template>
@@ -121,9 +121,6 @@ Save</button>
 </template>
 
 </template>
-
-
-
 
 <script>
 export default {
@@ -229,6 +226,11 @@ export default {
       this.curItem = newItem;
 
       this.showAddCat = false;
+    },
+    changeCat(cat){
+      console.log(cat);
+      this.curCat = cat;
+      this.catItems = this.data.posts.filter(x => x.category == cat);
     },
     save(){
       console.log(this.data);
