@@ -8,7 +8,7 @@
   <div class="input-group-prepend">
     <button class="btn btn-outline-dark mb-3" @click="chooseImage()">Upload Image</button>
   </div>
-  <input type="text" class="form-control" v-model="image" @input="this.$emit('update:image', $event.target.value)">
+  <!-- <input type="text" class="form-control" v-model="image" @input="this.$emit('update:image', $event.target.value)">-->
 </div>
 
 <!-- <img id="preview"> -->

@@ -15,7 +15,7 @@
       "title": "text",
       "body": "richtext",
       "image": "image",
-      "page": "dropdown_pages"
+      "category": "dropdown_categories"
     }
   }
 }

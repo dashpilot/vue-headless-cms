@@ -9,10 +9,14 @@ import Image from './components/Image.vue'
 
   <!-- <img src="img/rocketlogo.png" class="img-fluid rocket" /> -->
 
-  <template v-for="key in Object.keys(data)">
-    <template v-if="!key.includes('_')">
-      <a @click="setCurKey(key)" :class="{ 'active': curKey == key }">{{key}}</a>
-    </template>
+
+
+    <button @click="showAddCat = true" class="btn btn-outline-light add-cat"><i class="fa fa-plus"></i></button>
+
+
+
+  <template v-for="cat in data.categories">
+      <a @click="setCurCat(cat.slug)" :class="{ 'active': curCat == cat.slug }">{{cat.title}}</a>
   </template>
 
 </div>
@@ -22,21 +26,12 @@ import Image from './components/Image.vue'
 
     <a @click="addItem()" class="btn btn-outline-dark"><i class="fa fa-plus"></i></a>
 
-    <template v-if="curKey !== 'pages' && curKey !== 'categories'">
-      <select class="form-select mb-0 w-50 float-end" @change="filter($event.target.value)">
-        <option value="all">Show: all</option>
-        <template v-for="item in data.pages">
-          <option :value="item.slug">{{item.title}}</option>
-        </template>
-      </select>
-    </template>
-
   </div>
 
-  <template v-if="curKey">
+  <template v-if="catItems">
     <ul class="list-group">
-    <template v-for="(item, i) in data[curKey]">
-      <li class="list-group-item" @click="setCurItem(i)" :class="[{'active2': curItem.id == item.id}, item.page]">
+    <template v-for="item in catItems">
+      <li class="list-group-item" @click="setCurItem(item.id)" :class="{'active2': curItem.id == item.id}">
         <b>{{item.title}}</b><br>
         <span v-html="shorten(stripTags(item.body), 60)"></span>
       </li>
@@ -48,40 +43,39 @@ import Image from './components/Image.vue'
 <div class="col-7 p-4 col3">
 
   <template v-if="curItem">
-      <template v-for="(key, val) in Object.keys(config.fields[curKey])">
+      <template v-for="(key, val) in Object.keys(config.fields.posts)">
 
 
-      <template v-if="config.fields[curKey][key] == 'text'">
+      <template v-if="config.fields.posts[key] == 'text'">
           <label>{{key}}</label>
           <input type="text" class="form-control" v-model="curItem[key]">
       </template>
 
-      <template v-if="config.fields[curKey][key] == 'text-disabled'">
+      <template v-if="config.fields.posts[key] == 'text-disabled'">
           <label>{{key}}</label>
           <input type="text" class="form-control" v-model="curItem[key]" disabled>
       </template>
 
-      <template v-if="config.fields[curKey][key] == 'richtext'">
+      <template v-if="config.fields.posts[key] == 'richtext'">
           <label>{{key}}</label>
           <Editor v-model="curItem[key]" />
       </template>
 
-      <template v-if="config.fields[curKey][key] == 'textarea'">
+      <template v-if="config.fields.posts[key] == 'textarea'">
         <label>{{key}}</label>
         <textarea class="form-control" v-model="curItem[key]"></textarea>
       </template>
 
-      <template v-if="config.fields[curKey][key] == 'image'">
+      <template v-if="config.fields.posts[key] == 'image'">
         <label>{{key}}</label>
         <Image v-model:image="curItem[key]" :save_url="config.settings.image_save_url" />
       </template>
 
-      <template v-if="config.fields[curKey][key].includes('dropdown')">
+      <template v-if="config.fields.posts[key].includes('dropdown')">
         <label>{{key}}</label>
 
         <select class="form-select w-25" v-model="curItem[key]">
-          <option value=""></option>
-          <template v-for="item in data[getTable(config.fields[curKey][key])]">
+          <template v-for="item in data.categories">
             <option :value="item.slug">{{item.title}}</option>
           </template>
         </select>
@@ -115,12 +109,12 @@ Save</button>
 <template v-if="showAddCat">
   <div class="backdrop">
     <div class="modal-screen">
-<h3 class="float-start">Add</h3>
+<h3 class="float-start">Add Category</h3>
 <button type="button" class="btn-close float-end" aria-label="Close" @click="showAddCat = false"></button>
 <div class="clear mt-5"></div>
 
 <label>Title</label>
-<input type="text" class="form-control" v-model="newTitle"><button class="btn btn-primary" @click="createSlug()">Add</button>
+<input type="text" class="form-control" v-model="newTitle"><button class="btn btn-primary" @click="addCat()">Add</button>
 
     </div>
   </div>
@@ -135,7 +129,9 @@ Save</button>
 export default {
   data() {
     return {
-      curKey: false,
+      curKey: false, // remove later
+      curCat: false,
+      catItems: false,
       curItem: false,
       saving: false,
       showAddCat: false,
@@ -161,9 +157,11 @@ export default {
         console.log('data loaded');
 
         // select the first elements
-        var defaultKey = Object.keys(data)[0];
-        this.curKey = defaultKey;
-        this.curItem = data[defaultKey][0];
+        var defaultCat = data.categories[0].slug;
+        this.curCat = defaultCat;
+        this.catItems = this.data.posts.filter(x => x.category == defaultCat);
+        this.curItem = this.data.posts.filter(x => x.category == defaultCat)[0];
+
 
       });
 
@@ -171,27 +169,25 @@ export default {
 
   },
   methods: {
-    setCurKey(key){
-      this.curKey = key;
-      this.curItem = this.data[key][0];
-      document.querySelectorAll('.col2 .list-group-item').forEach((el) => {
-        el.style.display = 'block';
-      })
+    setCurCat(cat){
+      console.log(cat);
+      this.curCat = cat;
+      this.catItems = this.data.posts.filter(x => x.category == cat);
+      this.curItem = this.data.posts.filter(x => x.category == cat)[0];
     },
-    setCurItem(i){
-      let key = this.curKey;
-      this.curItem = this.data[key][i];
+    setCurItem(id){
+      this.curItem = this.data.posts.filter(x => x.id == id)[0];
     },
     getTable(key){
       return key.split('_')[1];
     },
     addItem(){
-      if(this.curKey !== 'pages' && this.curKey !== 'categories'){
-      let key = this.curKey;
-      let fields = this.config.fields[key];
-      console.log(fields)
+
+
+      let fields = this.config.fields.posts;
+
       var newItem = {};
-      newItem.id = key+"-"+Math.floor(Math.random() * 999999999);
+      newItem.id = "posts-"+Math.floor(Math.random() * 999999999);
       Object.keys(fields).forEach((x) => {
         if(x=='title'){
           newItem[x] = "Untitled";
@@ -201,34 +197,35 @@ export default {
           newItem[x] = "";
         }
       })
-      this.data[key].unshift(newItem);
+      newItem.category = this.curCat;
+        console.log(newItem)
+      this.data.posts.unshift(newItem);
+      this.catItems = this.data.posts.filter(x => x.category == this.curCat);
       this.curItem = newItem;
-      }else{
-        this.showAddCat = true;
-      }
+
     },
-    createSlug(){
+    addCat(){
 
       var slug = this.slugify(this.newTitle);
       console.log(slug);
 
       // cheack if this slug is unique
-      this.data[this.curKey].forEach((x) => {
+      this.data.categories.forEach((x) => {
         if(x.slug == slug){
           slug = slug+"-"+Math.floor(Math.random() * 9999);
         }
       })
 
-      let key = this.curKey;
-      let fields = this.config.fields[key];
+
+      let fields = this.config.fields.categories;
 
       var newItem = {};
-      newItem.id = key+"-"+Math.floor(Math.random() * 999999999);
+      newItem.id = "categories-"+Math.floor(Math.random() * 999999999);
       newItem.title = this.newTitle;
       newItem.slug = slug;
       newItem.description = "";
 
-      this.data[key].unshift(newItem);
+      this.data.categories.push(newItem);
       this.curItem = newItem;
 
       this.showAddCat = false;
@@ -255,12 +252,14 @@ export default {
       }
     },
     stripTags(text) {
+
       if(text){
       let regex = /(<([^>]+)>)/ig;
       return text.replace(regex, "");
       }else{
         return "&nbsp;";
       }
+
     },
     slugify(text)
     {
@@ -270,20 +269,6 @@ export default {
         .replace(/\-\-+/g, '-')         // Replace multiple - with single -
         .replace(/^-+/, '')             // Trim - from start of text
         .replace(/-+$/, '');            // Trim - from end of text
-    },
-    filter(value){
-      if(value=='all'){
-        document.querySelectorAll('.col2 .list-group-item').forEach((el) => {
-          el.style.display = 'block';
-        })
-      }else{
-        document.querySelectorAll('.col2 .list-group-item').forEach((el) => {
-          el.style.display = 'none';
-        })
-        document.querySelectorAll('.'+value).forEach((el) => {
-          el.style.display = 'block';
-        })
-      }
     }
   }
 
@@ -329,7 +314,6 @@ body{
 }
 
 .col1{
-  padding-top: 64px;
   height: 100%;
   background-color: #333;
 }
@@ -471,7 +455,7 @@ textarea{
 }
 
 .filter{
-  padding: 10px 10px;
+  padding: 10px 20px;
   border-bottom: 6px solid #333;
   background-color: white;
   position: fixed;
@@ -527,5 +511,10 @@ textarea{
 
 .clear{
   clear: both;
+}
+
+.add-cat{
+
+  margin: 11px 20px 15px 20px;
 }
 </style>
