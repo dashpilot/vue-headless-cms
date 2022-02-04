@@ -195,7 +195,6 @@ export default {
       .then(r => r.json())
       .then(config => {
 
-      console.log('config loaded');
       this.config = config;
 
     fetch(config.settings.data_url, {cache: "no-store"})
@@ -203,7 +202,6 @@ export default {
       .then(data => {
         this.data=data;
         console.log(data);
-        console.log('data loaded');
 
         // select the first elements
         var defaultCat = data.categories[0].slug;
@@ -219,7 +217,6 @@ export default {
   },
   methods: {
     setCurCat(cat){
-      console.log(cat);
       this.curCat = cat;
       this.catItems = this.data.posts.filter(x => x.category == cat);
       this.curItem = this.data.posts.filter(x => x.category == cat)[0];
