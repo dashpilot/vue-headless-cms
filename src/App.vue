@@ -3,6 +3,7 @@ import Editor from './components/Editor.vue'
 import Image from './components/Image.vue'
 </script>
 
+
 <template>
 <div class="row g-0">
 <div class="col-2 col1">
@@ -11,7 +12,9 @@ import Image from './components/Image.vue'
 
 
 
+  <template v-if="curCat && config.settings.allow_add_category">
     <button @click="showAddCat = true" class="btn btn-outline-light add-cat"><i class="fa fa-plus"></i></button>
+  </template>
 
 
 
@@ -29,13 +32,21 @@ import Image from './components/Image.vue'
   </div>
 
   <template v-if="catItems">
+
+
     <ul class="list-group">
+
+
     <template v-for="item in catItems">
+
       <li class="list-group-item" @click="setCurItem(item.id)" :class="{'active2': curItem.id == item.id}">
         <b>{{item.title}}</b><br>
         <span v-html="shorten(stripTags(item.body), 60)"></span>
       </li>
+
     </template>
+
+
   </ul>
   </template>
 
@@ -123,15 +134,16 @@ Save</button>
 </template>
 
 <script>
+
 export default {
   data() {
     return {
-      curKey: false, // remove later
       curCat: false,
       catItems: false,
       curItem: false,
       saving: false,
       showAddCat: false,
+      drag: false,
       newTitle: '',
       data: {},
       config: {}
@@ -214,7 +226,7 @@ export default {
       })
 
 
-      let fields = this.config.fields.categories;
+     let fields = this.config.fields.categories;
 
       var newItem = {};
       newItem.id = "categories-"+Math.floor(Math.random() * 999999999);
@@ -273,7 +285,6 @@ export default {
         .replace(/-+$/, '');            // Trim - from end of text
     }
   }
-
 }
 
 async function postData(url = '', data = {}) {

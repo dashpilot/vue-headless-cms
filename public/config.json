@@ -3,7 +3,8 @@
     "data_url": "/mock-data.json",
     "save_url": "/api/save/",
     "image_save_url": "/api/save-image/",
-    "preview_url": "https:\/\/examplepage.net"
+    "preview_url": "https:\/\/examplepage.net",
+    "allow_add_category": true
   },
   "fields": {
     "pages": {
