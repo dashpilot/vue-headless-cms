@@ -8,7 +8,8 @@
   "fields": {
     "pages": {
       "title": "text",
-      "description": "textarea"
+      "description": "textarea",
+      "slug": "text-disabled"
     },
     "posts": {
       "title": "text",

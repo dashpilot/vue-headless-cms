@@ -19,16 +19,17 @@ import Image from './components/Image.vue'
 <div class="col-3 col2">
 
   <div class="filter">
+
     <a @click="addItem()" class="btn btn-outline-dark"><i class="fa fa-plus"></i></a>
 
-<template v-if="curKey !== 'pages' && curKey !== 'categories'">
-    <select class="form-select mb-0 w-50 float-end" @change="filter($event.target.value)">
-      <option value="all">Show: all</option>
-      <template v-for="item in data.pages">
-        <option :value="item.id">{{item.title}}</option>
-      </template>
-    </select>
-  </template>
+    <template v-if="curKey !== 'pages' && curKey !== 'categories'">
+      <select class="form-select mb-0 w-50 float-end" @change="filter($event.target.value)">
+        <option value="all">Show: all</option>
+        <template v-for="item in data.pages">
+          <option :value="item.id">{{item.title}}</option>
+        </template>
+      </select>
+    </template>
 
   </div>
 
@@ -53,6 +54,11 @@ import Image from './components/Image.vue'
       <template v-if="config.fields[curKey][key] == 'text'">
           <label>{{key}}</label>
           <input type="text" class="form-control" v-model="curItem[key]">
+      </template>
+
+      <template v-if="config.fields[curKey][key] == 'text-disabled'">
+          <label>{{key}}</label>
+          <input type="text" class="form-control" v-model="curItem[key]" disabled>
       </template>
 
       <template v-if="config.fields[curKey][key] == 'richtext'">
@@ -93,7 +99,7 @@ import Image from './components/Image.vue'
 </template>
 Save</button>
 
-<template v-if="config.settings.preview_url">      
+<template v-if="config.settings.preview_url">
 &nbsp;
 <a class="btn btn-outline-dark mt-1 btn-preview" :href="config.settings.preview_url" target="_blank">View Site</a>
 </template>
@@ -104,7 +110,25 @@ Save</button>
 
 </div>
 </div>
+
+<template v-if="showAddCat">
+  <div class="backdrop">
+    <div class="modal-screen">
+<h3 class="float-start">Add</h3>
+<button type="button" class="btn-close float-end" aria-label="Close" @click="showAddCat = false"></button>
+<div class="clear mt-5"></div>
+
+<label>Title</label>
+<input type="text" class="form-control" v-model="newTitle"><button class="btn btn-primary" @click="createSlug()">Add</button>
+
+    </div>
+  </div>
 </template>
+
+</template>
+
+
+
 
 <script>
 export default {
@@ -113,6 +137,8 @@ export default {
       curKey: false,
       curItem: false,
       saving: false,
+      showAddCat: false,
+      newTitle: '',
       data: {},
       config: {}
     }
@@ -159,6 +185,7 @@ export default {
       return key.split('_')[1];
     },
     addItem(){
+      if(this.curKey !== 'pages' && this.curKey !== 'categories'){
       let key = this.curKey;
       let fields = this.config.fields[key];
       console.log(fields)
@@ -175,6 +202,35 @@ export default {
       })
       this.data[key].unshift(newItem);
       this.curItem = newItem;
+      }else{
+        this.showAddCat = true;
+      }
+    },
+    createSlug(){
+
+      var slug = this.slugify(this.newTitle);
+      console.log(slug);
+
+      // cheack if this slug is unique
+      this.data[this.curKey].forEach((x) => {
+        if(x.slug == slug){
+          slug = slug+"-"+Math.floor(Math.random() * 9999);
+        }
+      })
+
+      let key = this.curKey;
+      let fields = this.config.fields[key];
+
+      var newItem = {};
+      newItem.id = key+"-"+Math.floor(Math.random() * 999999999);
+      newItem.title = this.newTitle;
+      newItem.slug = slug;
+      newItem.description = "";
+
+      this.data[key].unshift(newItem);
+      this.curItem = newItem;
+
+      this.showAddCat = false;
     },
     save(){
       console.log(this.data);
@@ -204,6 +260,15 @@ export default {
       }else{
         return "&nbsp;";
       }
+    },
+    slugify(text)
+    {
+      return text.toString().toLowerCase()
+        .replace(/\s+/g, '-')           // Replace spaces with -
+        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+        .replace(/^-+/, '')             // Trim - from start of text
+        .replace(/-+$/, '');            // Trim - from end of text
     },
     filter(value){
       if(value=='all'){
@@ -439,4 +504,27 @@ textarea{
   overflow-y: auto;
 }
 
+.backdrop{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-screen{
+  position: fixed;
+  top: 15%;
+  left: calc(50% - 250px);
+  width: 500px;
+  height: auto;
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.clear{
+  clear: both;
+}
 </style>
