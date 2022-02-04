@@ -1,6 +1,7 @@
 <script setup>
 import Editor from './components/Editor.vue'
 import Image from './components/Image.vue'
+import SortableList from './components/SortableList.vue'
 </script>
 
 
@@ -11,12 +12,9 @@ import Image from './components/Image.vue'
   <!-- <img src="img/rocketlogo.png" class="img-fluid rocket" /> -->
 
 
-
   <template v-if="curCat && config.settings.allow_add_category">
     <button @click="showAddCat = true" class="btn btn-outline-light add-cat"><i class="fa fa-plus"></i></button>
   </template>
-
-
 
   <template v-for="cat in data.categories">
       <a @click="setCurCat(cat.slug)" :class="{ 'active': curCat == cat.slug }">{{cat.title}}</a>
@@ -27,11 +25,14 @@ import Image from './components/Image.vue'
 
   <div class="filter">
 
-    <a @click="addItem()" class="btn btn-outline-dark"><i class="fa fa-plus"></i></a>
+    <a @click="addItem()" class="btn btn-outline-dark"><i class="fa fa-plus"></i></a>&nbsp;
+
+    <a @click="showSettings = true" class="btn btn-outline-dark"><i class="fa fa-cog"></i></a>
 
   </div>
 
   <template v-if="catItems">
+
 
 
     <ul class="list-group">
@@ -52,6 +53,9 @@ import Image from './components/Image.vue'
 
 </div>
 <div class="col-7 p-4 col3">
+
+
+
 
   <template v-if="curItem">
       <template v-for="(key, val) in Object.keys(config.fields.posts)">
@@ -117,6 +121,20 @@ Save</button>
 </div>
 </div>
 
+<template v-if="showSettings">
+  <div class="backdrop">
+    <div class="modal-screen">
+
+      <h3 class="float-start">Reorder/delete</h3>
+      <button type="button" class="btn-close float-end" aria-label="Close" @click="showSettings = false"></button>
+      <div class="clear mt-5"></div>
+
+      <SortableList v-model:catItems="catItems" />
+
+    </div>
+  </div>
+</template>
+
 <template v-if="showAddCat">
   <div class="backdrop">
     <div class="modal-screen">
@@ -143,6 +161,7 @@ export default {
       curItem: false,
       saving: false,
       showAddCat: false,
+      showSettings: false,
       drag: false,
       newTitle: '',
       data: {},
@@ -368,7 +387,7 @@ body{
   border-left: 5px solid transparent;
 }
 
-.list-group-item:hover{
+.col2 .list-group-item:hover{
   background-color: #F8F8F8;
   user-select: none;
   cursor: pointer;
@@ -514,12 +533,13 @@ textarea{
 .modal-screen{
   position: fixed;
   top: 15%;
-  left: calc(50% - 250px);
-  width: 500px;
+  left: calc(50% - 300px);
+  width: 600px;
   height: auto;
   background-color: white;
   border-radius: 8px;
   padding: 20px;
+  max-height: 70%;
 }
 
 .clear{
@@ -527,7 +547,6 @@ textarea{
 }
 
 .add-cat{
-
   margin: 11px 20px 15px 20px;
 }
 </style>
