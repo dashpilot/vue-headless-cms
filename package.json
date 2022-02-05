@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "buildview": "vite build && vite preview"
   },
   "dependencies": {
     "@tiptap/starter-kit": "^2.0.0-beta.180",

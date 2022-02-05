@@ -1,9 +1,3 @@
-<script setup>
-import Editor from './components/Editor.vue'
-import Image from './components/Image.vue'
-import SortableList from './components/SortableList.vue'
-</script>
-
 <template>
 <div class="row g-0">
 <div class="col-2 col1">
@@ -36,25 +30,7 @@ import SortableList from './components/SortableList.vue'
 
   </div>
 
-  <template v-if="catItems">
-
-
-
-    <ul class="list-group">
-
-
-    <template v-for="item in catItems">
-
-      <li class="list-group-item" @click="setCurItem(item.id)" :class="{'active2': curItem.id == item.id}">
-        <b>{{item.title}}</b><br>
-        <span v-html="stripShorten(item.body, 60)"></span>
-      </li>
-
-    </template>
-
-
-  </ul>
-  </template>
+  <PostList v-model:posts="catItems" v-model:curpost="curItem" />
 
 </div>
 <div class="col-7 p-4 col3">
@@ -157,7 +133,7 @@ Save</button>
 <div v-show="showAddCat">
   <div class="backdrop">
     <div class="modal-screen">
-<h3 class="float-start">Add Categorys</h3>
+<h3 class="float-start">Add Category</h3>
 <button type="button" class="btn-close float-end" aria-label="Close" @click="showAddCat = false"></button>
 <div class="clear mt-5"></div>
 
@@ -172,7 +148,18 @@ Save</button>
 </template>
 
 <script>
+import Editor from './components/Editor.vue'
+import Image from './components/Image.vue'
+import SortableList from './components/SortableList.vue'
+import PostList from './components/PostList.vue'
+
 export default {
+  components: {
+    Editor,
+    Image,
+    SortableList,
+    PostList,
+  },
   data() {
     return {
       curCat: false,
@@ -182,6 +169,7 @@ export default {
       showAddCat: false,
       showPostSettings: false,
       showCatSettings: false,
+      newTitle: '',
       drag: false,
       data: {},
       config: {}
@@ -288,17 +276,6 @@ export default {
         setTimeout(() => {
           this.saving = false;
         }, 2000)
-    },
-    stripShorten(text, max) {
-
-      if(text){
-      text = text && text.length > max ? text.slice(0,max).split(' ').slice(0, -1).join(' ') : text
-      let regex = /(<([^>]+)>)/ig;
-      return text.replace(regex, "");
-      }else{
-        return "&nbsp;";
-      }
-
     },
     slugify(text)
     {

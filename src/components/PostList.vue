@@ -1,31 +1,32 @@
 <template>
+  <ul class="list-group">
 
+  <template v-for="item in posts">
+
+    <li class="list-group-item" @click="setCurItem(item.id)" :class="{'active2': curpost.id == item.id}">
+      <b>{{item.title}}</b><br>
+      <span v-html="stripShorten(item.body, 60)"></span>
+    </li>
+
+  </template>
+
+</ul>
 </template>
 
 <script>
   export default {
-
-    props: {
-      catItems: {
-        type: Array,
-        default: []
-      },
-      curItem: {
-        type: Object,
-        default: {}
-      }
-    },
+    props: ['posts', 'curpost'],
     methods: {
       setCurItem(id){
-        // this.curItem = this.$props.catItems.filter(x => x.id == id)[0];
-        this.$emit('update:curItem', this.$props.catItems.filter(x => x.id == id)[0])
+        let curPost = this.$props.posts.filter(x => x.id == id)[0];
+        this.$emit('update:curpost', curPost)
       },
-      stripTags(text, max) {
+      stripShorten(text, max) {
 
         if(text){
-        text = text && text.length > max ? text.slice(0,max).split(' ').slice(0, -1).join(' ') : text
-        let regex = /(<([^>]+)>)/ig;
-        return text.replace(regex, "");
+          text = text && text.length > max ? text.slice(0,max).split(' ').slice(0, -1).join(' ') : text
+          let regex = /(<([^>]+)>)/ig;
+          return text.replace(regex, "");
         }else{
           return "&nbsp;";
         }

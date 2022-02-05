@@ -1,5 +1,5 @@
 <template>
-
+<div v-show="show">
   <div class="backdrop">
     <div class="modal-screen">
 <h3 class="float-start">Add Category</h3>
@@ -11,6 +11,7 @@
 
     </div>
   </div>
+</div>
 
 </template>
 
@@ -31,7 +32,7 @@ export default {
       type: Object,
       default: {}
     },
-    showcat: {
+    show: {
       type: Boolean
     }
   },
@@ -58,10 +59,12 @@ export default {
 
       this.$emit('update:data.categories', this.data.categories.push(newItem))
       this.$emit('update:curItem', newItem)
-      this.$emit('update:showcat', false)
+      this.$emit('update:show', false)
+
     },
     closeWindow(){
-      this.$emit('update:showcat', false)
+
+      this.$emit('update:show', false);
     },
     slugify(text)
     {
