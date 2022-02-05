@@ -47,7 +47,7 @@ import SortableList from './components/SortableList.vue'
 
       <li class="list-group-item" @click="setCurItem(item.id)" :class="{'active2': curItem.id == item.id}">
         <b>{{item.title}}</b><br>
-        <span v-html="stripShorten(item.body, 60)"></span>
+        <span v-html="shorten(stripTags(item.body), 60)"></span>
       </li>
 
     </template>
@@ -289,15 +289,22 @@ export default {
           this.saving = false;
         }, 2000)
     },
-    stripShorten(text, max) {
-
+    shorten(text, max) {
       if(text){
-        let text = text && text.length > max ? text.slice(0,max).split(' ').slice(0, -1).join(' ') : text
-        let regex = /(<([^>]+)>)/ig;
-        return text.replace(regex, "");
+      return text && text.length > max ? text.slice(0,max).split(' ').slice(0, -1).join(' ') : text
       }else{
         return "&nbsp;";
       }
+    },
+    stripTags(text) {
+
+      if(text){
+      let regex = /(<([^>]+)>)/ig;
+      return text.replace(regex, "");
+      }else{
+        return "&nbsp;";
+      }
+
     },
     slugify(text)
     {
