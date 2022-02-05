@@ -208,7 +208,7 @@ export default {
         this.curCat = defaultCat;
         this.catItems = this.data.posts.filter(x => x.category == defaultCat);
         this.curItem = this.data.posts.filter(x => x.category == defaultCat)[0];
-
+        this.newTitle = '';
 
       });
 
