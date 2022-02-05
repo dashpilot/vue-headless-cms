@@ -184,7 +184,7 @@ export default {
       showPostSettings: false,
       showCatSettings: false,
       drag: false,
-      newtitle: '',
+      newtitle: false,
       data: {},
       config: {}
     }
