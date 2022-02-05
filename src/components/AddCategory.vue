@@ -31,9 +31,8 @@ export default {
       type: Object,
       default: {}
     },
-    showAddCat: {
-      type: Boolean,
-      default: true
+    showcat: {
+      type: Boolean
     }
   },
   methods: {
@@ -59,10 +58,10 @@ export default {
 
       this.$emit('update:data.categories', this.data.categories.push(newItem))
       this.$emit('update:curItem', newItem)
-      this.$emit('update:showAddCat', false)
+      this.$emit('update:showcat', false)
     },
     closeWindow(){
-      this.$emit('update:showAddCat', false)
+      this.$emit('update:showcat', false)
     },
     slugify(text)
     {
