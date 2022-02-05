@@ -1,5 +1,4 @@
 <script setup>
-import PostList from './components/PostList.vue'
 import SortableList from './components/SortableList.vue'
 import AddCategory from './components/AddCategory.vue'
 import Edit from './components/Edit.vue'
@@ -42,7 +41,12 @@ import Edit from './components/Edit.vue'
 
     <ul class="list-group">
 
-      <PostList v-model:catItems="catItems" v-model:curItem="curItem" />
+      <template v-for="item in catItems">
+      <li class="list-group-item" @click="setCurItem(item.id)" :class="{'active2': curItem.id == item.id}">
+        <b>{{item.title}}</b><br>
+        <span v-html="stripTags(item.body, 60)"></span>
+      </li>
+    </template>
 
     </ul>
 
@@ -156,6 +160,21 @@ export default {
       this.curCat = cat;
       this.catItems = this.data.posts.filter(x => x.category == cat);
       this.curItem = this.data.posts.filter(x => x.category == cat)[0];
+    },
+    setCurItem(id){
+      this.curItem = this.catItems.filter(x => x.id == id)[0];
+      // this.$emit('update:curItem', this.$props.catItems.filter(x => x.id == id)[0])
+    },
+    stripTags(text, max) {
+
+      if(text){
+      text = text && text.length > max ? text.slice(0,max).split(' ').slice(0, -1).join(' ') : text
+      let regex = /(<([^>]+)>)/ig;
+      return text.replace(regex, "");
+      }else{
+        return "&nbsp;";
+      }
+
     },
     addItem(){
 
