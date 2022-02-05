@@ -131,7 +131,7 @@ Save</button>
   <div class="backdrop">
     <div class="modal-screen">
 
-      <h3 class="float-start">Manage Categories</h3>
+      <h4 class="float-start">Manage Categories</h4>
       <button type="button" class="btn-close float-end" aria-label="Close" @click="showCatSettings = false"></button>
       <div class="clear mt-5"></div>
 
@@ -145,7 +145,7 @@ Save</button>
   <div class="backdrop">
     <div class="modal-screen">
 
-      <h3 class="float-start">Manage Posts</h3>
+      <h4 class="float-start">Manage Posts</h4>
       <button type="button" class="btn-close float-end" aria-label="Close" @click="showPostSettings = false"></button>
       <div class="clear mt-5"></div>
 
