@@ -163,7 +163,7 @@ Save</button>
 <div class="clear mt-5"></div>
 
 <label>Title</label>
-<input type="text" class="form-control" v-model="newTitle"><button class="btn btn-primary" @click="addCat()">Add</button>
+<input type="text" class="form-control" v-model="newtitle"><button class="btn btn-primary" @click="addCat()">Add</button>
 
     </div>
   </div>
@@ -184,7 +184,7 @@ export default {
       showPostSettings: false,
       showCatSettings: false,
       drag: false,
-      newTitle: '',
+      newtitle: '',
       data: {},
       config: {}
     }
@@ -208,7 +208,6 @@ export default {
         this.curCat = defaultCat;
         this.catItems = this.data.posts.filter(x => x.category == defaultCat);
         this.curItem = this.data.posts.filter(x => x.category == defaultCat)[0];
-        this.newTitle = '';
 
       });
 
@@ -252,7 +251,7 @@ export default {
     },
     addCat(){
 
-      var slug = this.slugify(this.newTitle);
+      var slug = this.slugify(this.newtitle);
       console.log(slug);
 
       // cheack if this slug is unique
@@ -267,7 +266,7 @@ export default {
 
       var newItem = {};
       newItem.id = "categories-"+Math.floor(Math.random() * 999999999);
-      newItem.title = this.newTitle;
+      newItem.title = this.newtitle;
       newItem.slug = slug;
       newItem.description = "";
 
