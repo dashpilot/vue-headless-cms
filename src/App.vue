@@ -4,7 +4,6 @@ import Image from './components/Image.vue'
 import SortableList from './components/SortableList.vue'
 </script>
 
-
 <template>
 <div class="row g-0">
 <div class="col-2 col1">
@@ -155,10 +154,10 @@ Save</button>
   </div>
 </template>
 
-<template v-if="showAddCat">
+<div v-show="showAddCat">
   <div class="backdrop">
     <div class="modal-screen">
-<h3 class="float-start">Add Category</h3>
+<h3 class="float-start">Add Categorys</h3>
 <button type="button" class="btn-close float-end" aria-label="Close" @click="showAddCat = false"></button>
 <div class="clear mt-5"></div>
 
@@ -167,12 +166,12 @@ Save</button>
 
     </div>
   </div>
-</template>
+</div>
+
 
 </template>
 
 <script>
-
 export default {
   data() {
     return {
@@ -184,7 +183,6 @@ export default {
       showPostSettings: false,
       showCatSettings: false,
       drag: false,
-      newTitle: '',
       data: {},
       config: {}
     }
@@ -208,7 +206,6 @@ export default {
         this.curCat = defaultCat;
         this.catItems = this.data.posts.filter(x => x.category == defaultCat);
         this.curItem = this.data.posts.filter(x => x.category == defaultCat)[0];
-
       });
 
       });
@@ -222,9 +219,6 @@ export default {
     },
     setCurItem(id){
       this.curItem = this.data.posts.filter(x => x.id == id)[0];
-    },
-    getTable(key){
-      return key.split('_')[1];
     },
     addItem(){
 
@@ -251,6 +245,7 @@ export default {
     },
     addCat(){
 
+      var newTitle = document.querySelector('#newTitle');
       var slug = this.slugify(this.newTitle);
       console.log(slug);
 
@@ -338,6 +333,7 @@ async function postData(url = '', data = {}) {
   });
   return response.json(); // parses JSON response into native JavaScript objects
 }
+
 </script>
 
 
