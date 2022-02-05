@@ -5,8 +5,11 @@
 
 
 <div class="input-group mb-2">
-  <div class="input-group-prepend">
+  <div class="btn-group">
     <button class="btn btn-outline-dark mb-3" @click="chooseImage()">Upload Image</button>
+    <template v-if="image">
+      <button class="btn btn-outline-dark mb-3" @click="$emit('update:image', '')"><i class="fas fa-times"></i></button>
+    </template>
   </div>
   <!-- <input type="text" class="form-control" v-model="image" @input="this.$emit('update:image', $event.target.value)">-->
 </div>
@@ -29,7 +32,6 @@ export default {
   },
   methods: {
      chooseImage(){
-
        document.getElementById('fileInput').click();
      },
      uploadImage(e){
@@ -38,7 +40,7 @@ export default {
        const filename = date+"-"+Math.floor(Math.random() * 999999999)+".jpg";
        this.$emit('update:image', filename);
 
-var myapp = this;
+       var myapp = this;
 
          var width = 800;
          var imgUpload = new Image();
