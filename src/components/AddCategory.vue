@@ -1,0 +1,85 @@
+<template>
+
+  <div class="backdrop">
+    <div class="modal-screen">
+<h3 class="float-start">Add Category</h3>
+<button type="button" class="btn-close float-end" aria-label="Close" @click="closeWindow()"></button>
+<div class="clear mt-5"></div>
+
+<label>Title</label>
+<input type="text" class="form-control" v-model="newTitle"><button class="btn btn-primary" @click="addCat()">Add</button>
+
+    </div>
+  </div>
+
+</template>
+
+
+<script>
+
+export default {
+  props: {
+    data: {
+      type: Object,
+      default: {}
+    },
+    config: {
+      type: Object,
+      default: {}
+    },
+    curItem: {
+      type: Object,
+      default: {}
+    },
+    showAddCat: {
+      type: Boolean,
+      default: true
+    }
+  },
+  methods: {
+    addCat(){
+
+      var slug = this.slugify(this.newTitle);
+      console.log(slug);
+
+      // cheack if this slug is unique
+      this.data.categories.forEach((x) => {
+        if(x.slug == slug){
+          slug = slug+"-"+Math.floor(Math.random() * 9999);
+        }
+      })
+
+     let fields = this.config.fields.categories;
+
+      var newItem = {};
+      newItem.id = "categories-"+Math.floor(Math.random() * 999999999);
+      newItem.title = this.newTitle;
+      newItem.slug = slug;
+      newItem.description = "";
+
+      this.$emit('update:data.categories', this.data.categories.push(newItem))
+      this.$emit('update:curItem', newItem)
+      this.$emit('update:showAddCat', false)
+    },
+    closeWindow(){
+      this.$emit('update:showAddCat', false)
+    },
+    slugify(text)
+    {
+      return text.toString().toLowerCase()
+        .replace(/\s+/g, '-')           // Replace spaces with -
+        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+        .replace(/^-+/, '')             // Trim - from start of text
+        .replace(/-+$/, '');            // Trim - from end of text
+    }
+  }
+}
+</script>
+
+<style scoped>
+.modal-screen{
+  width: 500px;
+  left: calc(50% - 250px);
+}
+</style>

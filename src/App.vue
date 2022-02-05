@@ -1,7 +1,8 @@
 <script setup>
-import Editor from './components/Editor.vue'
-import Image from './components/Image.vue'
+import PostList from './components/PostList.vue'
 import SortableList from './components/SortableList.vue'
+import AddCategory from './components/AddCategory.vue'
+import Edit from './components/Edit.vue'
 </script>
 
 
@@ -39,81 +40,27 @@ import SortableList from './components/SortableList.vue'
 
   <template v-if="catItems">
 
-
-
     <ul class="list-group">
 
+      <PostList v-model:catItems="catItems" v-model:curItem="curItem" />
 
-    <template v-for="item in catItems">
+    </ul>
 
-      <li class="list-group-item" @click="setCurItem(item.id)" :class="{'active2': curItem.id == item.id}">
-        <b>{{item.title}}</b><br>
-        <span v-html="shorten(stripTags(item.body), 60)"></span>
-      </li>
-
-    </template>
-
-
-  </ul>
   </template>
 
 </div>
 <div class="col-7 p-4 col3">
 
 
-
-
   <template v-if="curItem">
-      <template v-for="(key, val) in Object.keys(config.fields.posts)">
 
-
-      <template v-if="config.fields.posts[key] == 'text'">
-          <label>{{key}}</label>
-          <input type="text" class="form-control" v-model="curItem[key]">
-      </template>
-
-      <template v-if="config.fields.posts[key] == 'text-disabled'">
-          <label>{{key}}</label>
-          <input type="text" class="form-control" v-model="curItem[key]" disabled>
-      </template>
-
-      <template v-if="config.fields.posts[key] == 'richtext'">
-          <label>{{key}}</label>
-          <Editor v-model="curItem[key]" />
-      </template>
-
-      <template v-if="config.fields.posts[key] == 'textarea'">
-        <label>{{key}}</label>
-        <textarea class="form-control" v-model="curItem[key]"></textarea>
-      </template>
-
-      <template v-if="config.fields.posts[key] == 'image'">
-        <label>{{key}}</label>
-        <Image v-model:image="curItem[key]" :save_url="config.settings.image_save_url" />
-      </template>
-
-      <template v-if="config.fields.posts[key].includes('dropdown')">
-        <label>{{key}}</label>
-
-        <select class="form-select w-25" v-model="curItem[key]" @change="changeCat(curItem[key]);">
-          <template v-for="item in data.categories">
-            <option :value="item.slug">{{item.title}}</option>
-          </template>
-        </select>
-
-      </template>
-
-      <template v-else>
-
-      </template>
-
-    </template>
+    <Edit v-model:data="data" v-model:config="config" v-model:curItem="curItem" v-model:curCat="curCat" v-model:catItems="catItems" />
 
     <button class="btn btn-primary mt-1" @click="save()">
-<template v-if="saving">
-<i class="fas fa-spinner fa-spin"></i> &nbsp;
-</template>
-Save</button>
+    <template v-if="saving">
+    <i class="fas fa-spinner fa-spin"></i> &nbsp;
+    </template>
+    Save</button>
 
 <template v-if="config.settings.preview_url">
 &nbsp;
@@ -156,17 +103,7 @@ Save</button>
 </template>
 
 <template v-if="showAddCat">
-  <div class="backdrop">
-    <div class="modal-screen">
-<h3 class="float-start">Add Category</h3>
-<button type="button" class="btn-close float-end" aria-label="Close" @click="showAddCat = false"></button>
-<div class="clear mt-5"></div>
-
-<label>Title</label>
-<input type="text" class="form-control" v-model="newTitle"><button class="btn btn-primary" @click="addCat()">Add</button>
-
-    </div>
-  </div>
+  <AddCategory v-model:data="data" v-model:config="config" v-model:curItem="curItem" v-model:showAddCat="showAddCat" />
 </template>
 
 </template>
@@ -209,10 +146,9 @@ export default {
         this.catItems = this.data.posts.filter(x => x.category == defaultCat);
         this.curItem = this.data.posts.filter(x => x.category == defaultCat)[0];
 
-
       });
 
-      });
+    });
 
   },
   methods: {
@@ -221,14 +157,7 @@ export default {
       this.catItems = this.data.posts.filter(x => x.category == cat);
       this.curItem = this.data.posts.filter(x => x.category == cat)[0];
     },
-    setCurItem(id){
-      this.curItem = this.data.posts.filter(x => x.id == id)[0];
-    },
-    getTable(key){
-      return key.split('_')[1];
-    },
     addItem(){
-
 
       let fields = this.config.fields.posts;
 
@@ -244,42 +173,10 @@ export default {
         }
       })
       newItem.category = this.curCat;
-        console.log(newItem)
       this.data.posts.unshift(newItem);
       this.catItems = this.data.posts.filter(x => x.category == this.curCat);
       this.curItem = newItem;
 
-    },
-    addCat(){
-
-      var slug = this.slugify(this.newTitle);
-      console.log(slug);
-
-      // cheack if this slug is unique
-      this.data.categories.forEach((x) => {
-        if(x.slug == slug){
-          slug = slug+"-"+Math.floor(Math.random() * 9999);
-        }
-      })
-
-
-     let fields = this.config.fields.categories;
-
-      var newItem = {};
-      newItem.id = "categories-"+Math.floor(Math.random() * 999999999);
-      newItem.title = this.newTitle;
-      newItem.slug = slug;
-      newItem.description = "";
-
-      this.data.categories.push(newItem);
-      this.curItem = newItem;
-
-      this.showAddCat = false;
-    },
-    changeCat(cat){
-      console.log(cat);
-      this.curCat = cat;
-      this.catItems = this.data.posts.filter(x => x.category == cat);
     },
     save(){
       console.log(this.data);
@@ -294,32 +191,6 @@ export default {
         setTimeout(() => {
           this.saving = false;
         }, 2000)
-    },
-    shorten(text, max) {
-      if(text){
-      return text && text.length > max ? text.slice(0,max).split(' ').slice(0, -1).join(' ') : text
-      }else{
-        return "&nbsp;";
-      }
-    },
-    stripTags(text) {
-
-      if(text){
-      let regex = /(<([^>]+)>)/ig;
-      return text.replace(regex, "");
-      }else{
-        return "&nbsp;";
-      }
-
-    },
-    slugify(text)
-    {
-      return text.toString().toLowerCase()
-        .replace(/\s+/g, '-')           // Replace spaces with -
-        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
-        .replace(/^-+/, '')             // Trim - from start of text
-        .replace(/-+$/, '');            // Trim - from end of text
     }
   }
 }
