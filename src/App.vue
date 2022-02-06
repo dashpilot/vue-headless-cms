@@ -2,9 +2,6 @@
 <div class="row g-0">
 <div class="col-2 col1">
 
-  <!-- <img src="img/rocketlogo.png" class="img-fluid rocket" /> -->
-
-
 <div class="settings">
   <template v-if="curCat && config.settings.allow_add_category">
     <div class="btn-group">
@@ -34,8 +31,6 @@
 
 </div>
 <div class="col-7 p-4 col3">
-
-
 
 
   <template v-if="curItem">
@@ -97,53 +92,20 @@ Save</button>
 
   </template>
 
-
-
 </div>
 </div>
 
 <template v-if="showCatSettings">
-  <div class="backdrop">
-    <div class="modal-screen">
-
-      <h4 class="float-start">Manage Categories</h4>
-      <button type="button" class="btn-close float-end" aria-label="Close" @click="showCatSettings = false"></button>
-      <div class="clear mt-5"></div>
-
-      <SortableList v-model:items="data.categories" />
-
-    </div>
-  </div>
+  <SortableList v-model:items="data.categories" v-model:show="showCatSettings" title="Categories" />
 </template>
 
 <template v-if="showPostSettings">
-  <div class="backdrop">
-    <div class="modal-screen">
-
-      <h4 class="float-start">Manage Posts</h4>
-      <button type="button" class="btn-close float-end" aria-label="Close" @click="showPostSettings = false"></button>
-      <div class="clear mt-5"></div>
-
-      <SortableList v-model:items="catItems" />
-
-    </div>
-  </div>
+  <SortableList v-model:items="catItems" v-model:show="showPostSettings" title="Posts" />
 </template>
 
 <div v-show="showAddCat">
-  <div class="backdrop">
-    <div class="modal-screen">
-<h3 class="float-start">Add Category</h3>
-<button type="button" class="btn-close float-end" aria-label="Close" @click="showAddCat = false"></button>
-<div class="clear mt-5"></div>
-
-<label>Title</label>
-<input type="text" class="form-control" v-model="newTitle"><button class="btn btn-primary" @click="addCat()">Add</button>
-
-    </div>
-  </div>
+  <AddCategory v-model:data="data" v-model:config="config" v-model:curpost="curItem" v-model:show="showAddCat" />
 </div>
-
 
 </template>
 
@@ -152,6 +114,7 @@ import Editor from './components/Editor.vue'
 import Image from './components/Image.vue'
 import SortableList from './components/SortableList.vue'
 import PostList from './components/PostList.vue'
+import AddCategory from './components/AddCategory.vue'
 
 export default {
   components: {
@@ -159,6 +122,7 @@ export default {
     Image,
     SortableList,
     PostList,
+    AddCategory,
   },
   data() {
     return {
@@ -169,7 +133,6 @@ export default {
       showAddCat: false,
       showPostSettings: false,
       showCatSettings: false,
-      newTitle: '',
       drag: false,
       data: {},
       config: {}
@@ -231,33 +194,6 @@ export default {
       this.curItem = newItem;
 
     },
-    addCat(){
-
-      var newTitle = document.querySelector('#newTitle');
-      var slug = this.slugify(this.newTitle);
-      console.log(slug);
-
-      // cheack if this slug is unique
-      this.data.categories.forEach((x) => {
-        if(x.slug == slug){
-          slug = slug+"-"+Math.floor(Math.random() * 9999);
-        }
-      })
-
-
-     let fields = this.config.fields.categories;
-
-      var newItem = {};
-      newItem.id = "categories-"+Math.floor(Math.random() * 999999999);
-      newItem.title = this.newTitle;
-      newItem.slug = slug;
-      newItem.description = "";
-
-      this.data.categories.push(newItem);
-      this.curItem = newItem;
-
-      this.showAddCat = false;
-    },
     changeCat(cat){
       console.log(cat);
       this.curCat = cat;
@@ -276,15 +212,6 @@ export default {
         setTimeout(() => {
           this.saving = false;
         }, 2000)
-    },
-    slugify(text)
-    {
-      return text.toString().toLowerCase()
-        .replace(/\s+/g, '-')           // Replace spaces with -
-        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
-        .replace(/^-+/, '')             // Trim - from start of text
-        .replace(/-+$/, '');            // Trim - from end of text
     }
   }
 }

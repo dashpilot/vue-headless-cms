@@ -1,4 +1,12 @@
 <template>
+
+  <div class="backdrop">
+    <div class="modal-screen">
+
+      <h4 class="float-start">Manage {{title}}</h4>
+      <button type="button" class="btn-close float-end" aria-label="Close" @click="closeWindow()"></button>
+      <div class="clear mt-5"></div>
+
   <div id="sortable">
 <ul class="list-group">
   <template v-for="(item, i) in items">
@@ -23,6 +31,10 @@
   </template>
 </ul>
 </div>
+
+</div>
+</div>
+
 </template>
 
 <script>
@@ -30,12 +42,7 @@
     created: function () {
       // this.enableSortable()
     },
-    props: {
-      items: {
-        type: Array,
-        default: [],
-      }
-    },
+    props: ['items', 'show', 'title'],
     data() {
       return {
         sorting: false
@@ -79,6 +86,9 @@
         }
         arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
         return arr;
+      },
+      closeWindow(){
+        this.$emit('update:show', false);
       }
     }
   }

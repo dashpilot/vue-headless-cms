@@ -1,40 +1,33 @@
 <template>
-<div v-show="show">
-  <div class="backdrop">
-    <div class="modal-screen">
-<h3 class="float-start">Add Category</h3>
-<button type="button" class="btn-close float-end" aria-label="Close" @click="closeWindow()"></button>
-<div class="clear mt-5"></div>
 
-<label>Title</label>
-<input type="text" class="form-control" v-model="newTitle"><button class="btn btn-primary" @click="addCat()">Add</button>
 
+    <div class="backdrop">
+      <div class="modal-screen">
+  <h3 class="float-start">Add Category</h3>
+  <button type="button" class="btn-close float-end" aria-label="Close" @click="closeWindow()"></button>
+  <div class="clear mt-5"></div>
+
+  <label>Title</label>
+  <input type="text" class="form-control" v-model="newTitle"><button class="btn btn-primary" @click="addCat()">Add</button>
+
+
+      </div>
     </div>
-  </div>
-</div>
+
+
+
 </template>
 
 
 <script>
 
 export default {
-  props: {
-    data: {
-      type: Object,
-      default: {}
-    },
-    config: {
-      type: Object,
-      default: {}
-    },
-    curItem: {
-      type: Object,
-      default: {}
-    },
-    show: {
-      type: Boolean
+  data() {
+    return {
+      newTitle: '',
     }
   },
+  props: ['data', 'config', 'curpost'],
   methods: {
     addCat(){
 
@@ -56,13 +49,14 @@ export default {
       newItem.slug = slug;
       newItem.description = "";
 
-      this.$emit('update:data.categories', this.data.categories.push(newItem))
-      this.$emit('update:curItem', newItem)
+      this.data.categories.push(newItem);
+
+      this.$emit('update:data', this.data)
+      this.$emit('update:curpost', newItem)
       this.$emit('update:show', false)
 
     },
     closeWindow(){
-
       this.$emit('update:show', false);
     },
     slugify(text)
