@@ -1,16 +1,18 @@
 <template>
+<div class="btn-group mt-1 w-100">
+  <button class="btn btn-outline-secondary" @click="editor.chain().focus().toggleBold().run()">Bold</button>
+  <button class="btn btn-outline-secondary" @click="editor.chain().focus().toggleItalic().run()">Italic</button>
+  <button class="btn btn btn-outline-secondary w-75" disabled></button>
+</div>
 
-  <div class="btn-group mt-1 w-100">
-    <button class="btn btn-outline-secondary" @click="editor.chain().focus().toggleBold().run()">Bold</button>
-    <button class="btn btn-outline-secondary" @click="editor.chain().focus().toggleItalic().run()">Italic</button>
-    <button class="btn btn btn-outline-secondary w-75" disabled></button>
-  </div>
-
-  <editor-content :editor="editor" class="mb-3" />
+<editor-content :editor="editor" class="mb-3" />
 </template>
 
 <script>
-import { Editor, EditorContent } from '@tiptap/vue-3'
+import {
+  Editor,
+  EditorContent
+} from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 
 export default {

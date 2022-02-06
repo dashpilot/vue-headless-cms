@@ -1,21 +1,20 @@
 <template>
-  <div>
+<div>
 
-    <input type="file" id="fileInput" accept="image/*" @change="uploadImage" style="display: none;">
+  <input type="file" id="fileInput" accept="image/*" @change="uploadImage" style="display: none;">
 
-
-<div class="input-group mb-2">
-  <div class="btn-group">
-    <button class="btn btn-outline-dark mb-3" @click="chooseImage()">Upload Image</button>
-    <template v-if="image">
-      <button class="btn btn-outline-dark mb-3" @click="$emit('update:image', '')"><i class="fas fa-times"></i></button>
-    </template>
+  <div class="input-group mb-2">
+    <div class="btn-group">
+      <button class="btn btn-outline-dark mb-3" @click="chooseImage()">Upload Image</button>
+      <template v-if="image">
+        <button class="btn btn-outline-dark mb-3" @click="$emit('update:image', '')"><i class="fas fa-times"></i></button>
+      </template>
+    </div>
+    <!-- <input type="text" class="form-control" v-model="image" @input="this.$emit('update:image', $event.target.value)">-->
   </div>
-  <!-- <input type="text" class="form-control" v-model="image" @input="this.$emit('update:image', $event.target.value)">-->
+
+  <!-- <img id="preview"> -->
 </div>
-
-<!-- <img id="preview"> -->
-  </div>
 </template>
 
 <script>
@@ -31,60 +30,63 @@ export default {
     }
   },
   methods: {
-     chooseImage(){
-       document.getElementById('fileInput').click();
-     },
-     uploadImage(e){
+    chooseImage() {
+      document.getElementById('fileInput').click();
+    },
+    uploadImage(e) {
 
-       const date = new Date().toJSON().slice(0, 10).replaceAll('-', '');
-       const filename = date+"-"+Math.floor(Math.random() * 999999999)+".jpg";
-       this.$emit('update:image', filename);
+      const date = new Date().toJSON().slice(0, 10).replaceAll('-', '');
+      const filename = date + "-" + Math.floor(Math.random() * 999999999) + ".jpg";
+      this.$emit('update:image', filename);
 
-       var myapp = this;
+      var myapp = this;
 
-         var width = 800;
-         var imgUpload = new Image();
-         imgUpload.onload = function() {
-           var canvas = document.createElement('canvas'),
-             ctx = canvas.getContext("2d"),
-             oc = document.createElement('canvas'),
-             octx = oc.getContext('2d');
-           canvas.width = width; // destination canvas size
-           canvas.height = canvas.width * imgUpload.height / imgUpload.width;
-           var cur = {
-             width: Math.floor(imgUpload.width * 0.5),
-             height: Math.floor(imgUpload.height * 0.5)
-           }
-           oc.width = cur.width;
-           oc.height = cur.height;
-           octx.drawImage(imgUpload, 0, 0, cur.width, cur.height);
-           while (cur.width * 0.5 > width) {
-             cur = {
-               width: Math.floor(cur.width * 0.5),
-               height: Math.floor(cur.height * 0.5)
-             };
-             octx.drawImage(oc, 0, 0, cur.width * 2, cur.height * 2, 0, 0, cur.width, cur.height);
-           }
-           ctx.drawImage(oc, 0, 0, cur.width, cur.height, 0, 0, canvas.width, canvas.height);
-           var base64Image = canvas.toDataURL('image/jpeg')
+      var width = 800;
+      var imgUpload = new Image();
+      imgUpload.onload = function() {
+        var canvas = document.createElement('canvas'),
+          ctx = canvas.getContext("2d"),
+          oc = document.createElement('canvas'),
+          octx = oc.getContext('2d');
+        canvas.width = width; // destination canvas size
+        canvas.height = canvas.width * imgUpload.height / imgUpload.width;
+        var cur = {
+          width: Math.floor(imgUpload.width * 0.5),
+          height: Math.floor(imgUpload.height * 0.5)
+        }
+        oc.width = cur.width;
+        oc.height = cur.height;
+        octx.drawImage(imgUpload, 0, 0, cur.width, cur.height);
+        while (cur.width * 0.5 > width) {
+          cur = {
+            width: Math.floor(cur.width * 0.5),
+            height: Math.floor(cur.height * 0.5)
+          };
+          octx.drawImage(oc, 0, 0, cur.width * 2, cur.height * 2, 0, 0, cur.width, cur.height);
+        }
+        ctx.drawImage(oc, 0, 0, cur.width, cur.height, 0, 0, canvas.width, canvas.height);
+        var base64Image = canvas.toDataURL('image/jpeg')
 
-           console.log(base64Image);
-
-
-           // document.getElementById('preview').src=base64Image;
-
-           // document.getElementById('image').src = base64Image;
+        console.log(base64Image);
 
 
-           postData(myapp.save_url, {"filename": filename, "file": base64Image})
-             .then(data => {
-               console.log(data); // JSON data parsed by `data.json()` call
+        // document.getElementById('preview').src=base64Image;
 
-             });
+        // document.getElementById('image').src = base64Image;
 
 
-         }
-         imgUpload.src = URL.createObjectURL(e.target.files[0]);
+        postData(myapp.save_url, {
+            "filename": filename,
+            "file": base64Image
+          })
+          .then(data => {
+            console.log(data); // JSON data parsed by `data.json()` call
+
+          });
+
+
+      }
+      imgUpload.src = URL.createObjectURL(e.target.files[0]);
 
     }
   }

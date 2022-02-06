@@ -1,87 +1,85 @@
 <template>
 <div class="row g-0">
-<div class="col-2 col1">
+  <div class="col-2 col1">
 
-<div class="settings">
-  <template v-if="curCat && config.settings.allow_add_category">
-    <div class="btn-group">
-    <button @click="showAddCat = true" class="btn btn-outline-light"><i class="fa fa-plus"></i></button>
-    <button @click="showCatSettings = true" class="btn btn-outline-light"><i class="fa fa-cog"></i></button>
-  </div>
-  </template>
-</div>
+    <div class="settings">
+      <template v-if="curCat && config.settings.allow_add_category">
+        <div class="btn-group">
+          <button @click="showAddCat = true" class="btn btn-outline-light"><i class="fa fa-plus"></i></button>
+          <button @click="showCatSettings = true" class="btn btn-outline-light"><i class="fa fa-cog"></i></button>
+        </div>
+      </template>
+    </div>
 
-  <template v-for="cat in data.categories">
+    <template v-for="cat in data.categories">
       <a @click="setCurCat(cat.slug)" :class="{ 'active': curCat == cat.slug }">{{cat.title}}</a>
-  </template>
-
-</div>
-<div class="col-3 col2">
-
-  <div class="filter">
-
-<div class="btn-group">
-    <a @click="addItem()" class="btn btn-outline-dark"><i class="fa fa-plus"></i></a>
-    <a @click="showPostSettings = true" class="btn btn-outline-dark"><i class="fa fa-cog"></i></a>
-</div>
-
-  </div>
-
-  <PostList v-model:posts="catItems" v-model:curpost="curItem" />
-
-</div>
-<div class="col-7 p-4 col3">
-
-
-  <template v-if="curItem">
-      <template v-for="(key, val) in Object.keys(config.fields.posts)">
-
-
-      <template v-if="config.fields.posts[key] == 'text'">
-          <label>{{key}}</label>
-          <input type="text" class="form-control" v-model="curItem[key]">
-      </template>
-
-      <template v-if="config.fields.posts[key] == 'text-disabled'">
-          <label>{{key}}</label>
-          <input type="text" class="form-control" v-model="curItem[key]" disabled>
-      </template>
-
-      <template v-if="config.fields.posts[key] == 'richtext'">
-          <label>{{key}}</label>
-          <Editor v-model="curItem[key]" />
-      </template>
-
-      <template v-if="config.fields.posts[key] == 'textarea'">
-        <label>{{key}}</label>
-        <textarea class="form-control" v-model="curItem[key]"></textarea>
-      </template>
-
-      <template v-if="config.fields.posts[key] == 'image'">
-        <label>{{key}}</label>
-        <Image v-model:image="curItem[key]" :save_url="config.settings.image_save_url" />
-      </template>
-
-      <template v-if="config.fields.posts[key].includes('dropdown')">
-        <label>{{key}}</label>
-
-        <select class="form-select w-25" v-model="curItem[key]" @change="changeCat(curItem[key]);">
-          <template v-for="item in data.categories">
-            <option :value="item.slug">{{item.title}}</option>
-          </template>
-        </select>
-
-      </template>
-
-      <template v-else>
-
-      </template>
-
     </template>
 
-    <button class="btn btn-primary mt-1" @click="save()">
-<template v-if="saving">
-<i class="fas fa-spinner fa-spin"></i> &nbsp;
+  </div>
+  <div class="col-3 col2">
+
+    <div class="filter">
+
+      <div class="btn-group">
+        <a @click="addItem()" class="btn btn-outline-dark"><i class="fa fa-plus"></i></a>
+        <a @click="showPostSettings = true" class="btn btn-outline-dark"><i class="fa fa-cog"></i></a>
+      </div>
+
+    </div>
+
+    <PostList v-model:posts="catItems" v-model:curpost="curItem" />
+
+  </div>
+  <div class="col-7 p-4 col3">
+
+    <template v-if="curItem">
+      <template v-for="(key, val) in Object.keys(config.fields.posts)">
+
+        <template v-if="config.fields.posts[key] == 'text'">
+          <label>{{key}}</label>
+          <input type="text" class="form-control" v-model="curItem[key]">
+        </template>
+
+        <template v-if="config.fields.posts[key] == 'text-disabled'">
+          <label>{{key}}</label>
+          <input type="text" class="form-control" v-model="curItem[key]" disabled>
+        </template>
+
+        <template v-if="config.fields.posts[key] == 'richtext'">
+          <label>{{key}}</label>
+          <Editor v-model="curItem[key]" />
+        </template>
+
+        <template v-if="config.fields.posts[key] == 'textarea'">
+          <label>{{key}}</label>
+          <textarea class="form-control" v-model="curItem[key]"></textarea>
+        </template>
+
+        <template v-if="config.fields.posts[key] == 'image'">
+          <label>{{key}}</label>
+          <Image v-model:image="curItem[key]" :save_url="config.settings.image_save_url" />
+        </template>
+
+        <template v-if="config.fields.posts[key].includes('dropdown')">
+          <label>{{key}}</label>
+
+          <select class="form-select w-25" v-model="curItem[key]" @change="changeCat(curItem[key]);">
+            <template v-for="item in data.categories">
+              <option :value="item.slug">{{item.title}}</option>
+            </template>
+          </select>
+
+        </template>
+
+        <template v-else>
+
+        </template>
+
+      </template>
+
+      <button class="btn btn-primary mt-1" @click="save()">
+        <template v-if="saving">
+          <i class="fas fa-spinner fa-spin"></i> &nbsp;
 </template>
 Save</button>
 
@@ -96,11 +94,11 @@ Save</button>
 </div>
 
 <template v-if="showCatSettings">
-  <SortableList v-model:items="data.categories" v-model:show="showCatSettings" title="Categories" />
+<SortableList v-model:items="data.categories" v-model:show="showCatSettings" title="Categories" />
 </template>
 
 <template v-if="showPostSettings">
-  <SortableList v-model:items="catItems" v-model:show="showPostSettings" title="Posts" />
+<SortableList v-model:items="catItems" v-model:show="showPostSettings" title="Posts" />
 </template>
 
 <div v-show="showAddCat">
@@ -138,68 +136,69 @@ export default {
       config: {}
     }
   },
-  created: function () {
+  created: function() {
 
     fetch("/config.json")
       .then(r => r.json())
       .then(config => {
 
-      this.config = config;
+        this.config = config;
 
-    fetch(config.settings.data_url, {cache: "no-store"})
-      .then(r => r.json())
-      .then(data => {
-        this.data=data;
-        console.log(data);
+        fetch(config.settings.data_url, {
+            cache: "no-store"
+          })
+          .then(r => r.json())
+          .then(data => {
+            this.data = data;
+            console.log(data);
 
-        // select the first elements
-        var defaultCat = data.categories[0].slug;
-        this.curCat = defaultCat;
-        this.catItems = this.data.posts.filter(x => x.category == defaultCat);
-        this.curItem = this.data.posts.filter(x => x.category == defaultCat)[0];
-      });
+            // select the first elements
+            var defaultCat = data.categories[0].slug;
+            this.curCat = defaultCat;
+            this.catItems = this.data.posts.filter(x => x.category == defaultCat);
+            this.curItem = this.data.posts.filter(x => x.category == defaultCat)[0];
+          });
 
       });
 
   },
   methods: {
-    setCurCat(cat){
+    setCurCat(cat) {
       this.curCat = cat;
       this.catItems = this.data.posts.filter(x => x.category == cat);
       this.curItem = this.data.posts.filter(x => x.category == cat)[0];
     },
-    setCurItem(id){
+    setCurItem(id) {
       this.curItem = this.data.posts.filter(x => x.id == id)[0];
     },
-    addItem(){
-
+    addItem() {
 
       let fields = this.config.fields.posts;
 
       var newItem = {};
-      newItem.id = "posts-"+Math.floor(Math.random() * 999999999);
+      newItem.id = "posts-" + Math.floor(Math.random() * 999999999);
       Object.keys(fields).forEach((x) => {
-        if(x=='title'){
+        if (x == 'title') {
           newItem[x] = "Untitled";
-        }else if(x=='body'){
+        } else if (x == 'body') {
           newItem[x] = "Lorem ipsum dolor site amet";
-        }else{
+        } else {
           newItem[x] = "";
         }
       })
       newItem.category = this.curCat;
-        console.log(newItem)
+      console.log(newItem)
       this.data.posts.unshift(newItem);
       this.catItems = this.data.posts.filter(x => x.category == this.curCat);
       this.curItem = newItem;
 
     },
-    changeCat(cat){
+    changeCat(cat) {
       console.log(cat);
       this.curCat = cat;
       this.catItems = this.data.posts.filter(x => x.category == cat);
     },
-    save(){
+    save() {
       console.log(this.data);
       this.saving = true;
 
@@ -209,9 +208,9 @@ export default {
           console.log(data); // JSON data parsed by `data.json()` call
         });
 
-        setTimeout(() => {
-          this.saving = false;
-        }, 2000)
+      setTimeout(() => {
+        this.saving = false;
+      }, 2000)
     }
   }
 }
@@ -231,16 +230,15 @@ async function postData(url = '', data = {}) {
   });
   return response.json(); // parses JSON response into native JavaScript objects
 }
-
 </script>
 
-
 <style>
-html, body{
+html,
+body {
   height: 100%;
 }
 
-body{
+body {
   background-color: #F8F8F8;
 }
 
@@ -252,16 +250,16 @@ body{
   height: 100%;
 }
 
-.row{
+.row {
   height: 100%;
 }
 
-.col1{
+.col1 {
   height: 100%;
   background-color: #333;
 }
 
-.col1 a{
+.col1 a {
   color: white !important;
   display: block;
   padding: 13px 20px;
@@ -271,22 +269,23 @@ body{
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.col1 a:hover{
+
+.col1 a:hover {
   background-color: #656BF7;
   user-select: none;
   cursor: pointer;
 }
 
-.active{
+.active {
   background-color: #656BF7;
 }
 
-.col2{
+.col2 {
   background-color: white;
   border-right: 1px solid #DDD;
 }
 
-.col2 .list-group-item{
+.col2 .list-group-item {
   padding: 20px;
   border-radius: 0;
   border-left: 0;
@@ -298,28 +297,29 @@ body{
   border-left: 5px solid transparent;
 }
 
-.col2 .list-group-item:hover{
+.col2 .list-group-item:hover {
   background-color: #F8F8F8;
   user-select: none;
   cursor: pointer;
 }
 
-.col2 .active2{
+.col2 .active2 {
   background-color: #F8F8F8;
   width: 100.5%;
   border-left: 5px solid #656BF7;
 }
 
-.col2{
+.col2 {
   overflow-x: hidden;
   overflow-y: auto;
 }
 
-.form-control, .form-select{
+.form-control,
+.form-select {
   margin-bottom: 15px;
 }
 
-label{
+label {
   text-transform: uppercase;
   font-size: 15px;
   line-height: 15px;
@@ -327,13 +327,13 @@ label{
   margin-bottom: 5px;
 }
 
-.rocket{
+.rocket {
   width: 100px;
   margin-bottom: 10px;
   padding: 20px;
 }
 
-.btn-primary{
+.btn-primary {
   border: 2px solid #666BEF;
   background-color: #666BEF;
   color: white;
@@ -343,26 +343,26 @@ label{
   transition: 0.3s;
 }
 
-.btn-primary:hover{
+.btn-primary:hover {
   border: 2px solid #8287f9;
   background-color: #8287f9;
   color: white;
 }
 
-.btn-preview{
+.btn-preview {
   padding: 8px 15px;
 }
 
-textarea{
+textarea {
   height: 100px;
   resize: none;
 }
 
-.rte{
+.rte {
   height: 200px;
 }
 
-.ProseMirror{
+.ProseMirror {
   min-height: 190px !important;
   border: 1px solid #DDD;
   padding: 15px;
@@ -373,35 +373,35 @@ textarea{
   border-top-right-radius: 0;
 }
 
-.btn-outline-secondary{
+.btn-outline-secondary {
   border: 1px solid #DDD;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   border-bottom: 0;
 }
 
-.btn-outline-secondary:hover{
+.btn-outline-secondary:hover {
   background-color: #EEEEEE;
   border: 1px solid #DDD;
   border-bottom: 0;
   color: black;
 }
 
-.btn-outline-dark{
+.btn-outline-dark {
   border: 1px solid #DDD;
 }
 
-.btn-outline-dark:hover{
+.btn-outline-dark:hover {
   border: 1px solid #DDD;
   background-color: #EEEEEE;
   color: black;
 }
 
-.settings{
+.settings {
   padding: 11px 15px 15px 18px;
 }
 
-.filter{
+.filter {
   padding: 10px 20px;
   border-bottom: 6px solid #333;
   background-color: white;
@@ -411,12 +411,12 @@ textarea{
   border-right: 1px solid #DDD;
 }
 
-.col1{
+.col1 {
   position: fixed;
   left: 0;
 }
 
-.col2{
+.col2 {
   position: fixed;
   left: 16.67%;
   height: 100%;
@@ -424,11 +424,11 @@ textarea{
   overflow-y: auto;
 }
 
-.col2 .list-group:nth-child(2) .list-group-item{
+.col2 .list-group:nth-child(2) .list-group-item {
   top: 63px;
 }
 
-.col3{
+.col3 {
   position: fixed;
   right: 0;
   height: 100%;
@@ -436,16 +436,16 @@ textarea{
   overflow-y: auto;
 }
 
-.backdrop{
+.backdrop {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal-screen{
+.modal-screen {
   position: fixed;
   top: 15%;
   left: calc(50% - 300px);
@@ -457,11 +457,11 @@ textarea{
   max-height: 70%;
 }
 
-.clear{
+.clear {
   clear: both;
 }
 
-.add-cat{
+.add-cat {
   margin: 11px 20px 15px 20px;
 }
 </style>

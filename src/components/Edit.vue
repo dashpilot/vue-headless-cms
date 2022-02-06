@@ -2,24 +2,23 @@
 import Editor from './Editor.vue'
 import Image from './Image.vue'
 </script>
-
+ 
 <template>
-
-  <template v-for="(key, val) in Object.keys(config.fields.posts)">
+<template v-for="(key, val) in Object.keys(config.fields.posts)">
 
   <template v-if="config.fields.posts[key] == 'text'">
-      <label>{{key}}</label>
-      <input type="text" class="form-control" v-model="curItem[key]">
+    <label>{{key}}</label>
+    <input type="text" class="form-control" v-model="curItem[key]">
   </template>
 
   <template v-if="config.fields.posts[key] == 'text-disabled'">
-      <label>{{key}}</label>
-      <input type="text" class="form-control" v-model="curItem[key]" disabled>
+    <label>{{key}}</label>
+    <input type="text" class="form-control" v-model="curItem[key]" disabled>
   </template>
 
   <template v-if="config.fields.posts[key] == 'richtext'">
-      <label>{{key}}</label>
-      <Editor v-model="curItem[key]" />
+    <label>{{key}}</label>
+    <Editor v-model="curItem[key]" />
   </template>
 
   <template v-if="config.fields.posts[key] == 'textarea'">
@@ -40,14 +39,10 @@ import Image from './Image.vue'
       </template>
     </select>
   </template>
-
-
-  </template>
-
+</template>
 </template>
 
 <script>
-
 export default {
   props: {
     data: {
@@ -72,7 +67,7 @@ export default {
     }
   },
   methods: {
-    changeCat(cat){
+    changeCat(cat) {
       this.$emit('update:curCat', cat);
       this.$emit('update:catItems', this.data.posts.filter(x => x.category == cat));
     }

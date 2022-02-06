@@ -1,26 +1,16 @@
 <template>
-
-
-    <div class="backdrop">
-      <div class="modal-screen">
-  <h3 class="float-start">Add Category</h3>
-  <button type="button" class="btn-close float-end" aria-label="Close" @click="closeWindow()"></button>
-  <div class="clear mt-5"></div>
-
-  <label>Title</label>
-  <input type="text" class="form-control" v-model="newTitle"><button class="btn btn-primary" @click="addCat()">Add</button>
-
-
-      </div>
-    </div>
-
-
-
+<div class="backdrop">
+  <div class="modal-screen">
+    <h3 class="float-start">Add Category</h3>
+    <button type="button" class="btn-close float-end" aria-label="Close" @click="closeWindow()"></button>
+    <div class="clear mt-5"></div>
+    <label>Title</label>
+    <input type="text" class="form-control" v-model="newTitle"><button class="btn btn-primary" @click="addCat()">Add</button>
+  </div>
+</div>
 </template>
 
-
 <script>
-
 export default {
   data() {
     return {
@@ -29,7 +19,7 @@ export default {
   },
   props: ['data', 'config', 'curpost'],
   methods: {
-    addCat(){
+    addCat() {
 
 
       var slug = this.slugify(this.newTitle);
@@ -38,50 +28,49 @@ export default {
 
       // cheack if this slug is unique
       this.data.categories.forEach((x) => {
-        if(x.slug == slug){
-          slug = slug+"-"+Math.floor(Math.random() * 9999);
+        if (x.slug == slug) {
+          slug = slug + "-" + Math.floor(Math.random() * 9999);
         }
       })
 
-      if(slug.length < 3){
+      if (slug.length < 3) {
         alert('Title should be at least three characters long (excluding special characters)')
-      }else{
+      } else {
 
-     let fields = this.config.fields.categories;
+        let fields = this.config.fields.categories;
 
-      var newItem = {};
-      newItem.id = "categories-"+Math.floor(Math.random() * 999999999);
-      newItem.title = this.newTitle;
-      newItem.slug = slug;
-      newItem.description = "";
+        var newItem = {};
+        newItem.id = "categories-" + Math.floor(Math.random() * 999999999);
+        newItem.title = this.newTitle;
+        newItem.slug = slug;
+        newItem.description = "";
 
-      this.data.categories.push(newItem);
+        this.data.categories.push(newItem);
 
-      this.$emit('update:data', this.data)
-      this.$emit('update:curpost', newItem)
-      this.$emit('update:show', false)
+        this.$emit('update:data', this.data)
+        this.$emit('update:curpost', newItem)
+        this.$emit('update:show', false)
 
-    }
+      }
 
     },
-    closeWindow(){
+    closeWindow() {
       this.$emit('update:show', false);
     },
-    slugify(text)
-    {
+    slugify(text) {
       return text.toString().toLowerCase()
-        .replace(/\s+/g, '-')           // Replace spaces with -
-        .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
-        .replace(/\-\-+/g, '-')         // Replace multiple - with single -
-        .replace(/^-+/, '')             // Trim - from start of text
-        .replace(/-+$/, '');            // Trim - from end of text
+        .replace(/\s+/g, '-') // Replace spaces with -
+        .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+        .replace(/\-\-+/g, '-') // Replace multiple - with single -
+        .replace(/^-+/, '') // Trim - from start of text
+        .replace(/-+$/, ''); // Trim - from end of text
     }
   }
 }
 </script>
 
 <style scoped>
-.modal-screen{
+.modal-screen {
   width: 500px;
   left: calc(50% - 250px);
 }
