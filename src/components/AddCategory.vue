@@ -31,8 +31,10 @@ export default {
   methods: {
     addCat(){
 
+
       var slug = this.slugify(this.newTitle);
-      console.log(slug);
+
+
 
       // cheack if this slug is unique
       this.data.categories.forEach((x) => {
@@ -40,6 +42,10 @@ export default {
           slug = slug+"-"+Math.floor(Math.random() * 9999);
         }
       })
+
+      if(slug.length < 3){
+        alert('Title should be at least three characters long (excluding special characters)')
+      }else{
 
      let fields = this.config.fields.categories;
 
@@ -54,6 +60,8 @@ export default {
       this.$emit('update:data', this.data)
       this.$emit('update:curpost', newItem)
       this.$emit('update:show', false)
+
+    }
 
     },
     closeWindow(){
