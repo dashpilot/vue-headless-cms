@@ -483,6 +483,7 @@ textarea {
   text-align: right;
   position: fixed;
   width: 59%;
+  z-index: 9999999;
 }
 
 .post-editor {
