@@ -75,16 +75,19 @@ export default {
       }, 200);
 
 
-      /*
-            if (this.title == 'Posts') {
-              setTimeout(() => {
-                let newIndex = i - 1;
-                if (i > 0) {
-                  this.array_move(this.data.posts, i, newIndex)
-                }
-              }, 200);
-            }
-            */
+
+      if (this.title == 'Posts') {
+        const index = this.data.posts.findIndex(object => {
+          return object.id === id;
+        });
+        setTimeout(() => {
+          let newIndex = index - 1;
+          if (index > 0) {
+            this.array_move(this.data.posts, index, newIndex)
+          }
+        }, 200);
+      }
+
 
     },
     moveDown(id, i) {
@@ -97,16 +100,18 @@ export default {
         }
       }, 200);
 
-      /*
-            if (this.title == 'Posts') {
-              setTimeout(() => {
-                let newIndex = i + 1;
-                if (this.data.posts.length - 1 !== i) {
-                  this.array_move(this.data.posts, i, newIndex)
-                }
-              }, 200);
-            }
-            */
+
+      if (this.title == 'Posts') {
+        const index = this.data.posts.findIndex(object => {
+          return object.id === id;
+        });
+        setTimeout(() => {
+          let newIndex = index + 1;
+          if (this.data.posts.length - 1 !== index) {
+            this.array_move(this.data.posts, index, newIndex)
+          }
+        }, 200);
+      }
 
     },
     array_move(arr, old_index, new_index) {
