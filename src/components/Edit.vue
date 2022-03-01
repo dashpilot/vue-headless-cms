@@ -2,7 +2,7 @@
 import Editor from './Editor.vue'
 import Image from './Image.vue'
 </script>
- 
+
 <template>
 <template v-for="(key, val) in Object.keys(config.fields.posts)">
 

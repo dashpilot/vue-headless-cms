@@ -3,12 +3,16 @@
   <div class="col-2 col1">
 
     <div class="settings">
-      <template v-if="curCat && config.settings.allow_add_category">
-        <div class="btn-group">
+
+      <div class="btn-group">
+        <template v-if="curCat && config.settings.allow_add_category">
           <button @click="showAddCat = true" class="btn btn-outline-light"><i class="fa fa-plus"></i></button>
+        </template>
+        <template v-if="curCat && config.settings.allow_delete_category">
           <button @click="showCatSettings = true" class="btn btn-outline-light"><i class="fa fa-cog"></i></button>
-        </div>
-      </template>
+        </template>
+      </div>
+
     </div>
 
     <template v-for="cat in data.categories">

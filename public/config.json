@@ -4,7 +4,8 @@
     "save_url": "/api/save/",
     "image_save_url": "/api/save-image/",
     "preview_url": "https:\/\/examplepage.net",
-    "allow_add_category": true
+    "allow_add_category": true,
+    "allow_delete_category": true
   },
   "fields": {
     "posts": {
