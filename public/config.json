@@ -7,11 +7,6 @@
     "allow_add_category": true
   },
   "fields": {
-    "pages": {
-      "title": "text",
-      "description": "textarea",
-      "slug": "text-disabled"
-    },
     "posts": {
       "title": "text",
       "body": "richtext",

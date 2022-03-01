@@ -93,12 +93,13 @@ Save</button>
 </div>
 </div>
 
+
 <template v-if="showCatSettings">
-<SortableList v-model:items="data.categories" v-model:show="showCatSettings" title="Categories" />
+<SortableList v-model:items="data.categories" v-model:data="data" v-model:show="showCatSettings" title="Categories" />
 </template>
 
 <template v-if="showPostSettings">
-<SortableList v-model:items="catItems" v-model:show="showPostSettings" title="Posts" />
+<SortableList v-model:items="catItems" v-model:data="data" v-model:show="showPostSettings" title="Posts" />
 </template>
 
 <div v-show="showAddCat">
@@ -455,6 +456,8 @@ textarea {
   border-radius: 8px;
   padding: 20px;
   max-height: 70%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .clear {

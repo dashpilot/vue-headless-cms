@@ -40,7 +40,7 @@ export default {
   created: function() {
     // this.enableSortable()
   },
-  props: ['items', 'show', 'title'],
+  props: ['items', 'data', 'show', 'title'],
   data() {
     return {
       sorting: false
@@ -48,12 +48,21 @@ export default {
   },
   methods: {
     deleteItem(id) {
+
       if (confirm('Are you sure you want to delete this item?')) {
         this.items.splice(this.items.findIndex(function(x) {
           return x.id === id;
         }), 1);
         console.log(this.items)
+
+        if (this.title == 'Posts') {
+          // propagate to the master data
+          this.data.posts.splice(this.data.posts.findIndex(function(x) {
+            return x.id === id;
+          }), 1);
+        }
       }
+
     },
     moveUp(id, i) {
       this.sorting = id;
@@ -64,6 +73,19 @@ export default {
           this.array_move(this.items, i, newIndex)
         }
       }, 200);
+
+
+      /*
+            if (this.title == 'Posts') {
+              setTimeout(() => {
+                let newIndex = i - 1;
+                if (i > 0) {
+                  this.array_move(this.data.posts, i, newIndex)
+                }
+              }, 200);
+            }
+            */
+
     },
     moveDown(id, i) {
       this.sorting = id;
@@ -74,6 +96,18 @@ export default {
           this.array_move(this.items, i, newIndex)
         }
       }, 200);
+
+      /*
+            if (this.title == 'Posts') {
+              setTimeout(() => {
+                let newIndex = i + 1;
+                if (this.data.posts.length - 1 !== i) {
+                  this.array_move(this.data.posts, i, newIndex)
+                }
+              }, 200);
+            }
+            */
+
     },
     array_move(arr, old_index, new_index) {
       if (new_index >= arr.length) {
