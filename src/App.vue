@@ -30,72 +30,80 @@
     <PostList v-model:posts="catItems" v-model:curpost="curItem" />
 
   </div>
-  <div class="col-7 p-4 col3">
+  <div class="col-7 col3">
 
-    <template v-if="curItem">
-      <template v-for="(key, val) in Object.keys(config.fields.posts)">
 
-        <template v-if="config.fields.posts[key] == 'text'">
-          <label>{{key.replace('_', ' ')}}</label>
-          <input type="text" class="form-control" v-model="curItem[key]">
-        </template>
-
-        <template v-if="config.fields.posts[key] == 'text-disabled'">
-          <label>{{key.replace('_', ' ')}}</label>
-          <input type="text" class="form-control" v-model="curItem[key]" disabled>
-        </template>
-
-        <template v-if="config.fields.posts[key] == 'richtext'">
-          <label>{{key.replace('_', ' ')}}</label>
-          <Editor v-model="curItem[key]" />
-        </template>
-
-        <template v-if="config.fields.posts[key] == 'textarea'">
-          <label>{{key.replace('_', ' ')}}</label>
-          <textarea class="form-control" v-model="curItem[key]"></textarea>
-        </template>
-
-        <template v-if="config.fields.posts[key] == 'image'">
-          <label>{{key.replace('_', ' ')}}</label>
-          <Image v-model:image="curItem[key]" :save_url="config.settings.image_save_url" />
-        </template>
-
-        <template v-if="config.fields.posts[key].includes('dropdown')">
-          <label>{{key.replace('_', ' ')}}</label>
-
-          <select class="form-select w-25" v-model="curItem[key]" @change="changeCat(curItem[key]);">
-            <template v-for="item in data.categories">
-              <option :value="item.slug">{{item.title}}</option>
-            </template>
-          </select>
-
-        </template>
-
-        <template v-else>
-
-        </template>
-
-      </template>
-
+    <div class="savebar">
       <button class="btn btn-primary mt-1" @click="save()">
         <template v-if="saving">
           <i class="fas fa-spinner fa-spin"></i> &nbsp;
-</template>
-Save</button>
+        </template>
+        Save</button>
 
-<template v-if="config.settings.preview_url">
-&nbsp;
-<a class="btn btn-outline-dark mt-1 btn-preview" :href="config.settings.preview_url" target="_blank">View Site</a>
-</template>
+      <template v-if="config.settings.preview_url">
+        &nbsp;
+        <a class="btn btn-outline-dark mt-1 btn-preview" :href="config.settings.preview_url" target="_blank">View Site</a>
+      </template>
+    </div>
 
-  </template>
 
-</div>
+    <div class="post-editor">
+
+      <template v-if="curItem">
+        <template v-for="(key, val) in Object.keys(config.fields.posts)">
+
+          <template v-if="config.fields.posts[key] == 'text'">
+            <label>{{key.replace('_', ' ')}}</label>
+            <input type="text" class="form-control" v-model="curItem[key]">
+          </template>
+
+          <template v-if="config.fields.posts[key] == 'text-disabled'">
+            <label>{{key.replace('_', ' ')}}</label>
+            <input type="text" class="form-control" v-model="curItem[key]" disabled>
+          </template>
+
+          <template v-if="config.fields.posts[key] == 'richtext'">
+            <label>{{key.replace('_', ' ')}}</label>
+            <Editor v-model="curItem[key]" />
+          </template>
+
+          <template v-if="config.fields.posts[key] == 'textarea'">
+            <label>{{key.replace('_', ' ')}}</label>
+            <textarea class="form-control" v-model="curItem[key]"></textarea>
+          </template>
+
+          <template v-if="config.fields.posts[key] == 'image'">
+            <label>{{key.replace('_', ' ')}}</label>
+            <Image v-model:image="curItem[key]" :save_url="config.settings.image_save_url" />
+          </template>
+
+          <template v-if="config.fields.posts[key].includes('dropdown')">
+            <label>{{key.replace('_', ' ')}}</label>
+
+            <select class="form-select w-25" v-model="curItem[key]" @change="changeCat(curItem[key]);">
+              <template v-for="item in data.categories">
+                <option :value="item.slug">{{item.title}}</option>
+              </template>
+            </select>
+
+          </template>
+
+          <template v-else>
+
+          </template>
+
+        </template>
+
+
+      </template>
+    </div>
+
+  </div>
 </div>
 
 
 <template v-if="showCatSettings">
-<SortableList v-model:items="data.categories" v-model:data="data" v-model:show="showCatSettings" title="Categories" />
+  <SortableList v-model:items="data.categories" v-model:data="data" v-model:show="showCatSettings" title="Categories" />
 </template>
 
 <template v-if="showPostSettings">
@@ -466,5 +474,19 @@ textarea {
 
 .add-cat {
   margin: 11px 20px 15px 20px;
+}
+
+.savebar {
+  background-color: white;
+  padding: 4px 20px 8px;
+  border-bottom: 6px solid black;
+  text-align: right;
+  position: fixed;
+  width: 59%;
+}
+
+.post-editor {
+  padding: 20px;
+  padding-top: 90px;
 }
 </style>
