@@ -15,7 +15,7 @@
       "image_2": "image",
       "category": "dropdown_categories"
     },
-    "pages": {
+    "page": {
       "title": "text",
       "body": "richtext"
     }

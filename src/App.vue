@@ -196,7 +196,7 @@ export default {
     },
     addItem() {
 
-      let fields = this.config.fields.posts;
+      let fields = this.config.fields[this.curType];
 
       var newItem = {};
       newItem.id = "posts-" + Math.floor(Math.random() * 999999999);

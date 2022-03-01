@@ -78,7 +78,7 @@
     "slug": "about"
   }, {
     "id": "categories-3",
-    "type": "pages",
+    "type": "page",
     "title": "Contact",
     "slug": "contact"
   }]
