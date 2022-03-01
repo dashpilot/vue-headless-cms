@@ -36,32 +36,32 @@
       <template v-for="(key, val) in Object.keys(config.fields.posts)">
 
         <template v-if="config.fields.posts[key] == 'text'">
-          <label>{{key}}</label>
+          <label>{{key.replace('_', ' ')}}</label>
           <input type="text" class="form-control" v-model="curItem[key]">
         </template>
 
         <template v-if="config.fields.posts[key] == 'text-disabled'">
-          <label>{{key}}</label>
+          <label>{{key.replace('_', ' ')}}</label>
           <input type="text" class="form-control" v-model="curItem[key]" disabled>
         </template>
 
         <template v-if="config.fields.posts[key] == 'richtext'">
-          <label>{{key}}</label>
+          <label>{{key.replace('_', ' ')}}</label>
           <Editor v-model="curItem[key]" />
         </template>
 
         <template v-if="config.fields.posts[key] == 'textarea'">
-          <label>{{key}}</label>
+          <label>{{key.replace('_', ' ')}}</label>
           <textarea class="form-control" v-model="curItem[key]"></textarea>
         </template>
 
         <template v-if="config.fields.posts[key] == 'image'">
-          <label>{{key}}</label>
+          <label>{{key.replace('_', ' ')}}</label>
           <Image v-model:image="curItem[key]" :save_url="config.settings.image_save_url" />
         </template>
 
         <template v-if="config.fields.posts[key].includes('dropdown')">
-          <label>{{key}}</label>
+          <label>{{key.replace('_', ' ')}}</label>
 
           <select class="form-select w-25" v-model="curItem[key]" @change="changeCat(curItem[key]);">
             <template v-for="item in data.categories">

@@ -11,6 +11,7 @@
       "title": "text",
       "body": "richtext",
       "image": "image",
+      "image_2": "image",
       "category": "dropdown_categories"
     }
   }

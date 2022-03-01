@@ -13,6 +13,7 @@
     <!-- <input type="text" class="form-control" v-model="image" @input="this.$emit('update:image', $event.target.value)">-->
   </div>
 
+
   <!-- <img id="preview"> -->
 </div>
 </template>
