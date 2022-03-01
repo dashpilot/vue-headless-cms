@@ -57,35 +57,36 @@
 
       <div class="post-editor">
 
-        <template v-if="curItem">
-          <template v-for="(key, val) in Object.keys(config.fields.posts)">
 
-            <template v-if="config.fields.posts[key] == 'text'">
+        <template v-if="curItem">
+          <template v-for="(key, val) in Object.keys(config.fields[curType])">
+
+            <template v-if="config.fields[curType][key] == 'text'">
               <label>{{key.replace('_', ' ')}}</label>
               <input type="text" class="form-control" v-model="curItem[key]">
             </template>
 
-            <template v-if="config.fields.posts[key] == 'text-disabled'">
+            <template v-if="config.fields[curType][key] == 'text-disabled'">
               <label>{{key.replace('_', ' ')}}</label>
               <input type="text" class="form-control" v-model="curItem[key]" disabled>
             </template>
 
-            <template v-if="config.fields.posts[key] == 'richtext'">
+            <template v-if="config.fields[curType][key] == 'richtext'">
               <label>{{key.replace('_', ' ')}}</label>
               <Editor v-model="curItem[key]" />
             </template>
 
-            <template v-if="config.fields.posts[key] == 'textarea'">
+            <template v-if="config.fields[curType][key] == 'textarea'">
               <label>{{key.replace('_', ' ')}}</label>
               <textarea class="form-control" v-model="curItem[key]"></textarea>
             </template>
 
-            <template v-if="config.fields.posts[key] == 'image'">
+            <template v-if="config.fields[curType][key] == 'image'">
               <label>{{key.replace('_', ' ')}}</label>
               <Image v-model:image="curItem[key]" :save_url="config.settings.image_save_url" />
             </template>
 
-            <template v-if="config.fields.posts[key].includes('dropdown')">
+            <template v-if="config.fields[curType][key].includes('dropdown')">
               <label>{{key.replace('_', ' ')}}</label>
 
               <select class="form-select w-25" v-model="curItem[key]" @change="changeCat(curItem[key]);">
@@ -144,6 +145,7 @@ export default {
   data() {
     return {
       curCat: false,
+      curType: 'default',
       catItems: false,
       curItem: false,
       saving: false,
@@ -185,6 +187,7 @@ export default {
   methods: {
     setCurCat(cat) {
       this.curCat = cat;
+      this.curType = this.data.categories.filter(x => x.slug == cat)[0].type;
       this.catItems = this.data.posts.filter(x => x.category == cat);
       this.curItem = this.data.posts.filter(x => x.category == cat)[0];
     },

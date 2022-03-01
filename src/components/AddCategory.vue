@@ -7,7 +7,13 @@
     <label>Title</label>
     <input type="text" class="form-control" v-model="newTitle">
 
+    <label>Content Type</label>
 
+    <select class="form-select" v-model="newType">
+      <template v-for="field in Object.keys(config.fields)">
+        <option :value="field">{{field}}</option>
+      </template>
+    </select>
 
     <button class="btn btn-primary mt-3" @click="addCat()">Add</button>
 
@@ -20,6 +26,7 @@ export default {
   data() {
     return {
       newTitle: '',
+      newType: 'default'
     }
   },
   props: ['data', 'config', 'curpost'],
@@ -48,6 +55,7 @@ export default {
         newItem.id = "categories-" + Math.floor(Math.random() * 999999999);
         newItem.title = this.newTitle;
         newItem.slug = slug;
+        newItem.type = this.newType;
         newItem.description = "";
 
         this.data.categories.push(newItem);
@@ -55,6 +63,8 @@ export default {
         this.$emit('update:data', this.data)
         this.$emit('update:curpost', newItem)
         this.$emit('update:show', false)
+
+        console.log(newItem);
 
       }
 

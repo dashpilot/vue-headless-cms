@@ -8,7 +8,7 @@
     "allow_delete_category": true
   },
   "fields": {
-    "posts": {
+    "default": {
       "title": "text",
       "body": "richtext",
       "image": "image",

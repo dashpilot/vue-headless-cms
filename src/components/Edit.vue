@@ -4,34 +4,34 @@ import Image from './Image.vue'
 </script>
 
 <template>
-<template v-for="(key, val) in Object.keys(config.fields.posts)">
+<template v-for="(key, val) in Object.keys(config.fields[curCat.type])">
 
-  <template v-if="config.fields.posts[key] == 'text'">
+  <template v-if="config.fields[curCat.type][key] == 'text'">
     <label>{{key}}</label>
     <input type="text" class="form-control" v-model="curItem[key]">
   </template>
 
-  <template v-if="config.fields.posts[key] == 'text-disabled'">
+  <template v-if="config.fields[curCat.type][key] == 'text-disabled'">
     <label>{{key}}</label>
     <input type="text" class="form-control" v-model="curItem[key]" disabled>
   </template>
 
-  <template v-if="config.fields.posts[key] == 'richtext'">
+  <template v-if="config.fields[curCat.type][key] == 'richtext'">
     <label>{{key}}</label>
     <Editor v-model="curItem[key]" />
   </template>
 
-  <template v-if="config.fields.posts[key] == 'textarea'">
+  <template v-if="config.fields[curCat.type][key] == 'textarea'">
     <label>{{key}}</label>
     <textarea class="form-control" v-model="curItem[key]"></textarea>
   </template>
 
-  <template v-if="config.fields.posts[key] == 'image'">
+  <template v-if="config.fields[curCat.type][key] == 'image'">
     <label>{{key}}</label>
     <Image v-model:image="curItem[key]" :save_url="config.settings.image_save_url" />
   </template>
 
-  <template v-if="config.fields.posts[key].includes('dropdown')">
+  <template v-if="config.fields[curCat.type][key].includes('dropdown')">
     <label>{{key}}</label>
     <select class="form-select w-25" v-model="curItem[key]" @change="changeCat(curItem[key]);">
       <template v-for="item in data.categories">

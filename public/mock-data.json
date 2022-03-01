@@ -68,14 +68,17 @@
   ],
   "categories": [{
     "id": "categories-1",
+    "type": "default",
     "title": "Home",
     "slug": "home"
   }, {
     "id": "categories-2",
+    "type": "default",
     "title": "About",
     "slug": "about"
   }, {
     "id": "categories-3",
+    "type": "pages",
     "title": "Contact",
     "slug": "contact"
   }]
