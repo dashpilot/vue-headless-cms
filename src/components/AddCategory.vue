@@ -5,7 +5,12 @@
     <button type="button" class="btn-close float-end" aria-label="Close" @click="closeWindow()"></button>
     <div class="clear mt-5"></div>
     <label>Title</label>
-    <input type="text" class="form-control" v-model="newTitle"><button class="btn btn-primary" @click="addCat()">Add</button>
+    <input type="text" class="form-control" v-model="newTitle">
+
+
+
+    <button class="btn btn-primary mt-3" @click="addCat()">Add</button>
+
   </div>
 </div>
 </template>
