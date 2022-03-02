@@ -81,10 +81,14 @@
               <textarea class="form-control" v-model="curItem[key]"></textarea>
             </template>
 
+
             <template v-if="config.fields[curType][key] == 'image'">
+
               <label>{{key.replace('_', ' ')}}</label>
               <Image v-model="curItem[key]" :save_url="config.settings.image_save_url" :image_width="config.settings.image_width" />
+
             </template>
+
 
             <template v-if="config.fields[curType][key].includes('dropdown')">
               <label>{{key.replace('_', ' ')}}</label>
@@ -201,13 +205,7 @@ export default {
       var newItem = {};
       newItem.id = "posts-" + Math.floor(Math.random() * 999999999);
       Object.keys(fields).forEach((x) => {
-        if (x == 'title') {
-          newItem[x] = "Untitled";
-        } else if (x == 'body') {
-          newItem[x] = "Lorem ipsum dolor site amet";
-        } else {
-          newItem[x] = "";
-        }
+        newItem[x] = "";
       })
       newItem.category = this.curCat;
       console.log(newItem)
