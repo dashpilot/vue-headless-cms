@@ -84,8 +84,19 @@
 
             <template v-if="config.fields[curType][key] == 'image'">
 
-              <label>{{key.replace('_', ' ')}}</label>
-              <Image v-model="curItem[key]" :save_url="config.settings.image_save_url" :image_width="config.settings.image_width" :image_url="config.settings.image_url" />
+              <div class="row">
+                <div class="col-6">
+                  <label>{{key.replace('_', ' ')}}</label>
+                  <Image v-model="curItem[key]" :save_url="config.settings.image_save_url" :image_width="config.settings.image_width" />
+                </div>
+                <div class="col-6">
+
+                  <template v-if="config.settings.image_url && curItem[key]">
+                    <div class="preview" :style="{ backgroundImage: 'url('+ config.settings.image_url + curItem[key] + ')' }"></div>
+                  </template>
+                </div>
+
+              </div>
 
             </template>
 
@@ -501,5 +512,17 @@ textarea {
 .post-editor {
   padding: 20px;
   padding-top: 90px;
+}
+
+.preview {
+  width: 63px;
+  height: 63px;
+  border: 1px solid #DDD;
+  background-size: cover;
+  background-position: center center;
+  border-radius: 4px;
+  display: inline-block;
+  margin-left: 10px;
+  float: right;
 }
 </style>
