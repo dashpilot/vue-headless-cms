@@ -1,16 +1,16 @@
 <template>
 <div>
 
-  <input type="file" id="fileInput" accept="image/*" @change="uploadImage" style="display: none;">
+  <input type="file" :id="'fileInput-'+rand" accept="image/*" @change="uploadImage" style="display: none;">
 
   <div class="input-group mb-2">
     <div class="btn-group">
       <button class="btn btn-outline-dark mb-3" @click="chooseImage()">Upload Image</button>
-      <template v-if="image">
-        <button class="btn btn-outline-dark mb-3" @click="$emit('update:image', '')"><i class="fas fa-times"></i></button>
+      <template v-if="modelValue">
+        <button class="btn btn-outline-dark mb-3" @click="$emit('update:modelValue', '')"><i class="fas fa-times"></i></button>
       </template>
     </div>
-    <!-- <input type="text" class="form-control" v-model="image" @input="this.$emit('update:image', $event.target.value)">-->
+    <!-- <input type="text" class="form-control" v-model="image" @input="this.$emit('update:modelValue', $event.target.value)">-->
   </div>
 
 
@@ -20,9 +20,13 @@
 
 <script>
 export default {
-
+  data() {
+    return {
+      rand: Math.floor(Math.random() * 99999999999999999) + 1
+    }
+  },
   props: {
-    image: {
+    modelValue: {
       type: String,
       default: '',
     },
@@ -32,13 +36,13 @@ export default {
   },
   methods: {
     chooseImage() {
-      document.getElementById('fileInput').click();
+      document.getElementById('fileInput-' + this.rand).click();
     },
     uploadImage(e) {
 
       const date = new Date().toJSON().slice(0, 10).replaceAll('-', '');
       const filename = date + "-" + Math.floor(Math.random() * 999999999) + ".jpg";
-      this.$emit('update:image', filename);
+      this.$emit('update:modelValue', filename);
 
       var myapp = this;
 
