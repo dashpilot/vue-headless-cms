@@ -85,11 +85,11 @@
             <template v-if="config.fields[curType][key] == 'image'">
 
               <div class="row">
-                <div class="col-6">
+                <div class="col-8">
                   <label>{{key.replace('_', ' ')}}</label>
                   <Image v-model="curItem[key]" :save_url="config.settings.image_save_url" :image_width="config.settings.image_width" />
                 </div>
-                <div class="col-6">
+                <div class="col-4">
 
                   <template v-if="config.settings.image_url && curItem[key]">
                     <div class="preview" :style="{ backgroundImage: 'url('+ config.settings.image_url + curItem[key] + ')' }"></div>
