@@ -32,6 +32,10 @@ export default {
     },
     save_url: {
       type: String,
+    },
+    image_width: {
+      type: Number,
+      default: 800,
     }
   },
   methods: {
@@ -46,7 +50,7 @@ export default {
 
       var myapp = this;
 
-      var width = 800;
+      var width = this.image_width;
       var imgUpload = new Image();
       imgUpload.onload = function() {
         var canvas = document.createElement('canvas'),
