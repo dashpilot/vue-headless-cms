@@ -3,18 +3,24 @@
 
   <input type="file" :id="'fileInput-'+rand" accept="image/*" @change="uploadImage" style="display: none;">
 
+
   <div class="input-group mb-2">
     <div class="btn-group">
       <button class="btn btn-outline-dark mb-3" @click="chooseImage()">Upload Image</button>
       <template v-if="modelValue">
         <button class="btn btn-outline-dark mb-3" @click="$emit('update:modelValue', '')"><i class="fas fa-times"></i></button>
+
+        <template v-if="image_url">
+          <div class="preview" :style="{ backgroundImage: 'url('+ image_url + modelValue + ')' }"></div>
+        </template>
       </template>
     </div>
-    <!-- <input type="text" class="form-control" v-model="image" @input="this.$emit('update:modelValue', $event.target.value)">-->
   </div>
 
 
-  <!-- <img id="preview"> -->
+
+
+
 </div>
 </template>
 
@@ -36,6 +42,10 @@ export default {
     image_width: {
       type: Number,
       default: 800,
+    },
+    image_url: {
+      type: String,
+      default: '',
     }
   },
   methods: {
@@ -118,3 +128,16 @@ async function postData(url = '', data = {}) {
   return response.json(); // parses JSON response into native JavaScript objects
 }
 </script>
+
+<style scoped>
+.preview {
+  width: 38px;
+  height: 38px;
+  border: 1px solid #DDD;
+  background-size: cover;
+  background-position: center center;
+  border-radius: 4px;
+  display: inline-block;
+  margin-left: 10px;
+}
+</style>

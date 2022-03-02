@@ -85,7 +85,7 @@
             <template v-if="config.fields[curType][key] == 'image'">
 
               <label>{{key.replace('_', ' ')}}</label>
-              <Image v-model="curItem[key]" :save_url="config.settings.image_save_url" :image_width="config.settings.image_width" />
+              <Image v-model="curItem[key]" :save_url="config.settings.image_save_url" :image_width="config.settings.image_width" :image_url="config.settings.image_url" />
 
             </template>
 
