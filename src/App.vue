@@ -253,7 +253,7 @@ export default {
       this.saving = true;
 
       var myapp = this;
-      postData(this.data.settings.save_url, this.data)
+      postData(this.config.save_url, this.data)
         .then(data => {
           console.log(data); // JSON data parsed by `data.json()` call
         });
