@@ -161,5 +161,6 @@ async function postData(url = '', data = {}) {
 
 .fa-trash-alt {
   margin-top: 10px;
+  cursor: pointer;
 }
 </style>

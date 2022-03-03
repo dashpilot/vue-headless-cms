@@ -8,7 +8,7 @@
     <div class="btn-group">
       <button class="btn btn-outline-dark mb-3" @click="chooseImage()">Upload Image</button>
       <template v-if="modelValue">
-        <button class="btn btn-outline-dark mb-3" @click="$emit('update:modelValue', '')"><i class="fas fa-times"></i></button>
+        <button class="btn btn-outline-dark mb-3" @click="$emit('update:modelValue', '')"><i class="fas fa-trash-alt"></i></button>
       </template>
     </div>
   </div>
