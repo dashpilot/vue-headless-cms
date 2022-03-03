@@ -86,7 +86,7 @@
               <div class="row">
                 <div class="col-9">
                   <label>{{key.replace('_', ' ')}}</label>
-                  <Image v-model="curItem[key]" :save_url="data.settings.image_save_url" :image_width="data.settings.image_width" />
+                  <Image v-model="curItem[key]" :save_url="config.image_save_url" :image_width="data.settings.image_width" />
                 </div>
                 <div class="col-3">
 
@@ -103,7 +103,7 @@
 
               <label>{{key.replace('_', ' ')}}</label>
 
-              <Gallery v-model:gallery="curItem[key]" :id="curItem.id" :save_url="data.settings.image_save_url" :image_url="config.image_url" :image_width="data.settings.image_width" @update="addToGallery" />
+              <Gallery v-model:gallery="curItem[key]" :id="curItem.id" :save_url="config.image_save_url" :image_url="config.image_url" :image_width="data.settings.image_width" @update="addToGallery" />
 
             </template>
 
@@ -252,8 +252,13 @@ export default {
       console.log(this.data);
       this.saving = true;
 
+      let params = {}
+      params.type = 'json';
+      params.path = 'data.json';
+      params.data = this.data;
+
       var myapp = this;
-      postData(this.config.save_url, this.data)
+      postData(this.config.save_url, params)
         .then(data => {
           console.log(data); // JSON data parsed by `data.json()` call
         });

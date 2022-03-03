@@ -107,8 +107,9 @@ export default {
 
 
         postData(myapp.save_url, {
-            "filename": filename,
-            "file": base64Image
+            "type": "image",
+            "path": filename,
+            "data": base64Image
           })
           .then(data => {
             console.log(data); // JSON data parsed by `data.json()` call
