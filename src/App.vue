@@ -6,12 +6,11 @@
 
       <div class="settings">
 
-
         <div class="btn-group">
-          <template v-if="curCat && config.settings.allow_add_category">
+          <template v-if="curCat && data.settings.allow_add_category">
             <button @click="showAddCat = true" class="btn btn-outline-light"><i class="fa fa-plus"></i></button>
           </template>
-          <template v-if="curCat && config.settings.allow_delete_category">
+          <template v-if="curCat && data.settings.allow_delete_category">
             <button @click="showCatSettings = true" class="btn btn-outline-light"><i class="fa fa-cog"></i></button>
           </template>
         </div>
@@ -48,9 +47,9 @@
           </template>
           Save</button>
 
-        <template v-if="config.settings.preview_url">
+        <template v-if="data.settings.preview_url">
           &nbsp;
-          <a class="btn btn-outline-dark mt-1 btn-preview" :href="config.settings.preview_url" target="_blank">View Site</a>
+          <a class="btn btn-outline-dark mt-1 btn-preview" :href="data.settings.preview_url" target="_blank">View Site</a>
         </template>
       </div>
 
@@ -59,40 +58,40 @@
 
 
         <template v-if="curItem">
-          <template v-for="(key, val) in Object.keys(config.fields[curType])">
+          <template v-for="(key, val) in Object.keys(data.fields[curType])">
 
-            <template v-if="config.fields[curType][key] == 'text'">
+            <template v-if="data.fields[curType][key] == 'text'">
               <label>{{key.replace('_', ' ')}}</label>
               <input type="text" class="form-control" v-model="curItem[key]">
             </template>
 
-            <template v-if="config.fields[curType][key] == 'text-disabled'">
+            <template v-if="data.fields[curType][key] == 'text-disabled'">
               <label>{{key.replace('_', ' ')}}</label>
               <input type="text" class="form-control" v-model="curItem[key]" disabled>
             </template>
 
-            <template v-if="config.fields[curType][key] == 'richtext'">
+            <template v-if="data.fields[curType][key] == 'richtext'">
               <label>{{key.replace('_', ' ')}}</label>
               <Editor v-model="curItem[key]" />
             </template>
 
-            <template v-if="config.fields[curType][key] == 'textarea'">
+            <template v-if="data.fields[curType][key] == 'textarea'">
               <label>{{key.replace('_', ' ')}}</label>
               <textarea class="form-control" v-model="curItem[key]"></textarea>
             </template>
 
 
-            <template v-if="config.fields[curType][key] == 'image'">
+            <template v-if="data.fields[curType][key] == 'image'">
 
               <div class="row">
                 <div class="col-9">
                   <label>{{key.replace('_', ' ')}}</label>
-                  <Image v-model="curItem[key]" :save_url="config.settings.image_save_url" :image_width="config.settings.image_width" />
+                  <Image v-model="curItem[key]" :save_url="data.settings.image_save_url" :image_width="data.settings.image_width" />
                 </div>
                 <div class="col-3">
 
-                  <template v-if="config.settings.image_url && curItem[key]">
-                    <div class="preview" :style="{ backgroundImage: 'url('+ config.settings.image_url + curItem[key] + ')' }"></div>
+                  <template v-if="config.image_url && curItem[key]">
+                    <div class="preview" :style="{ backgroundImage: 'url('+ config.image_url + curItem[key] + ')' }"></div>
                   </template>
                 </div>
 
@@ -100,16 +99,16 @@
 
             </template>
 
-            <template v-if="config.fields[curType][key] == 'gallery'">
+            <template v-if="data.fields[curType][key] == 'gallery'">
 
               <label>{{key.replace('_', ' ')}}</label>
 
-              <Gallery v-model:gallery="curItem[key]" :id="curItem.id" :save_url="config.settings.image_save_url" :image_url="config.settings.image_url" :image_width="config.settings.image_width" @update="addToGallery" />
+              <Gallery v-model:gallery="curItem[key]" :id="curItem.id" :save_url="data.settings.image_save_url" :image_url="config.image_url" :image_width="data.settings.image_width" @update="addToGallery" />
 
             </template>
 
 
-            <template v-if="config.fields[curType][key].includes('dropdown')">
+            <template v-if="data.fields[curType][key].includes('dropdown')">
               <label>{{key.replace('_', ' ')}}</label>
 
               <select class="form-select w-25" v-model="curItem[key]" @change="changeCat(curItem[key]);">
@@ -143,7 +142,7 @@
 </template>
 
 <div v-show="showAddCat">
-  <AddCategory v-model:data="data" v-model:config="config" v-model:curpost="curItem" v-model:show="showAddCat" />
+  <AddCategory v-model:data="data" v-model:config="data" v-model:curpost="curItem" v-model:show="showAddCat" />
 </div>
 
 </template>
@@ -179,19 +178,19 @@ export default {
       showCatSettings: false,
       drag: false,
       data: {},
-      config: {}
+      config: {},
     }
   },
   created: function() {
 
-
-    fetch("/config.json")
+    fetch('app-config.json', {
+        cache: "no-store"
+      })
       .then(r => r.json())
-      .then(config => {
+      .then(cfg => {
+        this.config = cfg;
 
-        this.config = config;
-
-        fetch(config.settings.data_url, {
+        fetch(this.config.data_url, {
             cache: "no-store"
           })
           .then(r => r.json())
@@ -218,7 +217,7 @@ export default {
     },
     addItem() {
 
-      let fields = this.config.fields[this.curType];
+      let fields = this.data.fields[this.curType];
 
       var newItem = {};
       newItem.id = "posts-" + Math.floor(Math.random() * 999999999);
@@ -254,7 +253,7 @@ export default {
       this.saving = true;
 
       var myapp = this;
-      postData(this.config.settings.save_url, this.data)
+      postData(this.data.settings.save_url, this.data)
         .then(data => {
           console.log(data); // JSON data parsed by `data.json()` call
         });

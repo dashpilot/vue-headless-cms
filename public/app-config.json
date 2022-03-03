@@ -1,0 +1,6 @@
+{
+  "data_url": "/data.json",
+  "save_url": "/api/save/",
+  "image_save_url": "/api/save-image/",
+  "image_url": ""
+}
