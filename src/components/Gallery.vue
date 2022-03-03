@@ -17,7 +17,9 @@
       <li class="list-group-item">
         <div class="row">
           <div class="col-4">
-            {{img}}
+
+            <div class="image-box" :style="{ backgroundImage: 'url('+ image_url + img + ')' }"></div>
+
           </div>
           <div class="col-6">
 
@@ -51,6 +53,9 @@ export default {
       type: Number,
     },
     save_url: {
+      type: String,
+    },
+    image_url: {
       type: String,
     },
     image_width: {
@@ -142,3 +147,19 @@ async function postData(url = '', data = {}) {
   return response.json(); // parses JSON response into native JavaScript objects
 }
 </script>
+
+<style scoped>
+.image-box {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #DDD;
+  background-size: cover;
+  background-position: center center;
+  border-radius: 4px;
+  display: block;
+}
+
+.fa-trash-alt {
+  margin-top: 10px;
+}
+</style>

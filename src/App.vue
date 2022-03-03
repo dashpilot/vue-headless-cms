@@ -104,7 +104,7 @@
 
               <label>{{key.replace('_', ' ')}}</label>
 
-              <Gallery v-model:gallery="curItem[key]" :id="curItem.id" :save_url="config.settings.image_save_url" :image_width="config.settings.image_width" @update="addToGallery" />
+              <Gallery v-model:gallery="curItem[key]" :id="curItem.id" :save_url="config.settings.image_save_url" :image_url="config.settings.image_url" :image_width="config.settings.image_width" @update="addToGallery" />
 
             </template>
 
@@ -173,7 +173,6 @@ export default {
       curType: 'default',
       catItems: false,
       curItem: false,
-      curIndex: false,
       saving: false,
       showAddCat: false,
       showPostSettings: false,
