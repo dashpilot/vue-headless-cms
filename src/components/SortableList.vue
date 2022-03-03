@@ -22,8 +22,22 @@
               <div class="col-10 text-truncate justify-content-center align-self-center">
                 {{item.title}}
               </div>
-              <div class="col-1 mt-1 justify-content-center align-self-center">
-                <i class="fas fa-trash float-end" @click="deleteItem(item.id)"></i>
+              <div class="col-1 mt-1 justify-content-center align-self-center text-end">
+
+                <template v-if="!item.sub">
+                  <i class="fas fa-indent mr-4" @click="item.sub = true"></i>
+                </template>
+
+                <template v-if="item.sub">
+                  <i class="fas fa-outdent mr-4" @click="item.sub = false"></i>
+                </template>
+
+                &nbsp;
+
+                <i class="fas fa-trash" @click="deleteItem(item.id)"></i>
+
+
+
               </div>
             </div>
           </li>

@@ -81,16 +81,19 @@
     "id": "categories-1",
     "type": "default",
     "title": "Home",
-    "slug": "home"
+    "slug": "home",
+    "sub": false
   }, {
     "id": "categories-2",
     "type": "default",
     "title": "About",
-    "slug": "about"
+    "slug": "about",
+    "sub": true
   }, {
     "id": "categories-3",
     "type": "page",
     "title": "Contact",
-    "slug": "contact"
+    "slug": "contact",
+    "sub": false
   }]
 }

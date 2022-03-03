@@ -56,6 +56,7 @@ export default {
         newItem.title = this.newTitle;
         newItem.slug = slug;
         newItem.type = this.newType;
+        newItem.sub = false;
         newItem.description = "";
 
         this.data.categories.push(newItem);

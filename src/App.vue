@@ -20,7 +20,7 @@
       </div>
 
       <template v-for="cat in data.categories">
-        <a @click="setCurCat(cat.slug)" :class="{ 'active': curCat == cat.slug }">{{cat.title}}</a>
+        <a @click="setCurCat(cat.slug)" :class="{ 'active': curCat == cat.slug, 'sub': cat.sub == true }">{{cat.title}}</a>
       </template>
 
     </div>
@@ -325,6 +325,10 @@ body {
   background-color: #656BF7;
   user-select: none;
   cursor: pointer;
+}
+
+a.sub {
+  padding-left: 40px;
 }
 
 .active {
