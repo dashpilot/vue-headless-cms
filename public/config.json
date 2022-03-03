@@ -13,8 +13,7 @@
     "default": {
       "title": "text",
       "body": "richtext",
-      "image": "image",
-      "image_2": "image",
+      "gallery": "gallery",
       "category": "dropdown_categories"
     },
     "page": {

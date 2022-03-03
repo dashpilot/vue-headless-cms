@@ -4,19 +4,22 @@
     "title": "Feature One",
     "subtitle": "This is a first feature",
     "body": "Hello, this is some text",
-    "image": "image1.png"
+    "image": "image1.png",
+    "gallery": []
   }, {
     "id": "item-2",
     "title": "Feature Two",
     "subtitle": "This is a third feature",
     "body": "This is some other text",
-    "image": "image2.png"
+    "image": "image2.png",
+    "gallery": []
   }, {
     "id": "item-3",
     "title": "Feature Three",
     "subtitle": "This is a third feature",
     "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus id tortor neque.",
-    "image": "image3.png"
+    "image": "image3.png",
+    "gallery": []
   }],
   "pages": [{
     "title": "Home",

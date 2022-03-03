@@ -20,7 +20,10 @@ export default {
   props: ['posts', 'curpost'],
   methods: {
     setCurItem(id) {
+
       let curPost = this.$props.posts.filter(x => x.id == id)[0];
+      // let curIndex = this.$props.posts.findIndex(x => x.id == id);
+      // console.log('index ' + curIndex)
       this.$emit('update:curpost', curPost)
     },
     stripShorten(text, max) {

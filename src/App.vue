@@ -100,6 +100,14 @@
 
             </template>
 
+            <template v-if="config.fields[curType][key] == 'gallery'">
+
+              <label>{{key.replace('_', ' ')}}</label>
+
+              <Gallery v-model:gallery="curItem[key]" :id="curItem.id" :save_url="config.settings.image_save_url" :image_width="config.settings.image_width" @update="addToGallery" />
+
+            </template>
+
 
             <template v-if="config.fields[curType][key].includes('dropdown')">
               <label>{{key.replace('_', ' ')}}</label>
@@ -145,6 +153,7 @@
 <script>
 import Editor from './components/Editor.vue'
 import Image from './components/Image.vue'
+import Gallery from './components/Gallery.vue'
 import SortableList from './components/SortableList.vue'
 import PostList from './components/PostList.vue'
 import AddCategory from './components/AddCategory.vue'
@@ -153,6 +162,7 @@ export default {
   components: {
     Editor,
     Image,
+    Gallery,
     SortableList,
     PostList,
     AddCategory,
@@ -163,6 +173,7 @@ export default {
       curType: 'default',
       catItems: false,
       curItem: false,
+      curIndex: false,
       saving: false,
       showAddCat: false,
       showPostSettings: false,
@@ -206,9 +217,6 @@ export default {
       this.catItems = this.data.posts.filter(x => x.category == cat);
       this.curItem = this.data.posts.filter(x => x.category == cat)[0];
     },
-    setCurItem(id) {
-      this.curItem = this.data.posts.filter(x => x.id == id)[0];
-    },
     addItem() {
 
       let fields = this.config.fields[this.curType];
@@ -216,7 +224,11 @@ export default {
       var newItem = {};
       newItem.id = "posts-" + Math.floor(Math.random() * 999999999);
       Object.keys(fields).forEach((x) => {
-        newItem[x] = "";
+        if (x == 'gallery') {
+          newItem[x] = [];
+        } else {
+          newItem[x] = "";
+        }
       })
       newItem.category = this.curCat;
       console.log(newItem)
@@ -229,6 +241,14 @@ export default {
       console.log(cat);
       this.curCat = cat;
       this.catItems = this.data.posts.filter(x => x.category == cat);
+    },
+    addToGallery(filename, id) {
+      let curIndex = this.data.posts.findIndex(x => x.id == id);
+      console.log(curIndex)
+      this.data.posts[curIndex].gallery.push(filename);
+
+      //alert(filename + ' ' + id)
+
     },
     save() {
       console.log(this.data);
