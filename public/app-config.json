@@ -2,5 +2,6 @@
   "data_url": "/data.json",
   "save_url": "",
   "image_preview_url": "",
-  "image_delete_url": ""
+  "image_delete_url": "",
+  "sign_out_url": ""
 }

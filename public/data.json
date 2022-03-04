@@ -97,10 +97,13 @@
     "sub": false
   }],
   "settings": {
+    "site_title": "Vue Headless CMS",
     "preview_url": "https:\/\/examplepage.net",
-    "allow_add_category": true,
-    "allow_delete_category": true,
     "image_width": 800
+  },
+  "ui_settings": {
+    "allow_add_category": true,
+    "allow_delete_category": true
   },
   "fields": {
     "default": {

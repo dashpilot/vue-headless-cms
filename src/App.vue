@@ -7,20 +7,32 @@
       <div class="settings">
 
         <div class="btn-group">
-          <template v-if="curCat && data.settings.allow_add_category">
+          <template v-if="curCat && data.ui_settings.allow_add_category">
             <button @click="showAddCat = true" class="btn btn-outline-light"><i class="fa fa-plus"></i></button>
           </template>
-          <template v-if="curCat && data.settings.allow_delete_category">
+          <template v-if="curCat && data.ui_settings.allow_delete_category">
             <button @click="showCatSettings = true" class="btn btn-outline-light"><i class="fa fa-cog"></i></button>
           </template>
+
         </div>
 
 
       </div>
 
       <template v-for="cat in data.categories">
-        <a @click="setCurCat(cat.slug)" :class="{ 'active': curCat == cat.slug, 'sub': cat.sub == true }">{{cat.title}}</a>
+        <a @click="setCurCat(cat.slug)" class="tab" :class="{ 'active': curCat == cat.slug, 'sub': cat.sub == true }">{{cat.title}}</a>
       </template>
+
+
+      <div id="settings">
+        <div class="btn-group">
+          <button @click="showSettings = true" class="btn btn-outline-light"><i class="fa fa-wrench"></i></button>
+
+          <template v-if="config.sign_out_url">
+            <a :href="config.sign_out_url" class="btn btn-outline-light"><i class="fas fa-sign-out-alt"></i></a>
+          </template>
+        </div>
+      </div>
 
     </div>
     <div class="col-3 col2">
@@ -40,17 +52,27 @@
     <div class="col-7 col3">
 
 
-      <div class="savebar">
-        <button class="btn btn-primary mt-1" @click="save()">
-          <template v-if="saving">
-            <i class="fas fa-spinner fa-spin"></i> &nbsp;
-          </template>
-          Save</button>
 
-        <template v-if="data.settings.preview_url">
-          &nbsp;
-          <a class="btn btn-outline-dark mt-1 btn-preview" :href="data.settings.preview_url" target="_blank">View Site</a>
-        </template>
+
+
+      <div class="savebar">
+
+        <div class="title">{{data.settings.site_title}}</div>
+
+
+        <div class="buttons">
+          <button class="btn btn-primary mt-1" @click="save()">
+            <template v-if="saving">
+              <i class="fas fa-spinner fa-spin"></i> &nbsp;
+            </template>
+            Save</button>
+
+          <template v-if="data.settings.preview_url">
+            &nbsp;
+            <a class="btn btn-outline-dark mt-1 btn-preview" :href="data.settings.preview_url" target="_blank">View Site</a>
+          </template>
+        </div>
+
       </div>
 
 
@@ -146,6 +168,10 @@
   <AddCategory v-model:data="data" v-model:config="data" v-model:curpost="curItem" v-model:show="showAddCat" />
 </div>
 
+<div v-show="showSettings">
+  <Settings v-model:settings="data.settings" v-model:show="showSettings" />
+</div>
+
 </template>
 
 </template>
@@ -157,6 +183,7 @@ import Gallery from './components/Gallery.vue'
 import SortableList from './components/SortableList.vue'
 import PostList from './components/PostList.vue'
 import AddCategory from './components/AddCategory.vue'
+import Settings from './components/Settings.vue'
 
 export default {
   components: {
@@ -166,6 +193,7 @@ export default {
     SortableList,
     PostList,
     AddCategory,
+    Settings,
   },
   data() {
     return {
@@ -177,6 +205,7 @@ export default {
       showAddCat: false,
       showPostSettings: false,
       showCatSettings: false,
+      showSettings: false,
       drag: false,
       data: {},
       config: {},
@@ -315,7 +344,7 @@ body {
   background-color: #333;
 }
 
-.col1 a {
+.col1 a.tab {
   color: white !important;
   display: block;
   padding: 13px 20px;
@@ -326,7 +355,7 @@ body {
   text-overflow: ellipsis;
 }
 
-.col1 a:hover {
+.col1 a.tab:hover {
   background-color: #656BF7;
   user-select: none;
   cursor: pointer;
@@ -531,10 +560,22 @@ textarea {
   background-color: white;
   padding: 4px 20px 8px;
   border-bottom: 6px solid black;
-  text-align: right;
+
   position: fixed;
   width: 59%;
+  height: 64px;
   z-index: 9999999;
+}
+
+.savebar .title {
+  float: left;
+  padding-top: 13px;
+  font-weight: 600;
+  display: none;
+}
+
+.savebar .buttons {
+  float: right;
 }
 
 .post-editor {
@@ -552,5 +593,17 @@ textarea {
   display: inline-block;
   margin-left: 10px;
   float: right;
+}
+
+.fa-sort {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+#settings {
+  padding: 15px;
+  position: fixed;
+  bottom: 0;
+  background-color: #333;
 }
 </style>
