@@ -2,6 +2,7 @@
   "posts": [{
       "id": 1,
       "title": "Sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+      "slug": "sunt-aut-facere-repellat-provident-1",
       "body": "Quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
       "category": "index",
       "gallery": []
@@ -9,6 +10,7 @@
     {
       "id": 2,
       "title": "Qui est esse",
+      "slug": "qui-est-esse-2",
       "body": "Est rerum tempore vitae\nsequi sint nihil reprehenderit dolor beatae ea dolores neque\nfugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis\nqui aperiam non debitis possimus qui neque nisi nulla",
       "category": "contact",
       "gallery": []
@@ -16,6 +18,7 @@
     {
       "id": 3,
       "title": "Ea molestias quasi exercitationem repellat qui ipsa sit aut",
+      "slug": "ea-molestias-quasi-exercitationem-3",
       "body": "Et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut",
       "category": "index",
       "gallery": []
@@ -23,6 +26,7 @@
     {
       "id": 4,
       "title": "Eum et est occaecati",
+      "slug": "eum-et-est-occaecati-4",
       "body": "Ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit",
       "category": "index",
       "gallery": []
@@ -30,6 +34,7 @@
     {
       "id": 5,
       "title": "Nesciunt quas odio",
+      "slug": "nesciunt-quas-odio-5",
       "body": "Repudiandae veniam quaerat sunt sed\nalias aut fugiat sit autem sed est\nvoluptatem omnis possimus esse voluptatibus quis\nest aut tenetur dolor neque",
       "category": "about",
       "gallery": []
@@ -37,6 +42,7 @@
     {
       "id": 6,
       "title": "Dolorem eum magni eos aperiam quia",
+      "slug": "dolorem-eum-magni-eos-aperiam-quia-6",
       "body": "Ut aspernatur corporis harum nihil quis provident sequi\nmollitia nobis aliquid molestiae\nperspiciatis et ea nemo ab reprehenderit accusantium quas\nvoluptate dolores velit et doloremque molestiae",
       "category": "about",
       "gallery": []
@@ -44,6 +50,7 @@
     {
       "id": 7,
       "title": "Magnam facilis autem",
+      "slug": "magnam-facilis-autem-7",
       "body": "Dolore placeat quibusdam ea quo vitae\nmagni quis enim qui quis quo nemo aut saepe\nquidem repellat excepturi ut quia\nsunt ut sequi eos ea sed quas",
       "category": "index",
       "gallery": []
@@ -51,6 +58,7 @@
     {
       "id": 8,
       "title": "Dolorem dolore est ipsam",
+      "slug": "dolorem-dolore-est-ipsam-8",
       "body": "Dignissimos aperiam dolorem qui eum\nfacilis quibusdam animi sint suscipit qui sint possimus cum\nquaerat magni maiores excepturi\nipsam ut commodi dolor voluptatum modi aut vitae",
       "category": "about",
       "gallery": []
@@ -58,6 +66,7 @@
     {
       "id": 9,
       "title": "Nesciunt iure omnis dolorem tempora et accusantium",
+      "slug": "nesciunt-iure-omnis-dolorem-9",
       "body": "Consectetur animi nesciunt iure dolore\nenim quia ad\nveniam autem ut quam aut nobis\net est aut quod aut provident voluptas autem voluptas",
       "category": "contact",
       "gallery": []
@@ -65,6 +74,7 @@
     {
       "id": 10,
       "title": "Optio molestias id quia eum",
+      "slug": "optio-molestias-id-quia-eum-10",
       "body": "Quo et expedita modi cum officia vel magni\ndoloribus qui repudiandae\nvero nisi sit\nquos veniam quod sed accusamus veritatis error",
       "category": "about",
       "gallery": []
