@@ -14,13 +14,16 @@
     <template v-for="img in gallery">
       <li class="list-group-item">
         <div class="row">
-          <div class="col-4">
+          <div class="col-2">
 
-            <div class="image-box" :style="{ backgroundImage: 'url('+ config.image_preview_url + img + ')' }"></div>
+            <div class="image-box" :style="{ backgroundImage: 'url('+ config.image_preview_url + img.filename + ')' }"></div>
 
           </div>
-          <div class="col-6">
+          <div class="col-8">
 
+            <template x-if="image_title">
+              <input type="text" class="form-control mb-0" placeholder="title" v-model="img.title">
+            </template>
           </div>
           <div class="col-2 text-end">
 
@@ -57,7 +60,10 @@ export default {
     image_width: {
       type: Number,
       default: 800,
-    }
+    },
+    image_title: {
+      type: Boolean
+    },
   },
   methods: {
     chooseImage() {
@@ -155,8 +161,8 @@ async function postData(url = '', data = {}) {
 
 <style scoped>
 .image-box {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border: 1px solid #DDD;
   background-size: cover;
   background-position: center center;

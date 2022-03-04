@@ -7,10 +7,10 @@
       <div class="settings">
 
         <div class="btn-group">
-          <template v-if="curCat && data.ui_settings.allow_add_category">
+          <template v-if="curCat && data.ui_settings.add_category">
             <button @click="showAddCat = true" class="btn btn-outline-light"><i class="fa fa-plus"></i></button>
           </template>
-          <template v-if="curCat && data.ui_settings.allow_delete_category">
+          <template v-if="curCat && data.ui_settings.delete_category">
             <button @click="showCatSettings = true" class="btn btn-outline-light"><i class="fa fa-cog"></i></button>
           </template>
 
@@ -126,7 +126,7 @@
 
               <label>{{key.replace('_', ' ')}}</label>
 
-              <Gallery v-model:gallery="curItem[key]" :id="curItem.id" :config="config" :image_width="data.settings.image_width" @update="addToGallery" />
+              <Gallery v-model:gallery="curItem[key]" :id="curItem.id" :config="config" :image_width="data.settings.image_width" :image_title="data.ui_settings.image_title" @update="addToGallery" />
 
             </template>
 
@@ -273,10 +273,10 @@ export default {
     addToGallery(filename, id) {
       let curIndex = this.data.posts.findIndex(x => x.id == id);
       console.log(curIndex)
-      this.data.posts[curIndex].gallery.push(filename);
-
-      //alert(filename + ' ' + id)
-
+      this.data.posts[curIndex].gallery.push({
+        filename: filename,
+        title: ''
+      });
     },
     save() {
       console.log(this.data);

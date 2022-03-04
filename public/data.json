@@ -102,8 +102,9 @@
     "image_width": 800
   },
   "ui_settings": {
-    "allow_add_category": true,
-    "allow_delete_category": true
+    "add_category": true,
+    "delete_category": true,
+    "image_title": false
   },
   "fields": {
     "default": {
