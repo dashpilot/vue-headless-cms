@@ -27,7 +27,7 @@
           </div>
           <div class="col-2 text-end">
 
-            <i class="fas fa-trash-alt" @click="deleteImage(img)"></i>
+            <i class="fas fa-trash-alt" @click="deleteImage(img.filename)"></i>
           </div>
         </div>
       </li>
