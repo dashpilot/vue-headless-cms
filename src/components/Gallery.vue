@@ -124,7 +124,7 @@ export default {
     deleteImage(value) {
       if (confirm("Are you sure you want to delete this image?")) {
         let arr = this.gallery;
-        arr = arr.filter(x => x !== value)
+        arr = arr.filter(x => x.filename !== value)
         this.$emit('update:gallery', arr);
 
         postData(this.config.image_delete_url, {
