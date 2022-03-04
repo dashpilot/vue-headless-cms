@@ -135,11 +135,11 @@
 
 
   <template v-if="showCatSettings">
-    <SortableList v-model:items="data.categories" v-model:data="data" v-model:show="showCatSettings" title="Categories" />
+    <SortableList v-model:items="data.categories" v-model:data="data" v-model:show="showCatSettings" title="Categories" type="categories" />
 </template>
 
 <template v-if="showPostSettings">
-<SortableList v-model:items="catItems" v-model:data="data" v-model:show="showPostSettings" title="Posts" />
+<SortableList v-model:items="catItems" v-model:data="data" v-model:show="showPostSettings" title="Posts" type="posts" />
 </template>
 
 <div v-show="showAddCat">

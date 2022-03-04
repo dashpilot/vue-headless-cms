@@ -20,16 +20,23 @@
                 </div>
               </div>
               <div class="col-10 text-truncate justify-content-center align-self-center">
-                {{item.title}}
+                <template v-if="item.title">
+                  {{item.title}}
+                </template>
+                <template v-if="!item.title">
+                  Untitled
+                </template>
               </div>
               <div class="col-1 mt-1 justify-content-center align-self-center text-end">
 
-                <template v-if="!item.sub">
-                  <i class="fas fa-indent mr-4" @click="item.sub = true"></i>
-                </template>
+                <template v-if="type == 'categories'">
+                  <template v-if="!item.sub">
+                    <i class="fas fa-indent mr-4" @click="item.sub = true"></i>
+                  </template>
 
-                <template v-if="item.sub">
-                  <i class="fas fa-outdent mr-4" @click="item.sub = false"></i>
+                  <template v-if="item.sub">
+                    <i class="fas fa-outdent mr-4" @click="item.sub = false"></i>
+                  </template>
                 </template>
 
                 &nbsp;
@@ -54,7 +61,7 @@ export default {
   created: function() {
     // this.enableSortable()
   },
-  props: ['items', 'data', 'show', 'title'],
+  props: ['items', 'data', 'show', 'title', 'type'],
   data() {
     return {
       sorting: false
@@ -69,7 +76,7 @@ export default {
         }), 1);
         console.log(this.items)
 
-        if (this.title == 'Posts') {
+        if (this.type == 'posts') {
           // propagate to the master data
           this.data.posts.splice(this.data.posts.findIndex(function(x) {
             return x.id === id;
@@ -90,7 +97,7 @@ export default {
 
 
 
-      if (this.title == 'Posts') {
+      if (this.type == 'posts') {
         const index = this.data.posts.findIndex(object => {
           return object.id === id;
         });
@@ -115,7 +122,7 @@ export default {
       }, 200);
 
 
-      if (this.title == 'Posts') {
+      if (this.type == 'posts') {
         const index = this.data.posts.findIndex(object => {
           return object.id === id;
         });
