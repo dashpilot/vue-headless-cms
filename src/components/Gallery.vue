@@ -18,7 +18,7 @@
         <div class="row">
           <div class="col-4">
 
-            <div class="image-box" :style="{ backgroundImage: 'url('+ image_url + img + ')' }"></div>
+            <div class="image-box" :style="{ backgroundImage: 'url('+ config.image_preview_url + img + ')' }"></div>
 
           </div>
           <div class="col-6">
@@ -52,11 +52,9 @@ export default {
     id: {
       type: Number,
     },
-    save_url: {
-      type: String,
-    },
-    image_url: {
-      type: String,
+    config: {
+      type: Object,
+      default: {},
     },
     image_width: {
       type: Number,
@@ -106,7 +104,7 @@ export default {
         console.log(base64Image);
 
 
-        postData(myapp.save_url, {
+        postData(myapp.config.save_url, {
             "type": "image",
             "path": filename,
             "data": base64Image
@@ -126,6 +124,16 @@ export default {
         let arr = this.gallery;
         arr = arr.filter(x => x !== value)
         this.$emit('update:gallery', arr);
+
+        postData(this.config.image_delete_url, {
+            "type": "image",
+            "path": value
+          })
+          .then(data => {
+            console.log(data); // JSON data parsed by `data.json()` call
+
+          });
+
       }
     }
   }

@@ -1,6 +1,7 @@
 {
   "data_url": "/data.json",
-  "save_url": "/api/save/",
-  "image_save_url": "/api/save-image/",
-  "image_url": ""
+  "save_url": "",
+  "image_save_url": "",
+  "image_preview_url": "",
+  "image_delete_url": ""
 }

@@ -80,7 +80,7 @@
               <textarea class="form-control" v-model="curItem[key]"></textarea>
             </template>
 
-
+            <!--
             <template v-if="data.fields[curType][key] == 'image'">
 
               <div class="row">
@@ -90,20 +90,21 @@
                 </div>
                 <div class="col-3">
 
-                  <template v-if="config.image_url && curItem[key]">
-                    <div class="preview" :style="{ backgroundImage: 'url('+ config.image_url + curItem[key] + ')' }"></div>
+                  <template v-if="config.image_preview_url && curItem[key]">
+                    <div class="preview" :style="{ backgroundImage: 'url('+ config.image_preview_url + curItem[key] + ')' }"></div>
                   </template>
                 </div>
 
               </div>
 
             </template>
+          -->
 
             <template v-if="data.fields[curType][key] == 'gallery'">
 
               <label>{{key.replace('_', ' ')}}</label>
 
-              <Gallery v-model:gallery="curItem[key]" :id="curItem.id" :save_url="config.image_save_url" :image_url="config.image_url" :image_width="data.settings.image_width" @update="addToGallery" />
+              <Gallery v-model:gallery="curItem[key]" :id="curItem.id" :config="config" :image_width="data.settings.image_width" @update="addToGallery" />
 
             </template>
 
