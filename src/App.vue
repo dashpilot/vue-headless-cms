@@ -82,7 +82,12 @@
         <template v-if="curItem">
           <template v-for="(key, val) in Object.keys(data.fields[curType])">
 
-            <template v-if="data.fields[curType][key] == 'text'">
+            <template v-if="data.fields[curType][key] == 'text' && key == 'title'">
+              <label>{{key.replace('_', ' ')}}</label>
+              <input type="text" class="form-control" v-model="curItem[key]" @keyup="setSlug">
+            </template>
+
+            <template v-if="data.fields[curType][key] == 'text' && key !== 'title'">
               <label>{{key.replace('_', ' ')}}</label>
               <input type="text" class="form-control" v-model="curItem[key]">
             </template>
@@ -277,6 +282,18 @@ export default {
         filename: filename,
         title: ''
       });
+    },
+    setSlug(e) {
+      var slug = this.slugify(e.target.value) + "-" + this.curItem.id;
+      this.curItem.slug = slug;
+    },
+    slugify(text) {
+      return text.toString().toLowerCase()
+        .replace(/\s+/g, '-') // Replace spaces with -
+        .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+        .replace(/\-\-+/g, '-') // Replace multiple - with single -
+        .replace(/^-+/, '') // Trim - from start of text
+        .replace(/-+$/, ''); // Trim - from end of text
     },
     save() {
       console.log(this.data);

@@ -36,9 +36,7 @@ export default {
 
       var slug = this.slugify(this.newTitle);
 
-
-
-      // cheack if this slug is unique
+      // check if this slug is unique
       this.data.categories.forEach((x) => {
         if (x.slug == slug) {
           slug = slug + "-" + Math.floor(Math.random() * 9999);
