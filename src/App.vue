@@ -285,7 +285,7 @@ export default {
       let params = {}
       params.type = 'json';
       params.path = 'data.json';
-      params.data = this.data;
+      params.content = this.data;
 
       var myapp = this;
       postData(this.config.save_url, params)

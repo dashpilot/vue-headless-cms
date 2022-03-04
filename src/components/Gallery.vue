@@ -10,8 +10,6 @@
     </div>
   </div>
 
-
-
   <ul class="list-group mb-3">
     <template v-for="img in gallery">
       <li class="list-group-item">
@@ -107,7 +105,7 @@ export default {
         postData(myapp.config.save_url, {
             "type": "image",
             "path": filename,
-            "data": base64Image
+            "content": base64Image
           })
           .then(data => {
             console.log(data); // JSON data parsed by `data.json()` call
