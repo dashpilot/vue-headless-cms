@@ -263,6 +263,7 @@ export default {
           newItem[x] = "";
         }
       })
+      newItem.slug = "item-" + newItem.id;
       newItem.category = this.curCat;
       console.log(newItem)
       this.data.posts.unshift(newItem);
