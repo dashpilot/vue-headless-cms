@@ -104,7 +104,7 @@
   "ui_settings": {
     "add_category": true,
     "delete_category": true,
-    "image_title": false
+    "image_title": true
   },
   "fields": {
     "default": {

@@ -21,7 +21,7 @@
           </div>
           <div class="col-8">
 
-            <template x-if="image_title">
+            <template v-if="image_title">
               <input type="text" class="form-control mb-0" placeholder="title" v-model="img.title">
             </template>
           </div>
