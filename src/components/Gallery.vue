@@ -6,9 +6,19 @@
 
   <div class="input-group">
     <div class="btn-group">
-      <button class="btn btn-outline-dark mb-2" @click="chooseImage()">Upload Image</button>
+      <button class="btn btn-outline-dark mb-2" @click="chooseImage()">Upload Image
+
+        <template v-if="loading">
+          <i class="fas fa-spinner fa-spin"></i>
+        </template>
+      </button>
+
+
+
     </div>
   </div>
+
+
 
   <ul class="list-group mb-3">
     <template v-for="img in gallery">
@@ -43,6 +53,7 @@ export default {
   data() {
     return {
       rand: Math.floor(Math.random() * 99999999999999999) + 1,
+      loading: false,
     }
   },
   props: {
@@ -78,6 +89,7 @@ export default {
       // this.$emit('update', filename, this.id);
 
       var myapp = this;
+      myapp.loading = true;
 
       var width = this.image_width;
       var imgUpload = new Image();
@@ -106,17 +118,25 @@ export default {
         var base64Image = canvas.toDataURL('image/jpeg')
 
         console.log(base64Image);
+        setTimeout(() => {
 
+          if (myapp.config.save_url) {
+            postData(myapp.config.save_url, {
+                "type": "image",
+                "path": filename,
+                "content": base64Image
+              })
+              .then(data => {
+                console.log(data); // JSON data parsed by `data.json()` call
+                myapp.$emit('update', filename, myapp.id);
+                myapp.loading = false;
+              });
+          } else {
+            myapp.$emit('update', base64Image, myapp.id);
+            myapp.loading = false;
+          }
 
-        postData(myapp.config.save_url, {
-            "type": "image",
-            "path": filename,
-            "content": base64Image
-          })
-          .then(data => {
-            console.log(data); // JSON data parsed by `data.json()` call
-            myapp.$emit('update', filename, myapp.id);
-          });
+        }, 1000);
 
       }
       imgUpload.src = URL.createObjectURL(e.target.files[0]);

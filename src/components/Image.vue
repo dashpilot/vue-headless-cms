@@ -7,7 +7,13 @@
   <div class="mb-2">
 
     <template v-if="!modelValue">
-      <button class="btn btn-outline-dark mb-3" @click="chooseImage()">Upload Image</button>
+      <button class="btn btn-outline-dark mb-3" @click="chooseImage()">Upload Image
+
+        <template v-if="loading">
+          <i class="fas fa-spinner fa-spin"></i>
+        </template>
+
+      </button>
     </template>
 
     <!--
@@ -51,7 +57,8 @@
 export default {
   data() {
     return {
-      rand: Math.floor(Math.random() * 99999999999999999) + 1
+      rand: Math.floor(Math.random() * 99999999999999999) + 1,
+      loading: false,
     }
   },
   props: {
@@ -79,6 +86,7 @@ export default {
       // this.$emit('update:modelValue', filename);
 
       var myapp = this;
+      myapp.loading = true;
 
       var width = this.image_width;
       var imgUpload = new Image();
@@ -108,16 +116,27 @@ export default {
 
         console.log(base64Image);
 
-        postData(myapp.config.save_url, {
-            "type": "image",
-            "path": filename,
-            "content": base64Image
-          })
-          .then(data => {
-            console.log(data); // JSON data parsed by `data.json()` call
-            // refresh the preview image
-            myapp.$emit('update:modelValue', filename);
-          });
+        setTimeout(() => {
+
+          if (myapp.config.save_url) {
+            postData(myapp.config.save_url, {
+                "type": "image",
+                "path": filename,
+                "content": base64Image
+              })
+              .then(data => {
+                console.log(data); // JSON data parsed by `data.json()` call
+                // refresh the preview image
+                myapp.$emit('update:modelValue', filename);
+                myapp.loading = false;
+              });
+
+          } else {
+            myapp.$emit('update:modelValue', base64Image);
+            myapp.loading = false;
+          }
+
+        }, 1000);
 
       }
       imgUpload.src = URL.createObjectURL(e.target.files[0]);
