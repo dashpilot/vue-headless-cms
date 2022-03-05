@@ -110,7 +110,8 @@
   "settings": {
     "site_title": "Vue Headless CMS",
     "preview_url": "https:\/\/examplepage.net",
-    "image_width": 800
+    "image_width": 600,
+    "gallery_image_width": 1000
   },
   "ui_settings": {
     "add_category": true,
@@ -121,8 +122,8 @@
     "default": {
       "title": "text",
       "body": "richtext",
-      "gallery": "gallery",
-      "category": "dropdown_categories"
+      "main_image": "image",
+      "gallery": "gallery"
     },
     "page": {
       "title": "text",

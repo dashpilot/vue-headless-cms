@@ -107,31 +107,24 @@
               <textarea class="form-control" v-model="curItem[key]"></textarea>
             </template>
 
-            <!--
+
             <template v-if="data.fields[curType][key] == 'image'">
 
-              <div class="row">
-                <div class="col-9">
-                  <label>{{key.replace('_', ' ')}}</label>
-                  <Image v-model="curItem[key]" :save_url="config.image_save_url" :image_width="data.settings.image_width" />
-                </div>
-                <div class="col-3">
+              <label>{{key.replace('_', ' ')}}</label>
 
-                  <template v-if="config.image_preview_url && curItem[key]">
-                    <div class="preview" :style="{ backgroundImage: 'url('+ config.image_preview_url + curItem[key] + ')' }"></div>
-                  </template>
-                </div>
+              <template v-if="curItem[key]">
+                <div class="preview" :style="{ backgroundImage: 'url('+ config.image_preview_url + curItem[key] + ')' }"></div>
+              </template>
 
-              </div>
+              <Image v-model="curItem[key]" :save_url="config.image_save_url" :image_width="data.settings.image_width" />
 
             </template>
-          -->
 
             <template v-if="data.fields[curType][key] == 'gallery'">
 
               <label>{{key.replace('_', ' ')}}</label>
 
-              <Gallery v-model:gallery="curItem[key]" :id="curItem.id" :config="config" :image_width="data.settings.image_width" :image_title="data.ui_settings.image_title" @update="addToGallery" />
+              <Gallery v-model:gallery="curItem[key]" :id="curItem.id" :config="config" :image_width="data.settings.gallery_image_width" :image_title="data.ui_settings.image_title" @update="addToGallery" />
 
             </template>
 
