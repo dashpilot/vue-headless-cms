@@ -186,6 +186,11 @@ async function postData(url = '', data = {}) {
   cursor: pointer;
 }
 
+.fa-trash-alt:hover {
+  color: #CF5543;
+  cursor: pointer;
+}
+
 .preview-col {
   padding-left: 5px;
 }
