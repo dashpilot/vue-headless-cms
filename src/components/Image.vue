@@ -77,14 +77,13 @@ export default {
 
         console.log(base64Image);
 
-        postData(myapp.save_url, {
+        postData(myapp.config.save_url, {
             "type": "image",
             "path": filename,
             "content": base64Image
           })
           .then(data => {
             console.log(data); // JSON data parsed by `data.json()` call
-
           });
 
       }
