@@ -97,10 +97,18 @@
               <input type="text" class="form-control" v-model="curItem[key]" disabled>
             </template>
 
+
             <template v-if="data.fields[curType][key] == 'richtext'">
               <label>{{key.replace('_', ' ')}}</label>
               <Editor v-model="curItem[key]" />
             </template>
+
+            <!--
+            <template v-if="data.fields[curType][key] == 'richtext'">
+              <label>{{key.replace('_', ' ')}}</label>
+              <RichText v-model="curItem[key]" :key="key" />
+            </template>
+          -->
 
             <template v-if="data.fields[curType][key] == 'textarea'">
               <label>{{key.replace('_', ' ')}}</label>
@@ -109,21 +117,14 @@
 
 
             <template v-if="data.fields[curType][key] == 'image'">
-
               <label>{{key.replace('_', ' ')}}</label>
-
               <Image v-model="curItem[key]" :config="config" :image_width="data.settings.image_width" />
-
             </template>
 
             <template v-if="data.fields[curType][key] == 'gallery'">
-
               <label>{{key.replace('_', ' ')}}</label>
-
               <Gallery v-model:gallery="curItem[key]" :id="curItem.id" :config="config" :image_width="data.settings.gallery_image_width" :image_title="data.ui_settings.image_title" @update="addToGallery" />
-
             </template>
-
 
             <template v-if="data.fields[curType][key].includes('dropdown')">
               <label>{{key.replace('_', ' ')}}</label>
