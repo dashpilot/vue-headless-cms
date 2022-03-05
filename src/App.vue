@@ -112,10 +112,6 @@
 
               <label>{{key.replace('_', ' ')}}</label>
 
-              <template v-if="curItem[key]">
-                <div class="preview" :style="{ backgroundImage: 'url('+ config.image_preview_url + curItem[key] + ')' }"></div>
-              </template>
-
               <Image v-model="curItem[key]" :config="config" :image_width="data.settings.image_width" />
 
             </template>

@@ -4,13 +4,41 @@
   <input type="file" :id="'fileInput-'+rand" accept="image/*" @change="uploadImage" style="display: none;">
 
 
-  <div class="input-group mb-2">
-    <div class="btn-group">
-      <button class="btn btn-outline-dark mb-3" @click="chooseImage()">Upload Image</button>
+  <div class="mb-2">
+
+    <button class="btn btn-outline-dark mb-3" @click="chooseImage()">Upload Image</button>
+
+    <!--
       <template v-if="modelValue">
         <button class="btn btn-outline-dark mb-3" @click="$emit('update:modelValue', '')"><i class="fas fa-trash-alt"></i></button>
       </template>
-    </div>
+    -->
+
+    <template v-if="modelValue">
+      <ul class="list-group mb-3">
+
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-2">
+
+              <div class="image-box" :style="{ backgroundImage: 'url('+ config.image_preview_url + modelValue + ')' }"></div>
+
+            </div>
+            <div class="col-8">
+
+
+            </div>
+            <div class="col-2 text-end">
+
+              <i class="fas fa-trash-alt" @click="deleteImage(modelValue)"></i>
+            </div>
+          </div>
+        </li>
+
+      </ul>
+    </template>
+
+
   </div>
 
 
@@ -90,6 +118,22 @@ export default {
       }
       imgUpload.src = URL.createObjectURL(e.target.files[0]);
 
+    },
+    deleteImage(value) {
+      if (confirm("Are you sure you want to delete this image?")) {
+
+        this.$emit('update:modelValue', '');
+
+        postData(this.config.image_delete_url, {
+            "type": "image",
+            "path": value
+          })
+          .then(data => {
+            console.log(data); // JSON data parsed by `data.json()` call
+
+          });
+
+      }
     }
   }
 
