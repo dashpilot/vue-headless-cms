@@ -116,7 +116,7 @@
                 <div class="preview" :style="{ backgroundImage: 'url('+ config.image_preview_url + curItem[key] + ')' }"></div>
               </template>
 
-              <Image v-model="curItem[key]" :save_url="config.image_save_url" :image_width="data.settings.image_width" />
+              <Image v-model="curItem[key]" :config="config" :image_width="data.settings.image_width" />
 
             </template>
 

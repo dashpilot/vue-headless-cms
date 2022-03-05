@@ -29,13 +29,14 @@ export default {
       type: String,
       default: '',
     },
-    save_url: {
-      type: String,
-    },
     image_width: {
       type: Number,
       default: 800,
-    }
+    },
+    config: {
+      type: Object,
+      default: {},
+    },
   },
   methods: {
     chooseImage() {
