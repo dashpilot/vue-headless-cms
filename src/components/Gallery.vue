@@ -115,7 +115,7 @@ export default {
           })
           .then(data => {
             console.log(data); // JSON data parsed by `data.json()` call
-            myapp.$emit('update', filename, this.id);
+            myapp.$emit('update', filename, myapp.id);
           });
 
       }
