@@ -3,7 +3,6 @@
 
   <input type="file" :id="'fileInput-'+rand" accept="image/*" @change="uploadImage" style="display: none;">
 
-
   <div class="mb-2">
 
     <template v-if="!modelValue">
@@ -16,18 +15,12 @@
       </button>
     </template>
 
-    <!--
-      <template v-if="modelValue">
-        <button class="btn btn-outline-dark mb-3" @click="$emit('update:modelValue', '')"><i class="fas fa-trash-alt"></i></button>
-      </template>
-    -->
-
     <template v-if="modelValue">
       <ul class="list-group mb-3">
 
         <li class="list-group-item">
           <div class="row">
-            <div class="col-2">
+            <div class="col-2 preview-col">
 
               <div class="image-box" :style="{ backgroundImage: 'url('+ config.image_preview_url + modelValue + ')' }"></div>
 
@@ -37,7 +30,6 @@
 
             </div>
             <div class="col-2 text-end">
-
               <i class="fas fa-trash-alt" @click="deleteImage(modelValue)"></i>
             </div>
           </div>
@@ -45,7 +37,6 @@
 
       </ul>
     </template>
-
 
   </div>
 
@@ -181,8 +172,8 @@ async function postData(url = '', data = {}) {
 
 <style scoped>
 .image-box {
-  width: 38px;
-  height: 38px;
+  width: 50px;
+  height: 50px;
   border: 1px solid #DDD;
   background-size: cover;
   background-position: center center;
@@ -191,7 +182,11 @@ async function postData(url = '', data = {}) {
 }
 
 .fa-trash-alt {
-  margin-top: 10px;
+  margin-top: 15px;
   cursor: pointer;
+}
+
+.preview-col {
+  padding-left: 5px;
 }
 </style>

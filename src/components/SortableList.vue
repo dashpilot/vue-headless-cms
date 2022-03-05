@@ -18,10 +18,10 @@
             <div class="row g-0 d-flex">
               <div class="col-1">
                 <div>
-                  <i class="fas fa-chevron-up" @click="moveUp(item.id, i)"></i>
+                  <i class="fas fa-caret-up" @click="moveUp(item.id, i)"></i>
                 </div>
                 <div>
-                  <i class="fas fa-chevron-down" @click="moveDown(item.id, i)"></i>
+                  <i class="fas fa-caret-down" @click="moveDown(item.id, i)"></i>
                 </div>
               </div>
               <div class="col-10 text-truncate justify-content-center align-self-center">
@@ -46,7 +46,7 @@
 
                 &nbsp;
 
-                <i class="fas fa-trash" @click="deleteItem(item.id)"></i>
+                <i class="fas fa-trash-alt" @click="deleteItem(item.id)"></i>
 
 
 
@@ -176,7 +176,7 @@ export default {
   cursor: pointer;
 }
 
-.fa-trash:hover {
+.fa-trash-alt:hover {
   color: #CF5543;
   cursor: pointer;
 }
