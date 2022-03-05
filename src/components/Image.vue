@@ -155,3 +155,20 @@ async function postData(url = '', data = {}) {
   return response.json(); // parses JSON response into native JavaScript objects
 }
 </script>
+
+<style scoped>
+.image-box {
+  width: 38px;
+  height: 38px;
+  border: 1px solid #DDD;
+  background-size: cover;
+  background-position: center center;
+  border-radius: 4px;
+  display: block;
+}
+
+.fa-trash-alt {
+  margin-top: 10px;
+  cursor: pointer;
+}
+</style>
