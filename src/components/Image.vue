@@ -76,7 +76,7 @@ export default {
 
       const date = new Date().toJSON().slice(0, 10).replaceAll('-', '');
       const filename = date + "-" + Math.floor(Math.random() * 999999999) + ".jpg";
-      this.$emit('update:modelValue', filename);
+      // this.$emit('update:modelValue', filename);
 
       var myapp = this;
 
