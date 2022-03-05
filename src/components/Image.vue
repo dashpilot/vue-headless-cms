@@ -115,6 +115,8 @@ export default {
           })
           .then(data => {
             console.log(data); // JSON data parsed by `data.json()` call
+            // refresh the preview image
+            myapp.$emit('update:modelValue', filename);
           });
 
       }
