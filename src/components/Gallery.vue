@@ -6,7 +6,7 @@
 
   <div class="input-group">
     <div class="btn-group">
-      <button class="btn btn-outline-dark mb-3" @click="chooseImage()">Upload Image</button>
+      <button class="btn btn-outline-dark mb-2" @click="chooseImage()">Upload Image</button>
     </div>
   </div>
 
