@@ -6,7 +6,9 @@
 
   <div class="mb-2">
 
-    <button class="btn btn-outline-dark mb-3" @click="chooseImage()">Upload Image</button>
+    <template v-if="!modelValue">
+      <button class="btn btn-outline-dark mb-3" @click="chooseImage()">Upload Image</button>
+    </template>
 
     <!--
       <template v-if="modelValue">
