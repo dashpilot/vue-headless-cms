@@ -391,6 +391,7 @@ a.sub {
   overflow: hidden;
   text-overflow: ellipsis;
   border-left: 5px solid transparent;
+  height: 90px;
 }
 
 .col2 .list-group-item:hover {
