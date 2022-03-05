@@ -75,7 +75,7 @@ export default {
       const filename = date + "-" + Math.floor(Math.random() * 999999999) + ".jpg";
 
 
-      this.$emit('update', filename, this.id);
+      // this.$emit('update', filename, this.id);
 
       var myapp = this;
 
@@ -115,6 +115,7 @@ export default {
           })
           .then(data => {
             console.log(data); // JSON data parsed by `data.json()` call
+            myapp.$emit('update', filename, this.id);
           });
 
       }
