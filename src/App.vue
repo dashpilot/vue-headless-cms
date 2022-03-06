@@ -1,14 +1,11 @@
 <template>
 <div id="launch" class="loading" :class="{'loaded': !loading}">
   <div id="loading" class="text-center">
-
     <img :src="loaderIcon" />
     <div class="clear"></div>
-
     <div class="spinner-border" role="status">
       <span class="sr-only">Loading...</span>
     </div>
-
   </div>
 </div>
 
