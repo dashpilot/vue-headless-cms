@@ -2,7 +2,7 @@
 <div id="launch" class="loading" :class="{'loaded': !loading}">
   <div id="loading" class="text-center">
 
-    <img src="img/rocket-planet.png" />
+    <img src="/img/rocket-planet.png" />
     <div class="clear"></div>
 
     <div class="spinner-border" role="status">
@@ -11,8 +11,6 @@
 
   </div>
 </div>
-
-
 
 <template v-if="data.categories">
   <div class="row g-0">
@@ -27,16 +25,13 @@
           <template v-if="curCat && data.ui_settings.delete_category">
             <button @click="showCatSettings = true" class="btn btn-outline-light"><i class="fa fa-cog"></i></button>
           </template>
-
         </div>
-
 
       </div>
 
       <template v-for="cat in data.categories">
         <a @click="setCurCat(cat.slug)" class="tab" :class="{ 'active': curCat == cat.slug, 'sub': cat.sub == true }">{{cat.title}}</a>
       </template>
-
 
       <div id="settings">
         <div class="btn-group">
@@ -65,14 +60,9 @@
     </div>
     <div class="col-7 col3">
 
-
-
-
-
       <div class="savebar">
 
         <div class="title">{{data.settings.site_title}}</div>
-
 
         <div class="buttons">
           <button class="btn btn-primary mt-1" @click="save()">
@@ -91,7 +81,6 @@
 
 
       <div class="post-editor">
-
 
         <template v-if="curItem">
           <template v-for="(key, val) in Object.keys(data.fields[curType])">
@@ -238,8 +227,6 @@ export default {
             this.data = data;
             console.log(data);
 
-
-
             // select the first elements
             var defaultCat = data.categories[0].slug;
             this.curCat = defaultCat;
@@ -376,8 +363,6 @@ body {
   z-index: 999;
 
 }
-
-
 
 .loading {
   opacity: 1;
