@@ -2,7 +2,7 @@
 <div id="launch" class="loading" :class="{'loaded': !loading}">
   <div id="loading" class="text-center">
 
-    <img src="/img/rocket-planet.png" />
+    <img :src="loaderIcon" />
     <div class="clear"></div>
 
     <div class="spinner-border" role="status">
@@ -182,6 +182,7 @@ import SortableList from './components/SortableList.vue'
 import PostList from './components/PostList.vue'
 import AddCategory from './components/AddCategory.vue'
 import Settings from './components/Settings.vue'
+import loaderIcon from './rocket-planet.png'
 
 export default {
   components: {
