@@ -239,7 +239,7 @@ export default {
             var myapp = this;
             setTimeout(() => {
               myapp.loading = false;
-            }, 1000)
+            }, 500)
 
           });
 
