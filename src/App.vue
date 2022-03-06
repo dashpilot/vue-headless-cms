@@ -394,7 +394,7 @@ body {
 #loading {
   width: 250px;
   margin: 0 auto;
-  padding-top: 75px;
+  padding-top: 100px;
   text-align: center;
 }
 
