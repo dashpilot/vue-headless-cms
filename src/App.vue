@@ -175,6 +175,7 @@
 </template>
 
 <script>
+import loaderIcon from './rocket-planet.png'
 import Editor from './components/Editor.vue'
 import Image from './components/Image.vue'
 import Gallery from './components/Gallery.vue'
@@ -182,7 +183,7 @@ import SortableList from './components/SortableList.vue'
 import PostList from './components/PostList.vue'
 import AddCategory from './components/AddCategory.vue'
 import Settings from './components/Settings.vue'
-import loaderIcon from './rocket-planet.png'
+
 
 export default {
   components: {
