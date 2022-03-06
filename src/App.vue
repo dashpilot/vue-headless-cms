@@ -6,7 +6,7 @@
     <div class="clear"></div>
 
     <div class="spinner-border" role="status">
-      <span class="sr-only">Loading...</span>
+      <span class="sr-only">Loading</span>
     </div>
 
   </div>
