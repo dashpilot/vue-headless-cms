@@ -1,158 +1,173 @@
 <template>
+<template v-if="loading">
+  <div id="launch">
+    <div id="loading" class="text-center">
+
+      <img src="img/rocket-planet.png" />
+      <div class="clear"></div>
+
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+
+    </div>
+  </div>
+</template>
+
+
 <template v-if="data.categories">
+<div class="row g-0">
+  <div class="col-2 col1">
 
-  <div class="row g-0">
-    <div class="col-2 col1">
+    <div class="settings">
 
-      <div class="settings">
-
-        <div class="btn-group">
-          <template v-if="curCat && data.ui_settings.add_category">
-            <button @click="showAddCat = true" class="btn btn-outline-light"><i class="fa fa-plus"></i></button>
-          </template>
-          <template v-if="curCat && data.ui_settings.delete_category">
-            <button @click="showCatSettings = true" class="btn btn-outline-light"><i class="fa fa-cog"></i></button>
-          </template>
-
-        </div>
-
+      <div class="btn-group">
+        <template v-if="curCat && data.ui_settings.add_category">
+          <button @click="showAddCat = true" class="btn btn-outline-light"><i class="fa fa-plus"></i></button>
+        </template>
+        <template v-if="curCat && data.ui_settings.delete_category">
+          <button @click="showCatSettings = true" class="btn btn-outline-light"><i class="fa fa-cog"></i></button>
+        </template>
 
       </div>
 
-      <template v-for="cat in data.categories">
-        <a @click="setCurCat(cat.slug)" class="tab" :class="{ 'active': curCat == cat.slug, 'sub': cat.sub == true }">{{cat.title}}</a>
-      </template>
+
+    </div>
+
+    <template v-for="cat in data.categories">
+      <a @click="setCurCat(cat.slug)" class="tab" :class="{ 'active': curCat == cat.slug, 'sub': cat.sub == true }">{{cat.title}}</a>
+    </template>
 
 
-      <div id="settings">
-        <div class="btn-group">
-          <button @click="showSettings = true" class="btn btn-outline-light"><i class="fa fa-wrench"></i></button>
+    <div id="settings">
+      <div class="btn-group">
+        <button @click="showSettings = true" class="btn btn-outline-light"><i class="fa fa-wrench"></i></button>
 
-          <template v-if="config.sign_out_url">
-            <a :href="config.sign_out_url" class="btn btn-outline-light"><i class="fas fa-sign-out-alt"></i></a>
-          </template>
-        </div>
+        <template v-if="config.sign_out_url">
+          <a :href="config.sign_out_url" class="btn btn-outline-light"><i class="fas fa-sign-out-alt"></i></a>
+        </template>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-3 col2">
+
+    <div class="filter">
+
+      <div class="btn-group">
+        <a @click="addItem()" class="btn btn-outline-dark"><i class="fa fa-plus"></i></a>
+        <a @click="showPostSettings = true" class="btn btn-outline-dark"><i class="fa fa-cog"></i></a>
       </div>
 
     </div>
-    <div class="col-3 col2">
 
-      <div class="filter">
+    <PostList v-model:posts="catItems" v-model:curpost="curItem" />
 
-        <div class="btn-group">
-          <a @click="addItem()" class="btn btn-outline-dark"><i class="fa fa-plus"></i></a>
-          <a @click="showPostSettings = true" class="btn btn-outline-dark"><i class="fa fa-cog"></i></a>
-        </div>
+  </div>
+  <div class="col-7 col3">
 
+
+
+
+
+    <div class="savebar">
+
+      <div class="title">{{data.settings.site_title}}</div>
+
+
+      <div class="buttons">
+        <button class="btn btn-primary mt-1" @click="save()">
+          <template v-if="saving">
+            <i class="fas fa-spinner fa-spin"></i> &nbsp;
+          </template>
+          Save</button>
+
+        <template v-if="data.settings.preview_url">
+          &nbsp;
+          <a class="btn btn-outline-dark mt-1 btn-preview" :href="data.settings.preview_url" target="_blank">View Site</a>
+        </template>
       </div>
-
-      <PostList v-model:posts="catItems" v-model:curpost="curItem" />
 
     </div>
-    <div class="col-7 col3">
 
 
+    <div class="post-editor">
 
 
+      <template v-if="curItem">
+        <template v-for="(key, val) in Object.keys(data.fields[curType])">
 
-      <div class="savebar">
-
-        <div class="title">{{data.settings.site_title}}</div>
-
-
-        <div class="buttons">
-          <button class="btn btn-primary mt-1" @click="save()">
-            <template v-if="saving">
-              <i class="fas fa-spinner fa-spin"></i> &nbsp;
-            </template>
-            Save</button>
-
-          <template v-if="data.settings.preview_url">
-            &nbsp;
-            <a class="btn btn-outline-dark mt-1 btn-preview" :href="data.settings.preview_url" target="_blank">View Site</a>
+          <template v-if="data.fields[curType][key] == 'text' && key == 'title'">
+            <label>{{key.replace('_', ' ')}}</label>
+            <input type="text" class="form-control" v-model="curItem[key]" @keyup="setSlug">
           </template>
-        </div>
 
-      </div>
+          <template v-if="data.fields[curType][key] == 'text' && key !== 'title'">
+            <label>{{key.replace('_', ' ')}}</label>
+            <input type="text" class="form-control" v-model="curItem[key]">
+          </template>
 
-
-      <div class="post-editor">
-
-
-        <template v-if="curItem">
-          <template v-for="(key, val) in Object.keys(data.fields[curType])">
-
-            <template v-if="data.fields[curType][key] == 'text' && key == 'title'">
-              <label>{{key.replace('_', ' ')}}</label>
-              <input type="text" class="form-control" v-model="curItem[key]" @keyup="setSlug">
-            </template>
-
-            <template v-if="data.fields[curType][key] == 'text' && key !== 'title'">
-              <label>{{key.replace('_', ' ')}}</label>
-              <input type="text" class="form-control" v-model="curItem[key]">
-            </template>
-
-            <template v-if="data.fields[curType][key] == 'text-disabled'">
-              <label>{{key.replace('_', ' ')}}</label>
-              <input type="text" class="form-control" v-model="curItem[key]" disabled>
-            </template>
+          <template v-if="data.fields[curType][key] == 'text-disabled'">
+            <label>{{key.replace('_', ' ')}}</label>
+            <input type="text" class="form-control" v-model="curItem[key]" disabled>
+          </template>
 
 
-            <template v-if="data.fields[curType][key] == 'richtext'">
-              <label>{{key.replace('_', ' ')}}</label>
-              <Editor v-model="curItem[key]" />
-            </template>
+          <template v-if="data.fields[curType][key] == 'richtext'">
+            <label>{{key.replace('_', ' ')}}</label>
+            <Editor v-model="curItem[key]" />
+          </template>
 
-            <!--
+          <!--
             <template v-if="data.fields[curType][key] == 'richtext'">
               <label>{{key.replace('_', ' ')}}</label>
               <RichText v-model="curItem[key]" :key="key" />
             </template>
           -->
 
-            <template v-if="data.fields[curType][key] == 'textarea'">
-              <label>{{key.replace('_', ' ')}}</label>
-              <textarea class="form-control" v-model="curItem[key]"></textarea>
-            </template>
-
-
-            <template v-if="data.fields[curType][key] == 'image'">
-              <label>{{key.replace('_', ' ')}}</label>
-              <Image v-model="curItem[key]" :config="config" :image_width="data.settings.image_width" />
-            </template>
-
-            <template v-if="data.fields[curType][key] == 'gallery'">
-              <label>{{key.replace('_', ' ')}}</label>
-              <Gallery v-model:gallery="curItem[key]" :id="curItem.id" :config="config" :image_width="data.settings.gallery_image_width" :image_title="data.ui_settings.image_title" @update="addToGallery" />
-            </template>
-
-            <template v-if="data.fields[curType][key].includes('dropdown')">
-              <label>{{key.replace('_', ' ')}}</label>
-
-              <select class="form-select w-25" v-model="curItem[key]" @change="changeCat(curItem[key]);">
-                <template v-for="item in data.categories">
-                  <option :value="item.slug">{{item.title}}</option>
-                </template>
-              </select>
-
-            </template>
-
-            <template v-else>
-
-            </template>
-
+          <template v-if="data.fields[curType][key] == 'textarea'">
+            <label>{{key.replace('_', ' ')}}</label>
+            <textarea class="form-control" v-model="curItem[key]"></textarea>
           </template>
 
 
+          <template v-if="data.fields[curType][key] == 'image'">
+            <label>{{key.replace('_', ' ')}}</label>
+            <Image v-model="curItem[key]" :config="config" :image_width="data.settings.image_width" />
+          </template>
+
+          <template v-if="data.fields[curType][key] == 'gallery'">
+            <label>{{key.replace('_', ' ')}}</label>
+            <Gallery v-model:gallery="curItem[key]" :id="curItem.id" :config="config" :image_width="data.settings.gallery_image_width" :image_title="data.ui_settings.image_title" @update="addToGallery" />
+          </template>
+
+          <template v-if="data.fields[curType][key].includes('dropdown')">
+            <label>{{key.replace('_', ' ')}}</label>
+
+            <select class="form-select w-25" v-model="curItem[key]" @change="changeCat(curItem[key]);">
+              <template v-for="item in data.categories">
+                <option :value="item.slug">{{item.title}}</option>
+              </template>
+            </select>
+
+          </template>
+
+          <template v-else>
+
+          </template>
+
         </template>
-      </div>
 
+
+      </template>
     </div>
+
   </div>
+</div>
 
 
-  <template v-if="showCatSettings">
-    <SortableList v-model:items="data.categories" v-model:data="data" v-model:show="showCatSettings" title="Categories" type="categories" />
+<template v-if="showCatSettings">
+  <SortableList v-model:items="data.categories" v-model:data="data" v-model:show="showCatSettings" title="Categories" type="categories" />
 </template>
 
 <template v-if="showPostSettings">
@@ -192,6 +207,7 @@ export default {
   },
   data() {
     return {
+      loading: true,
       curCat: false,
       curType: 'default',
       catItems: false,
@@ -223,11 +239,19 @@ export default {
             this.data = data;
             console.log(data);
 
+
+
             // select the first elements
             var defaultCat = data.categories[0].slug;
             this.curCat = defaultCat;
             this.catItems = this.data.posts.filter(x => x.category == defaultCat);
             this.curItem = this.data.posts.filter(x => x.category == defaultCat)[0];
+
+            var myapp = this;
+            setTimeout(() => {
+              myapp.loading = false;
+            }, 1000)
+
           });
 
       });
@@ -341,6 +365,32 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   height: 100%;
+}
+
+#launch {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #F8F8F8;
+  z-index: 999;
+}
+
+#loading {
+  width: 250px;
+  margin: 0 auto;
+  padding-top: 50px;
+  text-align: center;
+}
+
+#loading img {
+  max-width: 60%;
+  margin-bottom: 10px;
+}
+
+#loading .spinner-border {
+  color: #5679FE;
 }
 
 .row {
