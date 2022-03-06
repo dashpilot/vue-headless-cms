@@ -2,7 +2,7 @@
 <div id="launch" class="loading" :class="{'loaded': !loading}">
   <div id="loading" class="text-center">
 
-    <img src="${loaderIcon}" />
+    <img :src="loaderIcon" />
     <div class="clear"></div>
 
     <div class="spinner-border" role="status">
@@ -197,6 +197,7 @@ export default {
   },
   data() {
     return {
+      loaderIcon,
       loading: true,
       curCat: false,
       curType: 'default',
