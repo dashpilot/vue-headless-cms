@@ -143,8 +143,12 @@ export default {
             "path": value
           })
           .then(data => {
-            console.log(data); // JSON data parsed by `data.json()` call
-
+            if (data.ok) {
+              console.log(data);
+            } else {
+              console.log(data);
+              alert("Error: " + data.message)
+            }
           });
 
       }

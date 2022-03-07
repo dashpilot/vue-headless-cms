@@ -308,8 +308,13 @@ export default {
       var myapp = this;
       postData(this.config.save_url, params)
         .then(data => {
-          console.log(data); // JSON data parsed by `data.json()` call
-        });
+          if (data.ok) {
+            console.log(data);
+          } else {
+            console.log(data);
+            alert("Error: " + data.message)
+          }
+        })
 
       setTimeout(() => {
         this.saving = false;
