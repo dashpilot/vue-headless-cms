@@ -255,7 +255,7 @@ export default {
       let fields = this.data.fields[this.curType];
 
       var newItem = {};
-      newItem.id = "posts-" + Math.floor(Math.random() * 999999999);
+      newItem.id = "item-" + Math.floor(Math.random() * 999999999);
       Object.keys(fields).forEach((x) => {
         if (x == 'gallery') {
           newItem[x] = [];
@@ -263,7 +263,7 @@ export default {
           newItem[x] = "";
         }
       })
-      newItem.slug = "item-" + newItem.id;
+      newItem.slug = "item-" + newItem.id.replace('posts-', '');
       newItem.category = this.curCat;
       console.log(newItem)
       this.data.posts.unshift(newItem);
@@ -285,7 +285,7 @@ export default {
       });
     },
     setSlug(e) {
-      var slug = this.slugify(e.target.value) + "-" + this.curItem.id;
+      var slug = this.slugify(e.target.value) + "-" + this.curItem.id.replace('posts-', '');
       this.curItem.slug = slug;
     },
     slugify(text) {
