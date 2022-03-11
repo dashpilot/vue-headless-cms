@@ -64,9 +64,12 @@
         <div class="buttons">
           <button class="btn btn-primary mt-1" @click="save()">
             <template v-if="saving">
-              <i class="fas fa-spinner fa-spin"></i> &nbsp;
+              <i class="fas fa-spinner fa-spin"></i> &nbsp; Publishing...
             </template>
-            Save</button>
+            <template v-if="!saving">
+              <i class="fas fa-spinner fa-spin"></i> &nbsp; Save
+            </template>
+          </button>
 
           <template v-if="data.settings.preview_url">
             &nbsp;
@@ -325,7 +328,7 @@ export default {
 
       setTimeout(() => {
         this.saving = false;
-      }, 2000)
+      }, this.data.ui_settings.saving_duration)
     }
   }
 }

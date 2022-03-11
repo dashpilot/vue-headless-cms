@@ -116,7 +116,8 @@
   "ui_settings": {
     "add_category": true,
     "delete_category": true,
-    "image_title": true
+    "image_title": true,
+    "saving_duration": "2000"
   },
   "fields": {
     "default": {
