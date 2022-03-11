@@ -67,7 +67,7 @@
               <i class="fas fa-spinner fa-spin"></i> &nbsp; Publishing...
             </template>
             <template v-if="!saving">
-              <i class="fas fa-spinner fa-spin"></i> &nbsp; Save
+              Save
             </template>
           </button>
 
