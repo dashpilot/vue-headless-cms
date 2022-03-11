@@ -119,7 +119,7 @@
     "image_title": true,
     "saving_duration": "2000"
   },
-  "fields": {
+  "content_types": {
     "default": {
       "title": "text",
       "body": "richtext",

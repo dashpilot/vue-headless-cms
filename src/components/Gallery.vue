@@ -66,9 +66,7 @@ export default {
       type: Array,
       default: [],
     },
-    id: {
-      type: Number,
-    },
+    id: {},
     config: {
       type: Object,
       default: {},

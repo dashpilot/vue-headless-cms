@@ -10,7 +10,7 @@
     <label>Content Type</label>
 
     <select class="form-select" v-model="newType">
-      <template v-for="field in Object.keys(config.fields)">
+      <template v-for="field in Object.keys(config.content_types)">
         <option :value="field">{{field}}</option>
       </template>
     </select>
@@ -47,7 +47,6 @@ export default {
         alert('Title should be at least three characters long (excluding special characters)')
       } else {
 
-        let fields = this.config.fields.categories;
 
         var newItem = {};
         newItem.id = "categories-" + Math.floor(Math.random() * 999999999);

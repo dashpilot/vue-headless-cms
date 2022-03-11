@@ -83,60 +83,60 @@
       <div class="post-editor">
 
         <template v-if="curItem">
-          <template v-for="(key, val) in Object.keys(data.fields[curType])">
+          <template v-for="(key, val) in Object.keys(data.content_types[curType])">
 
-            <template v-if="data.fields[curType][key] == 'text' && key == 'title'">
+            <template v-if="data.content_types[curType][key] == 'text' && key == 'title'">
               <label>{{key.replaceAll('_', ' ')}}</label>
               <input type="text" class="form-control" v-model="curItem[key]" @keyup="setSlug">
             </template>
 
-            <template v-if="data.fields[curType][key] == 'text' && key !== 'title'">
+            <template v-if="data.content_types[curType][key] == 'text' && key !== 'title'">
               <label>{{key.replaceAll('_', ' ')}}</label>
               <input type="text" class="form-control" v-model="curItem[key]">
             </template>
 
-            <template v-if="data.fields[curType][key] == 'text-disabled'">
+            <template v-if="data.content_types[curType][key] == 'text-disabled'">
               <label>{{key.replaceAll('_', ' ')}}</label>
               <input type="text" class="form-control" v-model="curItem[key]" disabled>
             </template>
 
 
-            <template v-if="data.fields[curType][key] == 'richtext'">
+            <template v-if="data.content_types[curType][key] == 'richtext'">
               <label>{{key.replaceAll('_', ' ')}}</label>
               <Editor v-model="curItem[key]" />
             </template>
 
             <!--
-            <template v-if="data.fields[curType][key] == 'richtext'">
+            <template v-if="data.content_types[curType][key] == 'richtext'">
               <label>{{key.replace('_', ' ')}}</label>
               <RichText v-model="curItem[key]" :key="key" />
             </template>
           -->
 
-            <template v-if="data.fields[curType][key] == 'textarea'">
+            <template v-if="data.content_types[curType][key] == 'textarea'">
               <label>{{key.replaceAll('_', ' ')}}</label>
               <textarea class="form-control" v-model="curItem[key]"></textarea>
             </template>
 
 
-            <template v-if="data.fields[curType][key] == 'image'">
+            <template v-if="data.content_types[curType][key] == 'image'">
               <label>{{key.replaceAll('_', ' ')}}</label>
               <Image v-model="curItem[key]" :config="config" :image_width="data.settings.image_width" />
             </template>
 
-            <template v-if="data.fields[curType][key] == 'gallery'">
+            <template v-if="data.content_types[curType][key] == 'gallery'">
               <label>{{key.replaceAll('_', ' ')}}</label>
               <Gallery v-model:gallery="curItem[key]" :id="curItem.id" :config="config" :image_width="data.settings.gallery_image_width" :image_title="data.ui_settings.image_title" @update="addToGallery" />
             </template>
 
-            <template v-if="data.fields[curType][key] == 'switch'">
+            <template v-if="data.content_types[curType][key] == 'switch'">
               <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" v-model="curItem[key]">
                 <label class="form-check-label" for="flexSwitchCheckChecked">{{key.replaceAll('_', ' ')}}</label>
               </div>
             </template>
 
-            <template v-if="data.fields[curType][key].includes('dropdown')">
+            <template v-if="data.content_types[curType][key].includes('dropdown')">
               <label>{{key.replace('_', ' ')}}</label>
 
               <select class="form-select w-25" v-model="curItem[key]" @change="changeCat(curItem[key]);">
@@ -262,7 +262,7 @@ export default {
     },
     addItem() {
 
-      let fields = this.data.fields[this.curType];
+      let fields = this.data.content_types[this.curType];
 
       var newItem = {};
       newItem.id = "item-" + Math.floor(Math.random() * 999999999);
