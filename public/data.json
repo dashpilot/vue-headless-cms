@@ -123,7 +123,8 @@
       "title": "text",
       "body": "richtext",
       "main_image": "image",
-      "gallery": "gallery"
+      "gallery": "gallery",
+      "draft": "switch"
     },
     "page": {
       "title": "text",

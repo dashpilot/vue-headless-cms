@@ -2,13 +2,19 @@
 <ul class="list-group">
   <template v-for="item in posts">
     <li class="list-group-item" @click="setCurItem(item.id)" :class="{'active2': curpost.id == item.id}">
-      <template v-if="item.title !== ''">
-        <b>{{item.title}}</b><br>
-        <span v-html="stripShorten(item.body, 60)"></span>
+      <template v-if="!item.draft">
+        <template v-if="item.title !== ''">
+          <b>{{item.title}}</b><br>
+          <span v-html="stripShorten(item.body, 60)"></span>
+        </template>
+        <template v-if="item.title == ''">
+          <b class="grey">Untitled</b><br>
+          <span class="grey">(No content)</span>
+        </template>
       </template>
-      <template v-if="item.title == ''">
-        <b class="grey">Untitled</b><br>
-        <span class="grey">(No content)</span>
+      <template v-else>
+        <b class="grey">{{item.title}}</b><br>
+        <span class="grey">(draft)</span>
       </template>
     </li>
   </template>

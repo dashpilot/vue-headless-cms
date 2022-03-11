@@ -83,23 +83,23 @@
           <template v-for="(key, val) in Object.keys(data.fields[curType])">
 
             <template v-if="data.fields[curType][key] == 'text' && key == 'title'">
-              <label>{{key.replace('_', ' ')}}</label>
+              <label>{{key.replaceAll('_', ' ')}}</label>
               <input type="text" class="form-control" v-model="curItem[key]" @keyup="setSlug">
             </template>
 
             <template v-if="data.fields[curType][key] == 'text' && key !== 'title'">
-              <label>{{key.replace('_', ' ')}}</label>
+              <label>{{key.replaceAll('_', ' ')}}</label>
               <input type="text" class="form-control" v-model="curItem[key]">
             </template>
 
             <template v-if="data.fields[curType][key] == 'text-disabled'">
-              <label>{{key.replace('_', ' ')}}</label>
+              <label>{{key.replaceAll('_', ' ')}}</label>
               <input type="text" class="form-control" v-model="curItem[key]" disabled>
             </template>
 
 
             <template v-if="data.fields[curType][key] == 'richtext'">
-              <label>{{key.replace('_', ' ')}}</label>
+              <label>{{key.replaceAll('_', ' ')}}</label>
               <Editor v-model="curItem[key]" />
             </template>
 
@@ -111,19 +111,26 @@
           -->
 
             <template v-if="data.fields[curType][key] == 'textarea'">
-              <label>{{key.replace('_', ' ')}}</label>
+              <label>{{key.replaceAll('_', ' ')}}</label>
               <textarea class="form-control" v-model="curItem[key]"></textarea>
             </template>
 
 
             <template v-if="data.fields[curType][key] == 'image'">
-              <label>{{key.replace('_', ' ')}}</label>
+              <label>{{key.replaceAll('_', ' ')}}</label>
               <Image v-model="curItem[key]" :config="config" :image_width="data.settings.image_width" />
             </template>
 
             <template v-if="data.fields[curType][key] == 'gallery'">
-              <label>{{key.replace('_', ' ')}}</label>
+              <label>{{key.replaceAll('_', ' ')}}</label>
               <Gallery v-model:gallery="curItem[key]" :id="curItem.id" :config="config" :image_width="data.settings.gallery_image_width" :image_title="data.ui_settings.image_title" @update="addToGallery" />
+            </template>
+
+            <template v-if="data.fields[curType][key] == 'switch'">
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" v-model="curItem[key]">
+                <label class="form-check-label" for="flexSwitchCheckChecked">{{key.replaceAll('_', ' ')}}</label>
+              </div>
             </template>
 
             <template v-if="data.fields[curType][key].includes('dropdown')">
@@ -285,7 +292,7 @@ export default {
       });
     },
     setSlug(e) {
-      var slug = this.slugify(e.target.value) + "-" + this.curItem.id.replace('posts-', '');
+      var slug = this.slugify(e.target.value) + "-" + this.curItem.id.toString().replace('item-', '');
       this.curItem.slug = slug;
     },
     slugify(text) {
