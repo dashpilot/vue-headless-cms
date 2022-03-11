@@ -66,7 +66,7 @@ export default {
   created: function() {
     // this.enableSortable()
   },
-  props: ['items', 'data', 'show', 'title', 'type'],
+  props: ['items', 'data', 'curItem', 'show', 'title', 'type'],
   data() {
     return {
       sorting: false
@@ -86,6 +86,10 @@ export default {
           this.data.posts.splice(this.data.posts.findIndex(function(x) {
             return x.id === id;
           }), 1);
+          // unset curItem if current item is deleted
+          if (this.curItem.id == id) {
+            this.$emit('update:curItem', false);
+          }
         }
       }
 

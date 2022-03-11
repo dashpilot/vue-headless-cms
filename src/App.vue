@@ -156,7 +156,7 @@
 </template>
 
 <template v-if="showPostSettings">
-<SortableList v-model:items="catItems" v-model:data="data" v-model:show="showPostSettings" title="Posts" type="posts" />
+<SortableList v-model:items="catItems" v-model:data="data" v-model:show="showPostSettings" v-model:curItem="curItem" title="Posts" type="posts" />
 </template>
 
 <div v-show="showAddCat">
