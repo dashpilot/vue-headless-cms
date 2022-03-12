@@ -207,6 +207,7 @@ export default {
       loaderIcon,
       loading: true,
       curCat: false,
+      catData: false,
       curType: 'default',
       catItems: false,
       curItem: false,
@@ -240,8 +241,7 @@ export default {
             // select the first elements
             var defaultCat = data.categories[0].slug;
             this.curCat = defaultCat;
-            this.catItems = this.data.posts.filter(x => x.category == defaultCat);
-            this.curItem = this.data.posts.filter(x => x.category == defaultCat)[0];
+            this.setCurCat(defaultCat)
 
             var myapp = this;
             setTimeout(() => {
@@ -256,9 +256,10 @@ export default {
   methods: {
     setCurCat(cat) {
       this.curCat = cat;
-      this.curType = this.data.categories.filter(x => x.slug == cat)[0].type;
-      this.catItems = this.data.posts.filter(x => x.category == cat);
-      this.curItem = this.data.posts.filter(x => x.category == cat)[0];
+      this.catData = this.data.categories.filter(x => x.slug == cat)[0];
+      this.curType = this.catData.type;
+      this.catItems = this.catData.posts;
+      this.curItem = this.catData.posts[0];
     },
     addItem() {
 
@@ -276,20 +277,18 @@ export default {
       newItem.slug = "item-" + newItem.id.replace('posts-', '');
       newItem.category = this.curCat;
       console.log(newItem)
-      this.data.posts.unshift(newItem);
-      this.catItems = this.data.posts.filter(x => x.category == this.curCat);
+      this.catData.posts.unshift(newItem);
+      // this.setCurCat(this.curCat);
       this.curItem = newItem;
 
     },
     changeCat(cat) {
       console.log(cat);
       this.curCat = cat;
-      this.catItems = this.data.posts.filter(x => x.category == cat);
+      this.catItems = this.categories.filter(x => x.slug == cat).posts;
     },
     addToGallery(filename, id) {
-      let curIndex = this.data.posts.findIndex(x => x.id == id);
-      console.log(curIndex)
-      this.data.posts[curIndex].gallery.push({
+      this.curItem.gallery.push({
         filename: filename,
         title: ''
       });

@@ -55,6 +55,7 @@ export default {
         newItem.type = this.newType;
         newItem.sub = false;
         newItem.description = "";
+        newItem.posts = [];
 
         this.data.categories.push(newItem);
 
