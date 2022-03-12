@@ -15,6 +15,7 @@ Headless CMS that runs off (and saves to) a single JSON file. Written in Vue 3, 
 -   categories and filtering
 -   rich text editor
 -   image upload and resize
+-   the whole CMS is a SPA that can be loaded from a CDN
 
 ## Preview
 
