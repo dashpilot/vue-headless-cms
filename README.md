@@ -20,5 +20,9 @@ https://vue-headless-cms.vercel.app/
 
 <img src="public/img/preview.png" />
 
+## Documentation
+
+For documentation one how to create new content types, configuring site-wide settings and integration with your own front- and backend, check the [documentation wiki](https://github.com/dashpilot/vue-headless-cms/wiki)
+
 ## Press the :star: button
 Don't forget to press the :star: button to let me know I should continue improving this project.
