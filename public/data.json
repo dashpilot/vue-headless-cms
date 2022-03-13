@@ -13,11 +13,33 @@
         "category": "index",
         "gallery": []
       }, {
+        "id": 3,
+        "title": "Ea molestias quasi exercitationem repellat qui ipsa sit aut",
+        "slug": "ea-molestias-quasi-exercitationem-3",
+        "body": "Et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut",
+        "category": "index",
+        "gallery": []
+      },
+      {
+        "id": 4,
+        "title": "Eum et est occaecati",
+        "slug": "eum-et-est-occaecati-4",
+        "body": "Ullam et saepe reiciendis voluptatem adipisci\nsit amet autem assumenda provident rerum culpa\nquis hic commodi nesciunt rem tenetur doloremque ipsam iure\nquis sunt voluptatem rerum illo velit",
+        "category": "index",
+        "gallery": []
+      }, {
+        "id": 7,
+        "title": "Magnam facilis autem",
+        "slug": "magnam-facilis-autem-7",
+        "body": "Dolore placeat quibusdam ea quo vitae\nmagni quis enim qui quis quo nemo aut saepe\nquidem repellat excepturi ut quia\nsunt ut sequi eos ea sed quas",
+        "category": "index",
+        "gallery": []
+      }, {
         "id": 10,
         "title": "Perspiciatis et ea nemo ab reprehenderit",
         "slug": "optio-molestias-id-quia-eum-10",
         "body": "Quo et expedita modi cum officia vel magni\ndoloribus qui repudiandae\nvero nisi sit\nquos veniam quod sed accusamus veritatis error",
-        "category": "about",
+        "category": "index",
         "gallery": []
       },
       {
@@ -25,7 +47,7 @@
         "title": "Et ea vero quia laudantium autem",
         "slug": "et-ea-vero-quia-laudantium-autem-11",
         "body": "Delectus reiciendis molestiae occaecati non minima eveniet qui voluptatibus\naccusamus in eum beatae sit\nvel qui neque voluptates ut commodi qui incidunt\nut animi commodi",
-        "category": "contact",
+        "category": "index",
         "gallery": []
       }
     ]
@@ -63,7 +85,7 @@
       "title": "Magnam facilis autem",
       "slug": "magnam-facilis-autem-7",
       "body": "Dolore placeat quibusdam ea quo vitae\nmagni quis enim qui quis quo nemo aut saepe\nquidem repellat excepturi ut quia\nsunt ut sequi eos ea sed quas",
-      "category": "index",
+      "category": "contact",
       "gallery": []
     }]
   }],
