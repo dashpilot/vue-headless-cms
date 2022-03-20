@@ -100,11 +100,18 @@
               <input type="text" class="form-control" v-model="curItem[key]" disabled>
             </template>
 
-
+            <!--
             <template v-if="data.content_types[curType][key] == 'richtext'">
               <label>{{key.replaceAll('_', ' ')}}</label>
               <Editor v-model="curItem[key]" />
             </template>
+          -->
+
+            <template v-if="data.content_types[curType][key] == 'richtext'">
+              <label>{{key.replaceAll('_', ' ')}}</label>
+              <Quill v-model="curItem[key]" />
+            </template>
+
 
             <!--
             <template v-if="data.content_types[curType][key] == 'richtext'">
@@ -183,7 +190,7 @@
 
 <script>
 import loaderIcon from './rocket-planet.png'
-import Editor from './components/Editor.vue'
+import Quill from './components/Quill.vue'
 import Image from './components/Image.vue'
 import Gallery from './components/Gallery.vue'
 import SortableList from './components/SortableList.vue'
@@ -194,7 +201,7 @@ import Settings from './components/Settings.vue'
 
 export default {
   components: {
-    Editor,
+    Quill,
     Image,
     Gallery,
     SortableList,
