@@ -85,4 +85,9 @@ export default {
 button.ql-clean {
   display: none !important;
 }
+
+.ql-snow .ql-header,
+.ql-snow .ql-link {
+  margin-right: 25px !important;
+}
 </style>
