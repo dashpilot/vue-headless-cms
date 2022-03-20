@@ -501,8 +501,8 @@ a.sub {
 
 label {
   text-transform: uppercase;
-  font-size: 15px;
-  line-height: 15px;
+  font-size: 14px;
+  line-height: 14px;
   letter-spacing: 0.05em;
   margin-bottom: 5px;
 }
