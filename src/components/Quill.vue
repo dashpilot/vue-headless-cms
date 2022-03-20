@@ -25,6 +25,8 @@ export default {
   watch: {
     modelValue(value) {
 
+      console.log('watched')
+
       var editor = document.querySelectorAll('#' + this.editorId + ' .ql-editor')[0];
       var content = editor.innerHTML;
       // console.log(content)
@@ -55,7 +57,7 @@ export default {
           }]
         },
         placeholder: '',
-        theme: 'snow'
+        theme: 'snow',
       }
     }
   },
