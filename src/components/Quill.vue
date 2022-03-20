@@ -48,12 +48,12 @@ export default {
       editorId: false,
       options: {
         modules: {
-          toolbar: [{
-            'header': [1, 2, 3, false]
-          }, 'bold', 'italic', 'underline', 'link', {
+          toolbar: ['bold', 'italic', 'underline', 'link', {
             'list': 'ordered'
           }, {
             'list': 'bullet'
+          }, {
+            'header': [1, 2, 3, false]
           }]
         },
         placeholder: '',
@@ -86,10 +86,5 @@ export default {
 
 button.ql-clean {
   display: none !important;
-}
-
-.ql-snow .ql-header,
-.ql-snow .ql-link {
-  margin-right: 25px !important;
 }
 </style>
