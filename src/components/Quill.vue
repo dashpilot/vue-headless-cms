@@ -1,6 +1,6 @@
 <template>
 <div :id="editorId">
-  <QuillEditor theme="snow" :options="options" v-model:content="modelValue" contentType="html" @keyup="updateContent" />
+  <QuillEditor theme="snow" :options="options" v-model:content="modelValue" contentType="html" @textChange="updateContent" />
 </div>
 </template>
 
