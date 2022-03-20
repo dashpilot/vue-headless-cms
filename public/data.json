@@ -105,6 +105,7 @@
     "default": {
       "title": "text",
       "body": "richtext",
+      "extended": "markdown",
       "main_image": "image",
       "gallery": "gallery",
       "draft": "switch"

@@ -114,6 +114,11 @@
 
 
             <!--
+            <template v-if="data.content_types[curType][key] == 'markdown'">
+              <label>{{key.replaceAll('_', ' ')}}</label>
+              <Markdown v-model="curItem[key]" />
+            </template>
+
             <template v-if="data.content_types[curType][key] == 'richtext'">
               <label>{{key.replace('_', ' ')}}</label>
               <RichText v-model="curItem[key]" :key="key" />
@@ -190,9 +195,9 @@
 
 <script>
 import loaderIcon from './rocket-planet.png'
-import Quill from './components/Quill.vue'
-import Image from './components/Image.vue'
-import Gallery from './components/Gallery.vue'
+import Quill from './widgets/Quill.vue'
+import Image from './widgets/Image.vue'
+import Gallery from './widgets/Gallery.vue'
 import SortableList from './components/SortableList.vue'
 import PostList from './components/PostList.vue'
 import AddCategory from './components/AddCategory.vue'
