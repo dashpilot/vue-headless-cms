@@ -3,9 +3,11 @@
   <div class="btn-group mt-1 w-100">
     <button class="btn btn-outline-secondary" @click="editor.chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }"><i class="fas fa-bold"></i></button>
     <button class="btn btn-outline-secondary" @click="editor.chain().focus().toggleItalic().run()" :class="{ 'is-active': editor.isActive('italic') }"><i class=" fas fa-italic"></i></button>
-
     <button @click="setLink" class="btn btn-outline-secondary" :class="{ 'is-active': editor.isActive('link') }">
       <i class=" fas fa-link"></i>
+    </button>
+    <button class="btn btn-outline-secondary" @click="editor.chain().focus().toggleBulletList().run()" :class="{ 'is-active': editor.isActive('bulletList') }">
+      <i class=" fas fa-list-ul"></i>
     </button>
     <button class="btn btn-outline-secondary" @click="editor.chain().focus().toggleHeading({ level: 2 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }">
       <strong>H2</strong>
@@ -28,6 +30,8 @@ import {
 import StarterKit from '@tiptap/starter-kit'
 import Link from '@tiptap/extension-link'
 import Heading from '@tiptap/extension-heading'
+import BulletList from '@tiptap/extension-bullet-list'
+import ListItem from '@tiptap/extension-list-item'
 
 export default {
   components: {
