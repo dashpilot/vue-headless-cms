@@ -34,6 +34,9 @@
         <div class="btn-group">
           <button @click="showSettings = true" class="btn btn-outline-light"><i class="fa fa-wrench"></i></button>
 
+          <button @click="showTypes = true" class="btn btn-outline-light"><i class="far fa-check-square"></i></button>
+
+
           <template v-if="config.sign_out_url">
             <a :href="config.sign_out_url" class="btn btn-outline-light"><i class="fas fa-sign-out-alt"></i></a>
           </template>
@@ -189,6 +192,10 @@
   <Settings v-model:settings="data.settings" v-model:show="showSettings" />
 </div>
 
+<div v-show="showTypes">
+  <ContentTypes v-model:types="data.content_types" v-model:show="showTypes" />
+</div>
+
 </template>
 
 </template>
@@ -202,6 +209,7 @@ import SortableList from './components/SortableList.vue'
 import PostList from './components/PostList.vue'
 import AddCategory from './components/AddCategory.vue'
 import Settings from './components/Settings.vue'
+import ContentTypes from './components/ContentTypes.vue'
 
 
 export default {
@@ -213,6 +221,7 @@ export default {
     PostList,
     AddCategory,
     Settings,
+    ContentTypes,
   },
   data() {
     return {
@@ -228,6 +237,7 @@ export default {
       showPostSettings: false,
       showCatSettings: false,
       showSettings: false,
+      showTypes: false,
       drag: false,
       data: {},
       config: {},
