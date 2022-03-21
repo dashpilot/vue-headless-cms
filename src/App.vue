@@ -643,13 +643,13 @@ textarea {
 .modal-screen {
   position: fixed;
   top: 15%;
-  left: calc(50% - 300px);
-  width: 600px;
+  left: calc(50% - 350px);
+  width: 700px;
   height: auto;
   background-color: white;
   border-radius: 8px;
   padding: 20px;
-  max-height: 70%;
+  max-height: 75%;
   overflow-x: hidden;
   overflow-y: auto;
 }

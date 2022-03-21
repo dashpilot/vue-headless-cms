@@ -30,44 +30,87 @@
             </li>
           </template>
         </ul>
+
+        <h4 class="mt-4 mb-2">Add Content Type</h4>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <div class="row">
+
+              <div class="col-8">
+                <input type="text" class="form-control" placeholder="Content Type Name" v-model="newType">
+              </div>
+              <div class="col-4 text-end">
+                <button class="btn btn-outline-dark" @click="addType"><i class="fas fa-plus"></i></button>
+              </div>
+            </div>
+          </li>
+        </ul>
+
       </template>
 
       <template v-if="activeType">
-        <ul class="list-group">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <td class="w-40">Field Name</td>
+              <td class="w-35">Field Type</td>
+              <td class="w-25"></td>
+            </tr>
+          </thead>
+          <tbody>
+            <template v-for="key in Object.keys(types[activeType])">
+              <tr>
+                <td>
 
-          <template v-for="key in Object.keys(types[activeType])">
-            <li class="list-group-item text-truncate">
-              <div class="row g-0 d-flex">
-                <div class="col-5">
+                  <template v-if="key == 'title' | key == 'body'">
+                    <div class="pt-2  pb-2">{{key}}</div>
+                  </template>
+                  <template v-else>
+                    <div class="pt-2">{{key}}</div>
+                  </template>
 
-                  <div class="pt-2">{{key}}</div>
-                </div>
-                <div class="col-1"></div>
-                <div class="col-4">
+                </td>
+                <td>
+
+                  <template v-if="key !== 'title' && key !== 'body'">
+                    <select class="form-select w-100" v-model="types[activeType][key]">
+                      <option value="text">text</option>
+                      <option value="richtext">richtext</option>
+                      <option value="image">image</option>
+                      <option value="gallery">gallery</option>
+                      <option value="switch">switch</option>
+                    </select>
+                  </template>
+
+                  <template v-else>
+                    <div class="pt-2 pb-2">
+                      {{types[activeType][key]}}
+                    </div>
+                  </template>
+
+                </td>
+                <td class="text-end">
+
+                  <template v-if="key !== 'title' && key !== 'body'">
+                    <button class="btn btn-outline-dark" @click="removeField(key)"><i class="fas fa-trash-alt"></i></button>
+                  </template>
+
+                </td>
+              </tr>
+            </template>
+          </tbody>
+
+        </table>
 
 
-                  <select class="form-select w-100" v-model="types[activeType][key]">
-                    <option value="text">text</option>
-                    <option value="richtext">richtext</option>
-                    <option value="image">image</option>
-                    <option value="gallery">gallery</option>
-                    <option value="switch">switch</option>
-                  </select>
 
-                </div>
+        <h4 class="mt-4">Add Field</h4>
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <td class="w-40"><input type="text" class="form-control" placeholder="Field Name" v-model="newKey"></td>
+              <td class="w-35">
 
-                <div class="col-2 text-end"><button class="btn btn-outline-dark" @click="removeField(key)"><i class="fas fa-trash-alt"></i></button></div>
-              </div>
-            </li>
-          </template>
-          <li class="list-group-item">
-
-            <div class="row g-0 d-flex">
-              <div class="col-5">
-                <input type="text" class="form-control" placeholder="Field title" v-model="newKey">
-              </div>
-              <div class="col-1"></div>
-              <div class="col-4">
                 <select class="form-select w-100" v-model="newVal">
                   <option value="text">text</option>
                   <option value="richtext">richtext</option>
@@ -75,17 +118,19 @@
                   <option value="gallery">gallery</option>
                   <option value="switch">switch</option>
                 </select>
-              </div>
 
-              <div class="col-2 text-end"><button class="btn btn-outline-dark" @click="addField"><i class="fas fa-plus"></i></button></div>
-            </div>
+              </td>
+              <td class="text-end w-25">
 
-          </li>
-        </ul>
-      </template>
+                <button class="btn btn-outline-dark" @click="addField"><i class="fas fa-plus"></i></button>
+
+              </td>
+            </tr>
+          </tbody>
+        </table>
+</template>
 
     </div>
-
   </div>
 </div>
 </template>
@@ -101,6 +146,7 @@ export default {
       activeType: false,
       newKey: '',
       newVal: 'text',
+      newType: '',
     }
   },
   methods: {
@@ -109,10 +155,39 @@ export default {
         alert('Field name should be at least 3 characters long')
       } else {
         let slug = this.slugifyFieldTitle(this.newKey);
-        this.types[this.activeType][slug] = this.newVal;
-        this.newKey = '';
-        this.newVal = 'text';
+
+        let slugs = Object.keys(this.types[this.activeType]);
+        if (slugs.includes(slug)) {
+
+          alert(`Error: field name '${slug}' already exists`);
+        } else {
+          console.log(slugs);
+
+
+          this.types[this.activeType][slug] = this.newVal;
+          this.newKey = '';
+          this.newVal = 'text';
+        }
       }
+    },
+    addType() {
+      if (this.newType.length < 3) {
+        alert('Content type name should be at least 3 characters long')
+      } else {
+        let slug = this.slugifyFieldTitle(this.newType);
+
+        let slugs = Object.keys(this.types);
+        if (slugs.includes(slug)) {
+          alert(`Error: content type name '${slug}' already exists`);
+        } else {
+          this.types[slug] = {
+            'title': 'text',
+            'body': 'richtext'
+          }
+          this.activeType = slug;
+        }
+      }
+
     },
     slugifyFieldTitle(title) {
       let slug = title.toString().toLowerCase()
@@ -157,5 +232,17 @@ a:hover {
   font-size: 23px;
   margin-right: 10px;
   cursor: pointer;
+}
+
+.w-35 {
+  width: 35%;
+}
+
+.w-30 {
+  width: 30%;
+}
+
+.btn {
+  background-color: white;
 }
 </style>
