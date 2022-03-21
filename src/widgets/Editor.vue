@@ -1,15 +1,23 @@
 <template>
-<div class="btn-group mt-1 w-100">
-  <button class="btn btn-outline-secondary" @click="editor.chain().focus().toggleBold().run()"><i class="fas fa-bold"></i></button>
-  <button class="btn btn-outline-secondary" @click="editor.chain().focus().toggleItalic().run()"><i class="fas fa-italic"></i></button>
+<template v-if="editor">
+  <div class="btn-group mt-1 w-100">
+    <button class="btn btn-outline-secondary" @click="editor.chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }"><i class="fas fa-bold"></i></button>
+    <button class="btn btn-outline-secondary" @click="editor.chain().focus().toggleItalic().run()" :class="{ 'is-active': editor.isActive('italic') }"><i class=" fas fa-italic"></i></button>
 
-  <button @click="setLink" class="btn btn-outline-secondary">
-    <i class="fas fa-link"></i>
-  </button>
-  <button class="btn btn btn-outline-secondary w-75" disabled></button>
-</div>
+    <button @click="setLink" class="btn btn-outline-secondary" :class="{ 'is-active': editor.isActive('link') }">
+      <i class=" fas fa-link"></i>
+    </button>
+    <button class="btn btn-outline-secondary" @click="editor.chain().focus().toggleHeading({ level: 2 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }">
+      <strong>H2</strong>
+    </button>
+    <button class="btn btn-outline-secondary" @click="editor.chain().focus().toggleHeading({ level: 3 }).run()" :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }">
+      <strong>H3</strong>
+    </button>
+    <button class="btn btn btn-outline-secondary w-50" disabled></button>
+  </div>
 
-<editor-content :editor="editor" class="mb-3" />
+  <editor-content :editor="editor" class="mb-3" />
+</template>
 </template>
 
 <script>
@@ -19,6 +27,7 @@ import {
 } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import Link from '@tiptap/extension-link'
+import Heading from '@tiptap/extension-heading'
 
 export default {
   components: {
@@ -113,3 +122,9 @@ export default {
   },
 }
 </script>
+
+<style>
+.is-active {
+  background-color: #EEE;
+}
+</style>
