@@ -112,7 +112,7 @@
 
             <template v-if="data.content_types[curType][key] == 'richtext'">
               <label>{{key.replaceAll('_', ' ')}}</label>
-              <Quill v-model="curItem[key]" />
+              <Editor v-model="curItem[key]" />
             </template>
 
 
@@ -202,7 +202,7 @@
 
 <script>
 import loaderIcon from './rocket-planet.png'
-import Quill from './widgets/Quill.vue'
+import Editor from './widgets/Editor.vue'
 import Image from './widgets/Image.vue'
 import Gallery from './widgets/Gallery.vue'
 import SortableList from './components/SortableList.vue'
@@ -214,7 +214,7 @@ import ContentTypes from './components/ContentTypes.vue'
 
 export default {
   components: {
-    Quill,
+    Editor,
     Image,
     Gallery,
     SortableList,
