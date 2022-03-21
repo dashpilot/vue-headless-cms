@@ -8,16 +8,13 @@
           <h4 class="float-start">Content Types</h4>
         </template>
         <template v-if="activeType">
-          <h4 class="float-start">Edit Content Type: {{activeType}}</h4>
+          <h4 class="float-start"><a @click="activeType = false">Content Types</a> &raquo; {{activeType}}</h4>
         </template>
       </div>
       <div class="col-3">
-        <template v-if="!activeType">
-          <button type="button" class="btn-close float-end" aria-label="Close" @click="closeWindow()"></button>
-        </template>
-        <template v-if="activeType">
-          <i class="fas fa-chevron-left" @click="activeType = false"></i>
-        </template>
+
+        <button type="button" class="btn-close float-end" aria-label="Close" @click="closeWindow()"></button>
+
       </div>
     </div>
 
@@ -27,7 +24,7 @@
         <ul class="list-group">
           <template v-for="key in Object.keys(types)">
             <li class="list-group-item text-truncate">
-              <div class="row g-0 d-flex">
+              <div class="row g-0 d-flex pt-2 pb-2">
                 <a @click="activeType = key">{{key}}</a>
               </div>
             </li>
