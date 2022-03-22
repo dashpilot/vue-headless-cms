@@ -11,7 +11,8 @@
     "@tiptap/extension-link": "^2.0.0-beta.36",
     "@tiptap/starter-kit": "^2.0.0-beta.183",
     "@tiptap/vue-3": "^2.0.0-beta.90",
-    "vue": "^3.2.25"
+    "vue": "^3.2.25",
+    "vue3-markdown-it": "^1.0.10"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.0.0",

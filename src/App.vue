@@ -118,11 +118,13 @@
             </template>
 
 
-            <!--
             <template v-if="data.content_types[curType][key] == 'markdown'">
               <label>{{key.replaceAll('_', ' ')}}</label>
               <Markdown v-model="curItem[key]" />
             </template>
+
+            <!--
+
 
             <template v-if="data.content_types[curType][key] == 'richtext'">
               <label>{{key.replace('_', ' ')}}</label>
@@ -205,6 +207,7 @@
 <script>
 import loaderIcon from './rocket-planet.png'
 import Editor from './widgets/Editor.vue'
+import Markdown from './widgets/Markdown.vue'
 import Image from './widgets/Image.vue'
 import Gallery from './widgets/Gallery.vue'
 import SortableList from './components/SortableList.vue'
@@ -217,6 +220,7 @@ import ContentTypes from './components/ContentTypes.vue'
 export default {
   components: {
     Editor,
+    Markdown,
     Image,
     Gallery,
     SortableList,

@@ -96,7 +96,9 @@
               <div class="col-4">
                 <select class="form-select w-100" v-model="newVal">
                   <option value="text">text</option>
-                  <option value="richtext">richtext</option>
+                  <option value="textarea">textarea</option>
+                  <option value="richtext">rich text editor</option>
+                  <option value="markdown">markdown editor</option>
                   <option value="image">image</option>
                   <option value="gallery">gallery</option>
                   <option value="switch">switch</option>

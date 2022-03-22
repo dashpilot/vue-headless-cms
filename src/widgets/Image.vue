@@ -6,7 +6,7 @@
   <div class="mb-2">
 
     <template v-if="!modelValue">
-      <button class="btn btn-outline-dark mb-3" @click="chooseImage()">Upload Image
+      <button class="btn btn-outline-dark mb-3" @click="chooseImage()"><i class="fas fa-image"></i> &nbsp;Upload Image
 
         <template v-if="loading">
           <i class="fas fa-spinner fa-spin"></i>
