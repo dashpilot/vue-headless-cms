@@ -114,7 +114,7 @@
 
             <template v-if="data.content_types[curType][key] == 'richtext'">
               <label>{{key.replaceAll('_', ' ')}}</label>
-              <Editor v-model="curItem[key]" />
+              <Editor v-model="curItem[key]" :settings="data.ui_settings" />
             </template>
 
 

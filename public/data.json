@@ -10,7 +10,8 @@
     "delete_category": true,
     "edit_content_types": true,
     "image_title": true,
-    "saving_duration": "2000"
+    "saving_duration": "2000",
+    "rte_buttons": ["bold", "italic", "link", "list", "h2", "h3"]
   },
   "content_types": {
     "default": {
