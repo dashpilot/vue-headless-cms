@@ -8,6 +8,7 @@
   "ui_settings": {
     "add_category": true,
     "delete_category": true,
+    "edit_content_types": true,
     "image_title": true,
     "saving_duration": "2000"
   },
