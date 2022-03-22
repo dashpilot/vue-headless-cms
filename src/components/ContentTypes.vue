@@ -31,86 +31,69 @@
           </template>
         </ul>
 
-        <h4 class="mt-4 mb-2">Add Content Type</h4>
+        <label class="mt-4">Add Content Type</label>
+
         <ul class="list-group">
           <li class="list-group-item">
-            <div class="row">
 
-              <div class="col-8">
+            <div class="row">
+              <div class="col-6">
                 <input type="text" class="form-control" placeholder="Content Type Name" v-model="newType">
               </div>
-              <div class="col-4 text-end">
+              <div class="col-6 text-end">
                 <button class="btn btn-outline-dark" @click="addType"><i class="fas fa-plus"></i></button>
               </div>
             </div>
+
           </li>
         </ul>
 
       </template>
 
       <template v-if="activeType">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <td class="w-40">Field Name</td>
-              <td class="w-35">Field Type</td>
-              <td class="w-25"></td>
-            </tr>
-          </thead>
-          <tbody>
-            <template v-for="key in Object.keys(types[activeType])">
-              <tr>
-                <td>
+        <ul class="list-group">
+          <template v-for="key in Object.keys(types[activeType])">
+            <li class="list-group-item">
+
+              <div class="row">
+                <div class="col-6">
 
                   <template v-if="key == 'title' | key == 'body'">
-                    <div class="pt-2  pb-2">{{key}}</div>
+                    <div class="pt-2  pb-2"><strong>{{key}}</strong></div>
                   </template>
                   <template v-else>
-                    <div class="pt-2">{{key}}</div>
+                    <div class="pt-2"><strong>{{key}}</strong></div>
                   </template>
 
-                </td>
-                <td>
+                </div>
+                <div class="col-4">
+                  <div class="pt-2 pb-2">
+                    {{types[activeType][key]}}
+                  </div>
 
-                  <template v-if="key !== 'title' && key !== 'body'">
-                    <select class="form-select w-100" v-model="types[activeType][key]">
-                      <option value="text">text</option>
-                      <option value="richtext">richtext</option>
-                      <option value="image">image</option>
-                      <option value="gallery">gallery</option>
-                      <option value="switch">switch</option>
-                    </select>
-                  </template>
-
-                  <template v-else>
-                    <div class="pt-2 pb-2">
-                      {{types[activeType][key]}}
-                    </div>
-                  </template>
-
-                </td>
-                <td class="text-end">
-
+                </div>
+                <div class="col-2 text-end">
                   <template v-if="key !== 'title' && key !== 'body'">
                     <button class="btn btn-outline-dark" @click="removeField(key)"><i class="fas fa-trash-alt"></i></button>
                   </template>
-
-                </td>
-              </tr>
-            </template>
-          </tbody>
-
-        </table>
+                </div>
+              </div>
+            </li>
+          </template>
+        </ul>
 
 
+        <label class="mt-4">Add Field</label>
 
-        <h4 class="mt-4">Add Field</h4>
-        <table class="table table-striped">
-          <tbody>
-            <tr>
-              <td class="w-40"><input type="text" class="form-control" placeholder="Field Name" v-model="newKey"></td>
-              <td class="w-35">
+        <ul class="list-group">
+          <li class="list-group-item">
 
+            <div class="row">
+              <div class="col-6">
+                <input type="text" class="form-control" placeholder="Field Name" v-model="newKey">
+              </div>
+
+              <div class="col-4">
                 <select class="form-select w-100" v-model="newVal">
                   <option value="text">text</option>
                   <option value="richtext">richtext</option>
@@ -118,16 +101,15 @@
                   <option value="gallery">gallery</option>
                   <option value="switch">switch</option>
                 </select>
+              </div>
 
-              </td>
-              <td class="text-end w-25">
-
+              <div class="col-2 text-end">
                 <button class="btn btn-outline-dark" @click="addField"><i class="fas fa-plus"></i></button>
 
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              </div>
+            </div>
+          </li>
+        </ul>
 </template>
 
     </div>
