@@ -131,7 +131,7 @@ export default {
         setTimeout(() => {
 
           if (myapp.config.save_url) {
-            postData(myapp.config.save_url, {
+            myapp.postData(myapp.config.save_url, {
                 "type": "image",
                 "path": filename,
                 "content": base64Image
@@ -159,7 +159,7 @@ export default {
         console.log(arr)
         this.$emit('update:gallery', arr);
 
-        this.postData(this.config.image_delete_url, {
+        myapp.postData(this.config.image_delete_url, {
             "type": "image",
             "path": value
           })
