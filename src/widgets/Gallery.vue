@@ -8,8 +8,6 @@ const postData = inject('postData')
 <template>
 <div>
 
-  <button @click="logout">Log out</button>
-
   <input type="file" :id="'fileInput-'+rand" accept="image/*" @change="uploadImage" style="display: none;">
 
 
