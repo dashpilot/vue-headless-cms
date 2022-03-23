@@ -2,7 +2,6 @@
 import {
   inject
 } from 'vue'
-const logout = inject('logout')
 const postData = inject('postData')
 </script>
 
@@ -162,7 +161,7 @@ export default {
         console.log(arr)
         this.$emit('update:gallery', arr);
 
-        postData(this.config.image_delete_url, {
+        this.postData(this.config.image_delete_url, {
             "type": "image",
             "path": value
           })
