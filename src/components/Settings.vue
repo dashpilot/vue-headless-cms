@@ -26,17 +26,6 @@
 
 <script>
 export default {
-  created: function() {
-    // this.enableSortable()
-  },
   props: ['settings', 'show'],
-  data() {
-    return {}
-  },
-  methods: {
-    closeWindow() {
-      this.$emit('update:show', false);
-    }
-  }
 }
 </script>

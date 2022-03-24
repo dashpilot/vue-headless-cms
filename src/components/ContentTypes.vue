@@ -13,7 +13,7 @@
       </div>
       <div class="col-3">
 
-        <button type="button" class="btn-close float-end" aria-label="Close" @click="closeWindow()"></button>
+        <button type="button" class="btn-close float-end" aria-label="Close" @click="closeWindow(); activeType = false"></button>
 
       </div>
     </div>
@@ -177,10 +177,6 @@ export default {
       if (confirm('Are you sure you want to remove this field?')) {
         delete this.types[this.activeType][key]
       }
-    },
-    closeWindow() {
-      this.activeType = false;
-      this.$emit('update:show', false);
     }
   }
 }

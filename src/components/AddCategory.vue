@@ -67,9 +67,6 @@ export default {
 
       }
 
-    },
-    closeWindow() {
-      this.$emit('update:show', false);
     }
   }
 }

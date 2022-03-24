@@ -28,6 +28,9 @@ const myPlugin = {
           console.log(slug)
           return slug;
         },
+        closeWindow() {
+          this.$emit('update:show', false);
+        }
       }
     });
 
