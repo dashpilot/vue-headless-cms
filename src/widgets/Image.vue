@@ -74,7 +74,6 @@ export default {
 
       const date = new Date().toJSON().slice(0, 10).replaceAll('-', '');
       const filename = date + "-" + Math.floor(Math.random() * 999999999) + ".jpg";
-      // this.$emit('update:modelValue', filename);
 
       var myapp = this;
       myapp.loading = true;
@@ -110,7 +109,7 @@ export default {
         setTimeout(() => {
 
           if (myapp.config.save_url) {
-            postData(myapp.config.save_url, {
+            myapp.postData(myapp.config.save_url, {
                 "type": "image",
                 "path": filename,
                 "content": base64Image
@@ -138,7 +137,7 @@ export default {
 
         this.$emit('update:modelValue', '');
 
-        postData(this.config.image_delete_url, {
+        this.postData(this.config.image_delete_url, {
             "type": "image",
             "path": value
           })
@@ -155,22 +154,6 @@ export default {
     }
   }
 
-}
-
-async function postData(url = '', data = {}) {
-
-  const response = await fetch(url, {
-    method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    mode: 'cors', // no-cors, *cors, same-origin
-    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: 'same-origin', // include, *same-origin, omit
-    headers: {
-      'Content-Type': 'application/json'
-      // 'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: JSON.stringify(data) // body data type must match "Content-Type" header
-  });
-  return response.json(); // parses JSON response into native JavaScript objects
 }
 </script>
 
