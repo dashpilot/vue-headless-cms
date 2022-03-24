@@ -106,32 +106,15 @@
               <input type="text" class="form-control" v-model="curItem[key]" disabled>
             </template>
 
-            <!--
-            <template v-if="data.content_types[curType][key] == 'richtext'">
-              <label>{{key.replaceAll('_', ' ')}}</label>
-              <Editor v-model="curItem[key]" />
-            </template>
-          -->
-
             <template v-if="data.content_types[curType][key] == 'richtext'">
               <label>{{key.replaceAll('_', ' ')}}</label>
               <Editor v-model="curItem[key]" :settings="data.ui_settings" />
             </template>
 
-
             <template v-if="data.content_types[curType][key] == 'markdown'">
               <label>{{key.replaceAll('_', ' ')}}</label>
               <Markdown v-model="curItem[key]" />
             </template>
-
-            <!--
-
-
-            <template v-if="data.content_types[curType][key] == 'richtext'">
-              <label>{{key.replace('_', ' ')}}</label>
-              <RichText v-model="curItem[key]" :key="key" />
-            </template>
-          -->
 
             <template v-if="data.content_types[curType][key] == 'textarea'">
               <label>{{key.replaceAll('_', ' ')}}</label>
