@@ -88,8 +88,6 @@
       <div class="post-editor">
 
 
-        <button @click="slugify('some text')">slug</button>
-
         <template v-if="curItem">
           <template v-for="(key, val) in Object.keys(data.content_types[curType])">
 
