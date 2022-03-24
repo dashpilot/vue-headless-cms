@@ -138,7 +138,7 @@ export default {
       if (this.newKey.length < 3) {
         alert('Field name should be at least 3 characters long')
       } else {
-        let slug = this.slugifyFieldTitle(this.newKey);
+        let slug = this.slugify(this.newKey);
 
         let slugs = Object.keys(this.types[this.activeType]);
         if (slugs.includes(slug)) {
@@ -158,7 +158,7 @@ export default {
       if (this.newType.length < 3) {
         alert('Content type name should be at least 3 characters long')
       } else {
-        let slug = this.slugifyFieldTitle(this.newType);
+        let slug = this.slugify(this.newType);
 
         let slugs = Object.keys(this.types);
         if (slugs.includes(slug)) {
@@ -172,15 +172,6 @@ export default {
         }
       }
 
-    },
-    slugifyFieldTitle(title) {
-      let slug = title.toString().toLowerCase()
-        .replace(/\s+/g, '_') // Replace spaces with -
-        .replace(/[^\w\-]+/g, '') // Remove all non-word chars
-        .replace(/\-\-+/g, '_') // Replace multiple - with single -
-        .replace(/^-+/, '') // Trim - from start of text
-        .replace(/-+$/, ''); // Trim - from end of text
-      return slug;
     },
     removeField(key) {
       if (confirm('Are you sure you want to remove this field?')) {

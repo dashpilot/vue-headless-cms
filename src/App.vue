@@ -87,6 +87,9 @@
 
       <div class="post-editor">
 
+
+        <button @click="slugify('some text')">slug</button>
+
         <template v-if="curItem">
           <template v-for="(key, val) in Object.keys(data.content_types[curType])">
 
@@ -324,14 +327,6 @@ export default {
     setSlug(e) {
       var slug = this.slugify(e.target.value) + "-" + this.curItem.id.toString().replace('item-', '');
       this.curItem.slug = slug;
-    },
-    slugify(text) {
-      return text.toString().toLowerCase()
-        .replace(/\s+/g, '-') // Replace spaces with -
-        .replace(/[^\w\-]+/g, '') // Remove all non-word chars
-        .replace(/\-\-+/g, '-') // Replace multiple - with single -
-        .replace(/^-+/, '') // Trim - from start of text
-        .replace(/-+$/, ''); // Trim - from end of text
     },
     save() {
       console.log(this.data);
