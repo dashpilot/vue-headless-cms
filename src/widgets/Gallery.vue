@@ -4,7 +4,7 @@
   <input type="file" :id="'fileInput-'+rand" accept="image/*" @change="uploadImage" style="display: none;">
 
 
-  <button class="btn btn-outline-dark mb-2" @click="chooseImage()">Upload Image
+  <button class="btn btn-outline-dark mb-2" @click="chooseImage()"><i class="fas fa-images"></i> &nbsp;Upload Image
 
     <template v-if="loading">
       <i class="fas fa-spinner fa-spin"></i>
