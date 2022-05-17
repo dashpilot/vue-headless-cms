@@ -39,6 +39,10 @@
             <button @click="showTypes = true" class="btn btn-outline-light"><i class="far fa-check-square"></i></button>
           </template>
 
+          <template v-if="data.ui_settings.edit_template">
+            <button @click="showTpl = true" class="btn btn-outline-light"><i class="fas fa-code"></i></button>
+          </template>
+
           <template v-if="config.sign_out_url">
             <a :href="config.sign_out_url" class="btn btn-outline-light"><i class="fas fa-sign-out-alt"></i></a>
           </template>
@@ -184,6 +188,10 @@
   <ContentTypes v-model:types="data.content_types" v-model:show="showTypes" />
 </div>
 
+<div v-show="showTpl">
+  <TplEditor v-model:settings="data.settings" v-model:show="showTpl" />
+</div>
+
 </template>
 
 </template>
@@ -199,6 +207,7 @@ import PostList from './components/PostList.vue'
 import AddCategory from './components/AddCategory.vue'
 import Settings from './components/Settings.vue'
 import ContentTypes from './components/ContentTypes.vue'
+import TplEditor from './components/TplEditor.vue'
 
 
 export default {
@@ -212,6 +221,7 @@ export default {
     AddCategory,
     Settings,
     ContentTypes,
+    TplEditor
   },
   data() {
     return {
@@ -228,6 +238,7 @@ export default {
       showCatSettings: false,
       showSettings: false,
       showTypes: false,
+      showTpl: false,
       drag: false,
       data: {},
       config: {},
