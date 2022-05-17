@@ -14,8 +14,10 @@
     <div id="modal-content">
       <template v-for="key in Object.keys(settings)">
 
-        <label>{{key.replaceAll('_', ' ')}}</label>
-        <input type="text" class="form-control" v-model="settings[key]" />
+        <template v-if="key !== 'template'">
+          <label>{{key.replaceAll('_', ' ')}}</label>
+          <input type="text" class="form-control" v-model="settings[key]" />
+        </template>
 
       </template>
     </div>
