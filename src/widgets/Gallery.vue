@@ -24,14 +24,14 @@
           <div class="col-4">
 
             <template v-if="image_title">
-              <input type="text" class="form-control mb-0" placeholder="title" v-model="img.title">
+              <input type="text" class="form-control mb-0" :placeholder="image_title" v-model="img.title">
             </template>
 
           </div>
           <div class="col-4">
 
             <template v-if="image_alt">
-              <input type="text" class="form-control mb-0" placeholder="alt text" v-model="img.alt">
+              <input type="text" class="form-control mb-0" :placeholder="image_alt" v-model="img.alt">
             </template>
 
           </div>
@@ -84,10 +84,10 @@ export default {
       default: 800,
     },
     image_title: {
-      type: Boolean
+      type: String
     },
     image_alt: {
-      type: Boolean
+      type: String
     },
   },
   methods: {
