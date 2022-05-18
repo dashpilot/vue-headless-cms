@@ -12,7 +12,7 @@
     "edit_content_types": true,
     "edit_template": true,
     "image_title": "title",
-    "image_alt": "alt text",
+    "image_alt": "",
     "saving_duration": "2000",
     "rte_buttons": ["bold", "italic", "link", "list", "h2", "h3"]
   },
