@@ -21,13 +21,21 @@
             <div class="image-box" :style="{ backgroundImage: 'url('+ config.image_preview_url + img.filename + ')' }"></div>
 
           </div>
-          <div class="col-9">
+          <div class="col-4">
 
             <template v-if="image_title">
               <input type="text" class="form-control mb-0" placeholder="title" v-model="img.title">
             </template>
 
           </div>
+          <div class="col-4">
+
+            <template v-if="image_alt">
+              <input type="text" class="form-control mb-0" placeholder="alt text" v-model="img.alt">
+            </template>
+
+          </div>
+          <div class="col-1"></div>
           <div class="col-1 text-end trash-col">
 
             <i class="fas fa-trash-alt" @click="deleteImage(img.filename)"></i>
@@ -76,6 +84,9 @@ export default {
       default: 800,
     },
     image_title: {
+      type: Boolean
+    },
+    image_alt: {
       type: Boolean
     },
   },

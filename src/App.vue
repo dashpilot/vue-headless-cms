@@ -133,7 +133,7 @@
 
             <template v-if="data.content_types[curType][key] == 'gallery'">
               <label>{{key.replaceAll('_', ' ')}}</label>
-              <Gallery v-model:gallery="curItem[key]" :id="curItem.id" :config="config" :image_width="data.settings.gallery_image_width" :image_title="data.ui_settings.image_title" @update="addToGallery" />
+              <Gallery v-model:gallery="curItem[key]" :id="curItem.id" :config="config" :image_width="data.settings.gallery_image_width" :image_title="data.ui_settings.image_title" :image_alt="data.ui_settings.image_alt" @update="addToGallery" />
             </template>
 
             <template v-if="data.content_types[curType][key] == 'switch'">
