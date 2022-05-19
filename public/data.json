@@ -86,7 +86,7 @@
     "type": "default",
     "title": "About",
     "slug": "about",
-    "sub": true,
+    "sub": false,
     "posts": [{
         "id": 5,
         "title": "Nesciunt quas odio",

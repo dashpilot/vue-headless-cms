@@ -1,24 +1,8 @@
 <template>
-<div class="backdrop">
-  <div class="modal-screen">
+<h4 class="mb-3">Template Editor</h4>
 
-    <div class="row mb-3">
-      <div class="col-9">
-        <h4 class="float-start">Edit Template</h4>
-      </div>
-      <div class="col-3">
-        <button type="button" class="btn-close float-end" aria-label="Close" @click="closeWindow()"></button>
-      </div>
-    </div>
 
-    <div id="modal-content">
-
-      <prism-editor class="my-editor" v-model="settings.template" :highlight="highlighter" line-numbers></prism-editor>
-
-    </div>
-
-  </div>
-</div>
+<prism-editor class="my-editor" v-model="settings.template" :highlight="highlighter" line-numbers></prism-editor>
 </template>
 
 

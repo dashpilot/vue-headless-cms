@@ -34,15 +34,6 @@
         <div class="btn-group">
           <button @click="showSettings = true" class="btn btn-outline-light"><i class="fa fa-wrench"></i></button>
 
-
-          <template v-if="data.ui_settings.edit_content_types">
-            <button @click="showTypes = true" class="btn btn-outline-light"><i class="far fa-check-square"></i></button>
-          </template>
-
-          <template v-if="data.ui_settings.edit_template">
-            <button @click="showTpl = true" class="btn btn-outline-light"><i class="fas fa-code"></i></button>
-          </template>
-
           <template v-if="config.sign_out_url">
             <a :href="config.sign_out_url" class="btn btn-outline-light"><i class="fas fa-sign-out-alt"></i></a>
           </template>
@@ -181,16 +172,10 @@
 </div>
 
 <div v-show="showSettings">
-  <Settings v-model:settings="data.settings" v-model:show="showSettings" />
+  <Settings v-model:data="data" v-model:settings="data.settings" v-model:show="showSettings" />
 </div>
 
-<div v-show="showTypes">
-  <ContentTypes v-model:types="data.content_types" v-model:show="showTypes" />
-</div>
 
-<div v-show="showTpl">
-  <TplEditor v-model:settings="data.settings" v-model:show="showTpl" />
-</div>
 
 </template>
 
@@ -206,8 +191,6 @@ import SortableList from './components/SortableList.vue'
 import PostList from './components/PostList.vue'
 import AddCategory from './components/AddCategory.vue'
 import Settings from './components/Settings.vue'
-import ContentTypes from './components/ContentTypes.vue'
-import TplEditor from './components/TplEditor.vue'
 
 
 export default {
@@ -219,9 +202,7 @@ export default {
     SortableList,
     PostList,
     AddCategory,
-    Settings,
-    ContentTypes,
-    TplEditor
+    Settings
   },
   data() {
     return {
@@ -237,8 +218,6 @@ export default {
       showPostSettings: false,
       showCatSettings: false,
       showSettings: false,
-      showTypes: false,
-      showTpl: false,
       drag: false,
       data: {},
       config: {},
@@ -619,9 +598,10 @@ textarea {
 .modal-screen {
   position: fixed;
   top: 15%;
-  left: calc(50% - 350px);
-  width: 700px;
+  left: calc(50% - 470px);
+  width: 940px;
   height: auto;
+  min-height: 550px;
   background-color: white;
   border-radius: 8px;
   padding: 20px;
