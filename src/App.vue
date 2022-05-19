@@ -443,7 +443,7 @@ body {
 }
 
 a.sub {
-  padding-left: 40px;
+  padding-left: 40px !important;
 }
 
 .active {
