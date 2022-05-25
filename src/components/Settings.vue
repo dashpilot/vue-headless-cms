@@ -7,7 +7,7 @@
 
       <div class="row">
 
-        <div class="col-3 line">
+        <div class="col-2 line">
 
 
           <a @click="activeTab = 'settings'" class="tab" :class="{ 'active': activeTab == 'settings'}">Settings</a>
@@ -20,7 +20,7 @@
           </template>
 
         </div>
-        <div class="col-9">
+        <div class="col-10">
 
           <button type="button" class="btn-close float-end" aria-label="Close" @click="closeWindow()"></button>
 
@@ -97,8 +97,8 @@ export default {
 }
 
 .row,
-.col-3,
-.col-9 {
+.col-2,
+.col-10 {
   min-height: 600px;
 }
 </style>
