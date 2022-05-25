@@ -290,6 +290,7 @@ export default {
     addToGallery(filename, id, mykey) {
       console.log(mykey)
       this.curItem[mykey].push({
+        id = "img-" + Math.floor(Math.random() * 999999999),
         filename: filename,
         title: ''
       });
