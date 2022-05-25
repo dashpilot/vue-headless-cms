@@ -596,11 +596,11 @@ textarea {
 
 .modal-screen {
   position: fixed;
-  top: 15%;
-  left: calc(50% - 470px);
-  width: 940px;
+  top: 3%;
+  left: 3%;
+  width: 94%;
   height: auto;
-  min-height: 550px;
+  min-height: 700px;
   background-color: white;
   border-radius: 8px;
   padding: 20px;

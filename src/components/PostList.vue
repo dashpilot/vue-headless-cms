@@ -7,7 +7,11 @@
           <b>{{item.title}}</b><br>
           <span v-html="stripShorten(item.body, 60)"></span>
         </template>
-        <template v-if="item.title == ''">
+        <template v-if="item.title == '' && item.body !== ''">
+          <b class="grey">Untitled</b><br>
+          <span v-html="stripShorten(item.body, 60)"></span>
+        </template>
+        <template v-if="item.title == '' && item.body == ''">
           <b class="grey">Untitled</b><br>
           <span class="grey">(No content)</span>
         </template>

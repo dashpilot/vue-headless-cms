@@ -99,6 +99,6 @@ export default {
 .row,
 .col-3,
 .col-9 {
-  min-height: 500px;
+  min-height: 600px;
 }
 </style>

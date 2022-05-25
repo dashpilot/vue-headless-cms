@@ -53,7 +53,7 @@ export default {
   font-size: 14px;
   line-height: 1.5;
   padding: 5px;
-  height: 450px;
+  height: 600px;
   overflow: hidden;
   overflow-y: auto;
 }
