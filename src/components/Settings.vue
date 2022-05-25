@@ -48,6 +48,10 @@
             <TplEditor v-model:settings="data.settings" v-model:show="showTpl" />
           </template>
 
+          <div class="text-end">
+            <button class="btn btn-primary mt-3" @click="closeWindow()">Ok</button>
+          </div>
+
         </div>
       </div>
 
@@ -100,5 +104,21 @@ export default {
 .col-2,
 .col-10 {
   min-height: 600px;
+}
+
+.btn-primary {
+  border: 2px solid #666BEF;
+  background-color: #666BEF;
+  color: white;
+  border-radius: 4px;
+  padding-left: 30px;
+  padding-right: 30px;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  border: 2px solid #8287f9;
+  background-color: #8287f9;
+  color: white;
 }
 </style>
