@@ -124,7 +124,8 @@
 
             <template v-if="data.content_types[curType][key] == 'gallery'">
               <label>{{key.replaceAll('_', ' ')}}</label>
-              <Gallery v-model:gallery="curItem[key]" :id="curItem.id" :config="config" :image_width="data.settings.gallery_image_width" :image_title="data.ui_settings.image_title" :image_alt="data.ui_settings.image_alt" @update="addToGallery" />
+              <Gallery v-model:gallery="curItem[key]" :mykey="key" :id="curItem.id" :config="config" :image_width="data.settings.gallery_image_width" :image_title="data.ui_settings.image_title" :image_alt="data.ui_settings.image_alt"
+                @update="addToGallery" />
             </template>
 
             <template v-if="data.content_types[curType][key] == 'switch'">
@@ -161,22 +162,19 @@
 
   <template v-if="showCatSettings">
     <SortableList v-model:items="data.categories" v-model:data="data" v-model:show="showCatSettings" title="Categories" type="categories" />
-</template>
+  </template>
 
-<template v-if="showPostSettings">
-<SortableList v-model:items="catItems" v-model:data="data" v-model:show="showPostSettings" v-model:curItem="curItem" title="Posts" type="posts" />
-</template>
+  <template v-if="showPostSettings">
+    <SortableList v-model:items="catItems" v-model:data="data" v-model:show="showPostSettings" v-model:curItem="curItem" title="Posts" type="posts" />
+  </template>
 
-<div v-show="showAddCat">
-  <AddCategory v-model:data="data" v-model:config="data" v-model:curpost="curItem" v-model:show="showAddCat" />
-</div>
+  <div v-show="showAddCat">
+    <AddCategory v-model:data="data" v-model:config="data" v-model:curpost="curItem" v-model:show="showAddCat" />
+  </div>
 
-<div v-show="showSettings">
-  <Settings v-model:data="data" v-model:settings="data.settings" v-model:show="showSettings" />
-</div>
-
-
-
+  <div v-show="showSettings">
+    <Settings v-model:data="data" v-model:settings="data.settings" v-model:show="showSettings" />
+  </div>
 </template>
 
 </template>
@@ -269,13 +267,13 @@ export default {
 
       var newItem = {};
       newItem.id = "item-" + Math.floor(Math.random() * 999999999);
-      Object.keys(fields).forEach((x) => {
-        if (x == 'gallery') {
-          newItem[x] = [];
+      for (const [key, val] of Object.entries(fields)) {
+        if (val == 'gallery') {
+          newItem[key] = [];
         } else {
-          newItem[x] = "";
+          newItem[key] = "";
         }
-      })
+      }
       newItem.slug = "item-" + newItem.id.replace('posts-', '');
       newItem.category = this.curCat;
       console.log(newItem)
@@ -289,8 +287,9 @@ export default {
       this.curCat = cat;
       this.catItems = this.categories.filter(x => x.slug == cat).posts;
     },
-    addToGallery(filename, id) {
-      this.curItem.gallery.push({
+    addToGallery(filename, id, mykey) {
+      console.log(mykey)
+      this.curItem[mykey].push({
         filename: filename,
         title: ''
       });

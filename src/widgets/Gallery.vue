@@ -74,6 +74,7 @@ export default {
       type: Array,
       default: [],
     },
+    mykey: {},
     id: {},
     config: {
       type: Object,
@@ -142,11 +143,11 @@ export default {
               })
               .then(data => {
                 console.log(data); // JSON data parsed by `data.json()` call
-                myapp.$emit('update', filename, myapp.id);
+                myapp.$emit('update', filename, myapp.id, myapp.mykey);
                 myapp.loading = false;
               });
           } else {
-            myapp.$emit('update', base64Image, myapp.id);
+            myapp.$emit('update', base64Image, myapp.id, myapp.mykey);
             myapp.loading = false;
           }
 
