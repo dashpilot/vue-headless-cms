@@ -1,5 +1,6 @@
 <template>
 <template v-if="editor">
+
   <div class="btn-group mt-1 w-100">
 
     <template v-if="settings.rte_buttons.includes('bold')">

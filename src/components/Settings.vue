@@ -1,13 +1,13 @@
 <template>
 <div class="backdrop">
-  <div class="modal-screen">
+  <div class="modal-screen-medium">
 
 
     <div id="modal-content">
 
       <div class="row">
 
-        <div class="col-2 line">
+        <div class="col-3 line">
 
 
           <a @click="activeTab = 'settings'" class="tab" :class="{ 'active': activeTab == 'settings'}">Settings</a>
@@ -15,12 +15,10 @@
           <template v-if="data.ui_settings.edit_content_types">
             <a @click="activeTab = 'types'" class="tab" :class="{ 'active': activeTab == 'types'}">Content Types</a>
           </template>
-          <template v-if="data.ui_settings.edit_template">
-            <a @click="activeTab = 'template'" class="tab" :class="{ 'active': activeTab == 'template'}">Template Editor</a>
-          </template>
+
 
         </div>
-        <div class="col-10">
+        <div class="col-9">
 
           <button type="button" class="btn-close float-end" aria-label="Close" @click="closeWindow()"></button>
 
@@ -44,9 +42,7 @@
             <ContentTypes v-model:types="data.content_types" v-model:show="showTypes" />
           </template>
 
-          <template v-if="activeTab == 'template'">
-            <TplEditor v-model:settings="data.settings" v-model:show="showTpl" />
-          </template>
+
 
           <div class="text-end">
             <button class="btn btn-primary mt-3" @click="closeWindow()">Ok</button>
@@ -64,12 +60,10 @@
 
 <script>
 import ContentTypes from './ContentTypes.vue'
-import TplEditor from './TplEditor.vue'
 
 export default {
   components: {
-    ContentTypes,
-    TplEditor
+    ContentTypes
   },
   props: ['data', 'settings', 'show'],
   data() {
@@ -103,7 +97,7 @@ export default {
 .row,
 .col-2,
 .col-10 {
-  min-height: 600px;
+  min-height: 400px;
 }
 
 .btn-primary {

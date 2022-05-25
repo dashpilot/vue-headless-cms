@@ -34,6 +34,8 @@
         <div class="btn-group">
           <button @click="showSettings = true" class="btn btn-outline-light"><i class="fa fa-wrench"></i></button>
 
+          <button @click="showTpl = true" class="btn btn-outline-light"><i class="fa fa-code"></i></button>
+
           <template v-if="config.sign_out_url">
             <a :href="config.sign_out_url" class="btn btn-outline-light"><i class="fas fa-sign-out-alt"></i></a>
           </template>
@@ -175,6 +177,10 @@
   <div v-show="showSettings">
     <Settings v-model:data="data" v-model:settings="data.settings" v-model:show="showSettings" />
   </div>
+
+  <div v-show="showTpl">
+    <TplEditor v-model:settings="data.settings" v-model:show="showTpl" />
+  </div>
 </template>
 
 </template>
@@ -189,7 +195,7 @@ import SortableList from './components/SortableList.vue'
 import PostList from './components/PostList.vue'
 import AddCategory from './components/AddCategory.vue'
 import Settings from './components/Settings.vue'
-
+import TplEditor from './components/TplEditor.vue'
 
 export default {
   components: {
@@ -200,7 +206,8 @@ export default {
     SortableList,
     PostList,
     AddCategory,
-    Settings
+    Settings,
+    TplEditor
   },
   data() {
     return {
@@ -216,6 +223,7 @@ export default {
       showPostSettings: false,
       showCatSettings: false,
       showSettings: false,
+      showTpl: false,
       drag: false,
       data: {},
       config: {},
@@ -596,6 +604,34 @@ textarea {
 }
 
 .modal-screen {
+  position: fixed;
+  top: 15%;
+  left: calc(50% - 350px);
+  width: 700px;
+  height: auto;
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  max-height: 75%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.modal-screen-medium {
+  position: fixed;
+  top: 15%;
+  left: calc(50% - 450px);
+  width: 900px;
+  height: auto;
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  max-height: 75%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.modal-screen-large {
   position: fixed;
   top: 3%;
   left: 3%;

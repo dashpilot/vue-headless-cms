@@ -1,10 +1,25 @@
 <template>
-<h4 class="mb-3">Template Editor</h4>
+<div class="backdrop">
+  <div class="modal-screen-large">
 
 
-<prism-editor class="my-editor" v-model="settings.template" :highlight="highlighter" line-numbers></prism-editor>
+    <div id="modal-content">
+
+      <h4 class="mb-3 float-start">Template Editor</h4>
+
+
+      <button type="button" class="btn-close float-end" aria-label="Close" @click="closeWindow()"></button>
+
+      <prism-editor class="my-editor" v-model="settings.template" :highlight="highlighter" line-numbers></prism-editor>
+
+      <div class="text-end">
+        <button class="btn btn-primary mt-3" @click="closeWindow()">Ok</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 </template>
-
 
 
 <script>
