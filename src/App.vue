@@ -34,7 +34,9 @@
         <div class="btn-group">
           <button @click="showSettings = true" class="btn btn-outline-light"><i class="fa fa-wrench"></i></button>
 
-          <button @click="showTpl = true" class="btn btn-outline-light"><i class="fa fa-code"></i></button>
+          <template v-if="data.ui_settings.edit_template">
+            <button @click="showTpl = true" class="btn btn-outline-light"><i class="fa fa-code"></i></button>
+          </template>
 
           <template v-if="config.sign_out_url">
             <a :href="config.sign_out_url" class="btn btn-outline-light"><i class="fas fa-sign-out-alt"></i></a>
