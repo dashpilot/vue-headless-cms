@@ -61,7 +61,27 @@
     </div>
     <div class="col-7 col3">
 
+
+
       <div class="savebar">
+
+        <div class="float-start">
+
+          <template v-if="data.ui_settings.custom_button">
+            <div class="btn-group">
+              <a :href="data.ui_settings.custom_button.link" class="btn btn-outline-dark mt-1 btn-preview">
+                {{data.ui_settings.custom_button.title}}
+              </a>
+              <template v-if="data.ui_settings.custom_button2">
+                <a :href="data.ui_settings.custom_button2.link" class="btn btn-outline-dark mt-1 btn-preview">
+                  {{data.ui_settings.custom_button2.title}}
+                </a>
+              </template>
+            </div>
+          </template>
+
+        </div>
+
 
         <div class="title">{{data.settings.site_title}}</div>
 
