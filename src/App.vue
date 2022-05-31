@@ -22,6 +22,7 @@
           <template v-if="curCat && data.ui_settings.delete_category">
             <button @click="showCatSettings = true" class="btn btn-outline-light"><i class="fa fa-cog"></i></button>
           </template>
+
         </div>
 
       </div>
@@ -29,6 +30,10 @@
       <template v-for="cat in data.categories">
         <a @click="setCurCat(cat.slug)" class="tab" :class="{ 'active': curCat == cat.slug, 'sub': cat.sub == true }">{{cat.title}}</a>
       </template>
+
+      <a :href="data.ui_settings.custom_button.link" class="btn btn-outline-light mt-3 custom-btn">
+        <template v-if="data.ui_settings.custom_button.icon"><i :class="data.ui_settings.custom_button.icon"></i> &nbsp;</template>{{data.ui_settings.custom_button.title}}
+      </a>
 
       <div id="settings">
         <div class="btn-group">
@@ -67,11 +72,9 @@
 
         <div class="float-start">
 
-          <template v-if="data.ui_settings.custom_button">
+          <template v-if="data.ui_settings.custom_button2">
             <div class="btn-group">
-              <a :href="data.ui_settings.custom_button.link" class="btn btn-outline-dark mt-1 btn-preview">
-                {{data.ui_settings.custom_button.title}}
-              </a>
+
               <template v-if="data.ui_settings.custom_button2">
                 <a :href="data.ui_settings.custom_button2.link" class="btn btn-outline-dark mt-1 btn-preview">
                   {{data.ui_settings.custom_button2.title}}
@@ -725,5 +728,9 @@ textarea {
   position: fixed;
   bottom: 0;
   background-color: #333;
+}
+
+.custom-btn {
+  margin-left: 20px;
 }
 </style>
