@@ -31,9 +31,17 @@
         <a @click="setCurCat(cat.slug)" class="tab" :class="{ 'active': curCat == cat.slug, 'sub': cat.sub == true }">{{cat.title}}</a>
       </template>
 
-      <a :href="data.ui_settings.custom_button.link" class="btn btn-outline-light mt-3 custom-btn">
-        <template v-if="data.ui_settings.custom_button.icon"><i :class="data.ui_settings.custom_button.icon"></i> &nbsp;</template>{{data.ui_settings.custom_button.title}}
-      </a>
+      <template v-if="data.ui_settings.custom_button">
+        <a :href="data.ui_settings.custom_button.link" class="btn btn-outline-light mt-3 custom-btn">
+          <template v-if="data.ui_settings.custom_button.icon"><i :class="data.ui_settings.custom_button.icon"></i> &nbsp;</template>{{data.ui_settings.custom_button.title}}
+        </a>
+      </template>
+
+      <template v-if="data.ui_settings.custom_button2">
+        <a :href="data.ui_settings.custom_button2.link" class="btn btn-outline-light mt-2 custom-btn">
+          <template v-if="data.ui_settings.custom_button2.icon"><i :class="data.ui_settings.custom_button2.icon"></i> &nbsp;</template>{{data.ui_settings.custom_button2.title}}
+        </a>
+      </template>
 
       <div id="settings">
         <div class="btn-group">
@@ -69,22 +77,6 @@
 
 
       <div class="savebar">
-
-        <div class="float-start">
-
-          <template v-if="data.ui_settings.custom_button2">
-            <div class="btn-group">
-
-              <template v-if="data.ui_settings.custom_button2">
-                <a :href="data.ui_settings.custom_button2.link" class="btn btn-outline-dark mt-1 btn-preview">
-                  {{data.ui_settings.custom_button2.title}}
-                </a>
-              </template>
-            </div>
-          </template>
-
-        </div>
-
 
         <div class="title">{{data.settings.site_title}}</div>
 
@@ -732,5 +724,6 @@ textarea {
 
 .custom-btn {
   margin-left: 20px;
+  width: 80%;
 }
 </style>
