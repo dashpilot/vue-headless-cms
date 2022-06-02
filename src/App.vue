@@ -15,15 +15,19 @@
 
       <div class="settings">
 
-        <div class="btn-group">
-          <template v-if="curCat && data.ui_settings.add_category">
-            <button @click="showAddCat = true" class="btn btn-outline-light"><i class="fa fa-plus"></i></button>
-          </template>
-          <template v-if="curCat && data.ui_settings.delete_category">
-            <button @click="showCatSettings = true" class="btn btn-outline-light"><i class="fa fa-cog"></i></button>
-          </template>
-
-        </div>
+        <template v-if="data.ui_settings.add_category || data.ui_settings.delete_category">
+          <div class="btn-group">
+            <template v-if="curCat && data.ui_settings.add_category">
+              <button @click="showAddCat = true" class="btn btn-outline-light"><i class="fa fa-plus"></i></button>
+            </template>
+            <template v-if="curCat && data.ui_settings.delete_category">
+              <button @click="showCatSettings = true" class="btn btn-outline-light"><i class="fa fa-cog"></i></button>
+            </template>
+          </div>
+        </template>
+        <template v-else>
+          <div class="site-title">{{data.settings.site_title}}</div>
+        </template>
 
       </div>
 
@@ -71,6 +75,8 @@
             <a @click="showPostSettings = true" class="btn btn-outline-dark"><i class="fa fa-cog"></i></a>
           </template>
         </div>
+
+
 
 
       </div>
@@ -733,5 +739,11 @@ textarea {
 .custom-btn {
   margin-left: 20px;
   width: 80%;
+}
+
+.site-title {
+  color: white;
+  text-transform: uppercase;
+  padding-top: 6px;
 }
 </style>
