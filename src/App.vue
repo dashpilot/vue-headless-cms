@@ -745,5 +745,8 @@ textarea {
   color: white;
   text-transform: uppercase;
   padding-top: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>
