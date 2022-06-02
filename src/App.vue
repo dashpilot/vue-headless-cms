@@ -590,6 +590,7 @@ textarea {
   z-index: 999;
   width: 25%;
   border-right: 1px solid #DDD;
+  height: 64px;
 }
 
 .col1 {
