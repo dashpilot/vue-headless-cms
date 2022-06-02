@@ -580,6 +580,7 @@ textarea {
 
 .settings {
   padding: 11px 15px 15px 18px;
+  height: 64px;
 }
 
 .filter {
