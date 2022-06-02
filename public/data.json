@@ -9,6 +9,8 @@
   "ui_settings": {
     "add_category": true,
     "delete_category": true,
+    "add_post": true,
+    "delete_post": true,
     "edit_content_types": true,
     "edit_template": true,
     "image_title": "title",

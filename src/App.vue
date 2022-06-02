@@ -62,10 +62,16 @@
 
       <div class="filter">
 
+
         <div class="btn-group">
-          <a @click="addItem()" class="btn btn-outline-dark"><i class="fa fa-plus"></i></a>
-          <a @click="showPostSettings = true" class="btn btn-outline-dark"><i class="fa fa-cog"></i></a>
+          <template v-if="data.ui_settings.add_post">
+            <a @click="addItem()" class="btn btn-outline-dark"><i class="fa fa-plus"></i></a>
+          </template>
+          <template v-if="data.ui_settings.delete_post">
+            <a @click="showPostSettings = true" class="btn btn-outline-dark"><i class="fa fa-cog"></i></a>
+          </template>
         </div>
+
 
       </div>
 
