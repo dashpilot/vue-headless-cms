@@ -157,4 +157,8 @@ export default {
 .is-active {
   background-color: #EEE;
 }
-</style>
+
+blockquote {
+  border-left: 5px solid #8391F1;
+  padding-left: 10px;
+}</style>
