@@ -43,7 +43,10 @@
       <div class="row">
         <div class="col-1">
           <div>
-            <i class="fas fa-caret-up mt-2" @click="moveUp(key, i)"></i>
+            <i class="fas fa-caret-up" @click="moveUp(key, i)"></i>
+          </div>
+          <div>
+            <i class="fas fa-caret-down" @click="moveDown(key, i)"></i>
           </div>
         </div>
         <div class="col-5">
@@ -168,7 +171,6 @@ export default {
       }
     },
     moveUp(id, i) {
-      console.log(i)
       this.sorting = id;
       //console.log(Object.keys(this.types[this.activeType]));
 
@@ -182,7 +184,21 @@ export default {
 
       }, 200);
 
+    },
+    moveDown(id, i) {
 
+      this.sorting = id;
+      //console.log(Object.keys(this.types[this.activeType]));
+
+      setTimeout(() => {
+        let newIndex = i + 1;
+        if (Object.entries(this.types[this.activeType]).length - 1 !== i) {
+          var res = this.array_move(Object.entries(this.types[this.activeType]), i, newIndex)
+        }
+        // console.log(res)
+        this.types[this.activeType] = Object.fromEntries(res);
+
+      }, 200);
 
     },
   }
