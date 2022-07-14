@@ -39,7 +39,7 @@
 
 
           <template v-if="activeTab == 'types'">
-            <ContentTypes v-model:types="data.content_types" v-model:show="showTypes" />
+            <ContentTypes v-model:types="data.content_types" />
           </template>
 
 

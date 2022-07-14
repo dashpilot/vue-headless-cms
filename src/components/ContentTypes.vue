@@ -37,11 +37,16 @@
 
 <template v-if="activeType">
 <ul class="list-group">
-  <template v-for="key in Object.keys(types[activeType])">
-    <li class="list-group-item">
+  <template v-for="key, i in Object.keys(types[activeType])">
+    <li class="list-group-item" :class="{ 'sorting': sorting == key }">
 
       <div class="row">
-        <div class="col-6">
+        <div class="col-1">
+          <div>
+            <i class="fas fa-caret-up mt-2" @click="moveUp(key, i)"></i>
+          </div>
+        </div>
+        <div class="col-5">
 
           <template v-if="key == 'title' | key == 'body'">
             <div class="pt-2  pb-2"><strong>{{key}}</strong></div>
@@ -58,7 +63,7 @@
 
         </div>
         <div class="col-2 text-end">
-          <template v-if="key !== 'title' && key !== 'body'">
+          <template v-if="key !== 'title'">
             <button class="btn btn-outline-dark" @click="removeField(key)"><i class="fas fa-trash-alt"></i></button>
           </template>
         </div>
@@ -114,6 +119,7 @@ export default {
       newKey: '',
       newVal: 'text',
       newType: '',
+      sorting: false
     }
   },
   methods: {
@@ -160,7 +166,25 @@ export default {
       if (confirm('Are you sure you want to remove this field?')) {
         delete this.types[this.activeType][key]
       }
-    }
+    },
+    moveUp(id, i) {
+      console.log(i)
+      this.sorting = id;
+      //console.log(Object.keys(this.types[this.activeType]));
+
+      setTimeout(() => {
+        let newIndex = i - 1;
+        if (i > 0) {
+          var res = this.array_move(Object.entries(this.types[this.activeType]), i, newIndex)
+        }
+        // console.log(res)
+        this.types[this.activeType] = Object.fromEntries(res);
+
+      }, 200);
+
+
+
+    },
   }
 }
 </script>
@@ -198,5 +222,9 @@ a:hover {
 
 .btn {
   background-color: white;
+}
+
+.sorting {
+  background-color: #FDF3D1;
 }
 </style>
