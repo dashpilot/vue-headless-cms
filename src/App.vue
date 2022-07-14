@@ -66,7 +66,6 @@
 
       <div class="filter">
 
-
         <div class="btn-group">
           <template v-if="data.ui_settings.add_post">
             <a @click="addItem()" class="btn btn-outline-dark"><i class="fa fa-plus"></i></a>
@@ -75,9 +74,6 @@
             <a @click="showPostSettings = true" class="btn btn-outline-dark"><i class="fa fa-cog"></i></a>
           </template>
         </div>
-
-
-
 
       </div>
 
@@ -113,79 +109,90 @@
 
       <div class="post-editor">
 
+        <div class="row g-0">
+          <template v-if="curItem">
+            <template v-for="(key, val) in Object.keys(data.content_types[curType])">
 
-        <template v-if="curItem">
-          <template v-for="(key, val) in Object.keys(data.content_types[curType])">
+              <template v-if="data.content_types[curType][key] == 'text' && key == 'title'">
+                <label>{{key.replaceAll('_', ' ')}}</label>
+                <input type="text" class="form-control" v-model="curItem[key]" @keyup="setSlug">
+              </template>
 
-            <template v-if="data.content_types[curType][key] == 'text' && key == 'title'">
-              <label>{{key.replaceAll('_', ' ')}}</label>
-              <input type="text" class="form-control" v-model="curItem[key]" @keyup="setSlug">
+              <template v-if="data.content_types[curType][key] == 'text' && key !== 'title'">
+                <label>{{key.replaceAll('_', ' ')}}</label>
+                <input type="text" class="form-control" v-model="curItem[key]">
+              </template>
+
+
+              <template v-if="data.content_types[curType][key] == 'text-small'">
+                <div class="col-md-4">
+                  <label>{{key.replaceAll('_', ' ')}}</label>
+                  <input type="text" class="form-control w-90" v-model="curItem[key]">
+                </div>
+              </template>
+
+
+              <template v-if="data.content_types[curType][key] == 'text-disabled'">
+                <label>{{key.replaceAll('_', ' ')}}</label>
+                <input type="text" class="form-control" v-model="curItem[key]" disabled>
+              </template>
+
+              <template v-if="data.content_types[curType][key] == 'richtext'">
+                <label>{{key.replaceAll('_', ' ')}}</label>
+                <Editor v-model="curItem[key]" :settings="data.ui_settings" />
+              </template>
+
+              <template v-if="data.content_types[curType][key] == 'markdown'">
+                <label>{{key.replaceAll('_', ' ')}}</label>
+                <Markdown v-model="curItem[key]" />
+              </template>
+
+              <template v-if="data.content_types[curType][key] == 'textarea'">
+                <label>{{key.replaceAll('_', ' ')}}</label>
+                <textarea class="form-control" v-model="curItem[key]"></textarea>
+              </template>
+
+
+              <template v-if="data.content_types[curType][key] == 'image'">
+                <label>{{key.replaceAll('_', ' ')}}</label>
+                <Image v-model="curItem[key]" :config="config" :image_width="data.settings.image_width" />
+              </template>
+
+              <template v-if="data.content_types[curType][key] == 'gallery'">
+                <label>{{key.replaceAll('_', ' ')}}</label>
+                <Gallery v-model:gallery="curItem[key]" :mykey="key" :id="curItem.id" :config="config" :image_width="data.settings.gallery_image_width" :image_title="data.ui_settings.image_title" :image_alt="data.ui_settings.image_alt"
+                  @update="addToGallery" />
+              </template>
+
+              <template v-if="data.content_types[curType][key] == 'switch'">
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" v-model="curItem[key]">
+                  <label class="form-check-label" for="flexSwitchCheckChecked">{{key.replaceAll('_', ' ')}}</label>
+                </div>
+              </template>
+
+              <template v-if="data.content_types[curType][key].includes('dropdown')">
+                <label>{{key.replace('_', ' ')}}</label>
+
+                <select class="form-select w-25" v-model="curItem[key]" @change="changeCat(curItem[key]);">
+                  <template v-for="item in data.categories">
+                    <option :value="item.slug">{{item.title}}</option>
+                  </template>
+                </select>
+
+              </template>
+
+              <template v-else>
+
+              </template>
+
             </template>
 
-            <template v-if="data.content_types[curType][key] == 'text' && key !== 'title'">
-              <label>{{key.replaceAll('_', ' ')}}</label>
-              <input type="text" class="form-control" v-model="curItem[key]">
-            </template>
-
-            <template v-if="data.content_types[curType][key] == 'text-disabled'">
-              <label>{{key.replaceAll('_', ' ')}}</label>
-              <input type="text" class="form-control" v-model="curItem[key]" disabled>
-            </template>
-
-            <template v-if="data.content_types[curType][key] == 'richtext'">
-              <label>{{key.replaceAll('_', ' ')}}</label>
-              <Editor v-model="curItem[key]" :settings="data.ui_settings" />
-            </template>
-
-            <template v-if="data.content_types[curType][key] == 'markdown'">
-              <label>{{key.replaceAll('_', ' ')}}</label>
-              <Markdown v-model="curItem[key]" />
-            </template>
-
-            <template v-if="data.content_types[curType][key] == 'textarea'">
-              <label>{{key.replaceAll('_', ' ')}}</label>
-              <textarea class="form-control" v-model="curItem[key]"></textarea>
-            </template>
-
-
-            <template v-if="data.content_types[curType][key] == 'image'">
-              <label>{{key.replaceAll('_', ' ')}}</label>
-              <Image v-model="curItem[key]" :config="config" :image_width="data.settings.image_width" />
-            </template>
-
-            <template v-if="data.content_types[curType][key] == 'gallery'">
-              <label>{{key.replaceAll('_', ' ')}}</label>
-              <Gallery v-model:gallery="curItem[key]" :mykey="key" :id="curItem.id" :config="config" :image_width="data.settings.gallery_image_width" :image_title="data.ui_settings.image_title" :image_alt="data.ui_settings.image_alt"
-                @update="addToGallery" />
-            </template>
-
-            <template v-if="data.content_types[curType][key] == 'switch'">
-              <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" v-model="curItem[key]">
-                <label class="form-check-label" for="flexSwitchCheckChecked">{{key.replaceAll('_', ' ')}}</label>
-              </div>
-            </template>
-
-            <template v-if="data.content_types[curType][key].includes('dropdown')">
-              <label>{{key.replace('_', ' ')}}</label>
-
-              <select class="form-select w-25" v-model="curItem[key]" @change="changeCat(curItem[key]);">
-                <template v-for="item in data.categories">
-                  <option :value="item.slug">{{item.title}}</option>
-                </template>
-              </select>
-
-            </template>
-
-            <template v-else>
-
-            </template>
 
           </template>
-
-
-        </template>
+        </div>
       </div>
+
 
     </div>
   </div>
@@ -675,6 +682,10 @@ textarea {
   max-height: 75%;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+.w-90 {
+  width: 90%;
 }
 
 .clear {
