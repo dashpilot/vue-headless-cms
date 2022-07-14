@@ -16,7 +16,7 @@
     "image_title": "title",
     "image_alt": "",
     "saving_duration": "2000",
-    "rte_buttons": ["bold", "italic", "link", "list", "h2", "h3"]
+    "rte_buttons": ["bold", "italic", "link", "image", "list", "h2", "h3"]
   },
   "content_types": {
     "default": {

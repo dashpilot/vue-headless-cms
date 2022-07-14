@@ -17,6 +17,13 @@
 </button>
 </template>
 
+
+<template v-if="settings.rte_buttons.includes('image')">
+<button @click="addImage" class="btn btn-outline-secondary" :class="{ 'is-active': editor.isActive('image') }">
+  <i class=" fas fa-image"></i>
+</button>
+</template>
+
 <template v-if="settings.rte_buttons.includes('list')">
 <button class="btn btn-outline-secondary" @click="editor.chain().focus().toggleBulletList().run()" :class="{ 'is-active': editor.isActive('bulletList') }">
   <i class=" fas fa-list-ul"></i>
@@ -54,6 +61,7 @@ import {
   EditorContent
 } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
+import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
 
 export default {
@@ -109,6 +117,15 @@ export default {
         })
         .run()
     },
+    addImage() {
+      const url = window.prompt('URL')
+
+      if (url) {
+        this.editor.chain().focus().setImage({
+          src: url
+        }).run()
+      }
+    },
   },
 
 
@@ -132,6 +149,7 @@ export default {
     this.editor = new Editor({
       extensions: [
         StarterKit,
+        Image,
         Link.configure({
           openOnClick: false,
         }),
@@ -161,4 +179,9 @@ export default {
 blockquote {
   border-left: 5px solid #8391F1;
   padding-left: 10px;
-}</style>
+}
+
+img {
+  max-width: 100%;
+}
+</style>
