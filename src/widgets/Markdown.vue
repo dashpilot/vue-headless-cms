@@ -3,8 +3,7 @@
 
 
 
-  <v-md-editor v-model="modelValue" height="400px" left-toolbar="h bold italic strikethrough link quote"></v-md-editor>
-
+  <v-md-editor v-model="modelValue" height="400px" left-toolbar="h bold italic strikethrough link quote" @change="updateText"></v-md-editor>
 
 
 </div>
@@ -12,11 +11,6 @@
 
 
 <script>
-// import Markdown from 'vue3-markdown-it';
-
-
-
-
 export default {
   props: {
     modelValue: {
@@ -24,9 +18,10 @@ export default {
       default: '',
     }
   },
-  data() {
-    return {
-
+  methods: {
+    updateText(text, html) {
+      console.log(text)
+      this.$emit('update:modelValue', text)
     }
   }
 }

@@ -28,7 +28,7 @@
     },
     "page": {
       "title": "text",
-      "body": "richtext"
+      "body": "markdown"
     }
   },
   "categories": [{
