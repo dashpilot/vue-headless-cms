@@ -704,7 +704,7 @@ textarea {
   position: fixed;
   width: 59%;
   height: 64px;
-  z-index: 9999999;
+  z-index: 999;
 }
 
 .savebar .title {
