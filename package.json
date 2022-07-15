@@ -8,14 +8,14 @@
     "buildview": "vite build && vite preview"
   },
   "dependencies": {
+    "@kangc/v-md-editor": "^2.3.15",
     "@tiptap/extension-image": "^2.0.0-beta.30",
     "@tiptap/extension-link": "^2.0.0-beta.36",
     "@tiptap/starter-kit": "^2.0.0-beta.183",
     "@tiptap/vue-3": "^2.0.0-beta.90",
     "prismjs": "^1.28.0",
     "vue": "^3.2.25",
-    "vue-prism-editor": "^2.0.0-alpha.2",
-    "vue3-markdown-it": "^1.0.10"
+    "vue-prism-editor": "^2.0.0-alpha.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.0.0",

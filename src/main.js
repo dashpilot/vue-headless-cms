@@ -3,6 +3,23 @@ import {
   provide
 } from 'vue'
 import App from './App.vue'
+
+import VMdEditor from '@kangc/v-md-editor';
+import '@kangc/v-md-editor/lib/style/base-editor.css';
+import githubTheme from '@kangc/v-md-editor/lib/theme/github.js';
+import '@kangc/v-md-editor/lib/theme/style/github.css';
+
+// highlightjs
+import hljs from 'highlight.js';
+
+VMdEditor.use(githubTheme, {
+  Hljs: hljs,
+});
+import enUS from '@kangc/v-md-editor/lib/lang/en-US';
+
+VMdEditor.lang.use('en-US', enUS);
+
+
 const app = createApp(App)
 
 // example plugin
@@ -63,4 +80,5 @@ const myPlugin = {
 }
 
 app.use(myPlugin, {})
+app.use(VMdEditor);
 app.mount('#app')
