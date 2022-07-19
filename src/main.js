@@ -38,6 +38,7 @@ const myPlugin = {
       methods: {
         slugify(text) {
           let slug = text.toString().toLowerCase()
+            .replace(/(<([^>]+)>)/gi, "") // remove html tags
             .replace(/\s+/g, '-') // Replace spaces with -
             .replace(/[^\w\-]+/g, '') // Remove all non-word chars
             .replace(/\-\-+/g, '-') // Replace multiple - with single -
